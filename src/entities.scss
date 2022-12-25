@@ -1,0 +1,38 @@
+
+@mixin sprite($url, $width, $height, $bottom: 0px) {
+    position: absolute;
+    background: url($url) no-repeat center;
+    background-size: cover;
+    width: $width;
+    height: $height;
+    bottom: $bottom;
+    right: -$width;
+}
+
+@mixin move($speed: 1) {
+    animation: move calc(5s / $speed) linear infinite;
+}
+
+.car_normal {
+    @include sprite('./assets/images/car.gif', 133px, 60px);
+    @include move(1);
+}
+
+.person_normal {
+    @include sprite('./assets/images/person_normal.gif', 28px, 56px, 26px);
+    @include move(0.5);
+}
+
+.collectable {
+    cursor: pointer;
+}
+
+.collected {
+    filter: drop-shadow(0 0 1.5px yellow);
+}
+
+@keyframes move {
+    100% {
+        right: 100%;
+    }
+}
