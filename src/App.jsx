@@ -10,6 +10,7 @@ import WeatherCard from './components/WeatherCard/WeatherCard';
 export default function App() {
 
   const [ weather, setWeather ] = useState()
+  const [ previousWeather, setPreviousWeather ] = useState()
   // const [ history, setHistory ] = useState([])
 
   const inputRef = useRef()
@@ -45,6 +46,7 @@ export default function App() {
         console.log('data:', data)
       }
 
+      setPreviousWeather(weather)
       setWeather(data)
 
     }).catch(err => {
@@ -62,8 +64,7 @@ export default function App() {
     <div className='App'>
       
       <SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
-
-      <WeatherCard data={weather} />
+      <WeatherCard data={weather} previousData={previousWeather} />
 
     </div>
   )

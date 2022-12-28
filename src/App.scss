@@ -4,6 +4,10 @@
     src: local('Neucha'), url('./assets/fonts/Neucha-Regular.ttf') format('opentype');
 }
 
+.hide {
+    display: none !important;
+}
+
 body {
     background-color: #202124;
     color: white;
@@ -33,4 +37,22 @@ body {
     height: 100%;
     top: 0;
     left: 0;
+}
+
+.cube {
+    width: 200px;
+    height: 100px;
+    
+    background-image: url('./assets/images/cube-sprites.png');
+    background-size: calc(100% * 9) 100%;
+
+    animation: cube;
+    animation-duration: 3s;
+    animation-timing-function: steps(9);
+    animation-iteration-count: 1;
+
+    @keyframes cube {
+        from { background-position: 0px; }
+        to { background-position: calc(100% * 9); }
+    }
 }

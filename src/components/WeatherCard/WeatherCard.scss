@@ -9,37 +9,76 @@
     min-height: 21px;
 }
 
-.loading-scrap {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+.info > div {
+    display: inline-block;
+    position: relative;
+}
 
-    background: url('../../assets/images/loading.png') no-repeat top left;
-    background-size: 100% 100%;
+.mask-hide {
+    mask-image: url('../../assets/images/erase-unfill.png') !important;
+    mask-size: 100% 100% !important;
+}
 
-    clip-path: inset(0 0 0 0);
-    transition-property: clip-path;
-    transition-duration: 1s;
-    transition-timing-function: ease-in-out;
+.loading-anim {
+    
+    &.open {
+        mask-image: url('../../assets/images/unerase-sprites.png');
+        opacity: 1;
 
-    &.small {
-        transition-duration: 0.5s;
+        mask-size: calc(100% * 9) 100%;
+    
+        animation: open;
+        animation-duration: 0.5s;
+        animation-timing-function: steps(9);
+        animation-iteration-count: 1;
+
+        @keyframes open {
+            0% { 
+                mask-position: 100%; 
+            }
+            100% { 
+                mask-position: calc(100% * 10); 
+            }
+        }
     }
 
-    &.show {
-        clip-path: inset(0 100% 0 0);
+    &.close {
+        
+        mask-image: url('../../assets/images/erase-sprites.png');
+
+        mask-size: calc(100% * 9) 100%;
+    
+        animation: close;
+        animation-duration: 0.5s;
+        animation-timing-function: steps(9);
+        animation-iteration-count: 1;
+
+        @keyframes close {
+            0% { 
+                mask-position: 100%; 
+            }
+            100% { 
+                mask-position: calc(100% * 10); 
+            }
+        }
     }
+    
 }
+  
 
-.date .loading-scrap {
-    background-image: url('../../assets/images/loading-small.png');
-    transition-duration: 1s;
-}
+// .loading-scrap {
+//     position: absolute;
+//     width: 100%;
+//     height: 100%;
+//     background: url('../../assets/images/erase.gif') no-repeat;
+//     background-size: 100% 100%;
+//     -webkit-text-fill-color: transparent;
+// }
 
-.desc .loading-scrap {
-    background-image: url('../../assets/images/loading-small.png');
-    transition-duration: 1.5s;
-}
+// .location span {
+//     mask-image: url('../../assets/images/erase.gif');
+//     mask-repeat: no-repeat;
+// }
 
 @keyframes pulse {
 
