@@ -1,6 +1,6 @@
 
 export const ENTITIES_IDS = {
-    carNormal: 'car_normal',
+    car: 'car',
     personNormal: 'person_normal'
 }
 
@@ -14,4 +14,12 @@ export const ENTITIES_TYPES = {
 export const CLASSES = {
     collected: 'collected',
     collectable: 'collectable'
+}
+
+export const TEMP_TYPES = {
+    verySunny: 5,
+    sunny: 4,
+    normal: 3,
+    cold: 2,
+    veryCold: 1
 }

@@ -1,25 +1,44 @@
 
-@mixin sprite($url, $width, $height, $bottom: 0px) {
+@mixin entity($width, $height, $bottom: 0px) {
     position: absolute;
-    background: url($url) no-repeat center;
-    background-size: cover;
+    background-image: linear-gradient(to left, red, blue);
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-size: 100% 100%;
     width: $width;
     height: $height;
     bottom: $bottom;
     right: -$width;
+    display: none;
 }
 
 @mixin move($speed: 1) {
-    animation: move calc(5s / $speed) linear infinite;
+    animation: move calc(5s / $speed) linear forwards;
+    display: block;
 }
 
-.car_normal {
-    @include sprite('./assets/images/car.gif', 133px, 60px);
-    @include move(1);
+.car {
+    @include entity(133px, 60px);
+
+    &.car-normal {
+        background-image: url('./assets/images/car.gif')
+    }
+
+    &.car-sunny {
+        background-image: linear-gradient(to left, orange, yellow)
+    }
+
+    &.car-cold {
+        background-image: linear-gradient(to left, blue, aqua)
+    }
+
+    &.move {
+        @include move(1);
+    }
 }
 
 .person_normal {
-    @include sprite('./assets/images/person_normal.gif', 28px, 56px, 26px);
+    @include entity(28px, 56px, 26px);
     @include move(0.5);
 }
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import EntitiesManager from '../EntitiesManager/EntitiesManager'
+import EntitiesManager, { converDataToWeather } from '../EntitiesManager/EntitiesManager'
 import TempCounter from './TempCounter'
 import './WeatherCard.scss'
 
@@ -7,7 +7,7 @@ export default function WeatherCard({ data, previousData }) {
 
   const [location, setLocation] = useState('')
   const [temp, setTemp] = useState(0)
-  const [previousTemp, setPreviousTemp] = useState(null)
+  const [previousTemp, setPreviousTemp] = useState(0)
   const [date, setDate] = useState('')
   const [description, setDescription] = useState('')
 
@@ -15,7 +15,6 @@ export default function WeatherCard({ data, previousData }) {
 
   useEffect(() => {
     if (!data) return
-    console.log('effect', data)
 
     if (data.loading) {
 
@@ -30,7 +29,7 @@ export default function WeatherCard({ data, previousData }) {
         if (data.cod !== '404') {
 
           setTemp(Math.round(data.main.temp))
-          setPreviousTemp(previousData && previousData.main ? Math.round(previousData.main.temp) : null)
+          setPreviousTemp(previousData && previousData.main ? Math.round(previousData.main.temp) : Math.round(data.main.temp))
           
           setLocation(`${data.name}, ${data.sys.country}`)
           setDescription(data.weather[0].description)
@@ -51,7 +50,6 @@ export default function WeatherCard({ data, previousData }) {
           setLocation(`City not found :(`)
           setDescription('')
           setDate('')
-          setPreviousTemp(null)
 
           tempElementRef.current.classList.add('close')
           tempElementRef.current.classList.remove('open')
@@ -66,25 +64,21 @@ export default function WeatherCard({ data, previousData }) {
       }, 1000)
     }
 
-  }, [data, temp, previousData])
+  }, [data, previousData])
 
   if (!data) return null
-
-  // const date = new Date(data.dt * 1000)
-  // const weekday = date.toLocaleString('en-US', { weekday: 'long' })
-  // const time = date.toLocaleString('en-US', { hourCycle: 'h24', hour: '2-digit', minute: '2-digit' })
 
   return (
     <div className='weather-card border-anim'>
 
-      <EntitiesManager data={data} />
+      <EntitiesManager weather={converDataToWeather(data)} />
 
       <div className='overlay column'>
         <div className='column'>
           <div className='top-left row'>
             <img className='icon' src="https://ssl.gstatic.com/onebox/weather/64/cloudy.png" alt="" />
             <div ref={tempElementRef} className={`temp-container row loading-anim mask-hide`}>
-              <TempCounter className='temp' from={previousTemp == null ? temp : previousTemp} to={temp} />
+              <TempCounter className='temp' from={previousTemp} to={temp} />
               <div className='metric'>°C</div>
             </div>
           </div>
