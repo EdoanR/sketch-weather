@@ -42,7 +42,7 @@ export default class Car extends Component {
 
     despawn(addParticle = false) {
 
-        if (addParticle) this.props.particles.current.addParticle(this.element.current)
+        if (addParticle) this.spawnParticles()
 
         this.setState({ moving: false })
         this.lastDespawnTick = this.props.tick
@@ -70,6 +70,10 @@ export default class Car extends Component {
         }
 
         const spriteClass = this.getSpriteClass(weather) || ''
+
+        // Spawn particles when entity change sprite on screen.
+        if (this.state.moving && spriteClass !== this.state.spriteClass) this.spawnParticles()
+        
         this.setState({ spriteClass: spriteClass })
     }
 
@@ -141,6 +145,10 @@ export default class Car extends Component {
                 }
             }
         }
+    }
+
+    spawnParticles() {
+        this.props.particles.current.addParticle(this.element.current)
     }
 
     render() {
