@@ -9,7 +9,7 @@ const tickInterval = 1000
 
 export default function EntitiesManager({ weather }) {
 
-    const [tick, setTick] = useState()
+    const [tick, setTick] = useState(0)
     const particlesRef = useRef()
 
     const particlesMemo = useMemo(() => <Particles ref={particlesRef} />, [])
@@ -26,7 +26,7 @@ export default function EntitiesManager({ weather }) {
         <div className="entities-container">
             <div className="background"></div>
             <div className="objects-area">
-                <Person weather={weather} tick={tick} />
+                <Person particles={particlesRef} weather={weather} tick={tick} />
                 <Car particles={particlesRef} weather={weather} tick={tick} />
 
                 {particlesMemo}

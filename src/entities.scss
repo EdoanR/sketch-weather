@@ -57,9 +57,24 @@
     }
 }
 
-.person_normal {
+.person {
     @include entity(28px, 56px, 26px);
-    @include move(0.5);
+
+    &.person-normal {
+        background-image: url('./assets/images/person.gif')
+    }
+
+    &.person-sunny {
+        background-image: linear-gradient(to left, orange, yellow)
+    }
+
+    &.person-cold {
+        background-image: linear-gradient(to left, blue, aqua)
+    }
+
+    &.move {
+        @include move(0.5);
+    }
 }
 
 .collectable {

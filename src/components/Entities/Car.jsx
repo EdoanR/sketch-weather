@@ -11,6 +11,8 @@ export default class Car extends Entity {
             minTime: 5000,
             chancePerTick: 1
         }
+
+        this.maxTimeOnScreen = 10000
     }
 
     isInSpawnCondition(weather) {

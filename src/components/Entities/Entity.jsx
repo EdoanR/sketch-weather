@@ -22,7 +22,7 @@ export default class Entity extends Component {
         }
 
         this.lastSpawnTick = 0
-        this.maxSpawnTime = 10000
+        this.maxTimeOnScreen = 10000
         this.lastDespawnTick = Date.now()
 
         this.element = createRef()
@@ -31,6 +31,8 @@ export default class Entity extends Component {
     
     componentDidMount() {
         this.updateSpawnChances()
+
+        this.validate()
     }
 
     onClick(e) {
@@ -73,7 +75,10 @@ export default class Entity extends Component {
         const spriteClass = this.getSpriteClass(weather) || ''
 
         // Spawn particles when entity change sprite on screen.
-        if (this.state.moving && spriteClass !== this.state.spriteClass) this.spawnParticles()
+        if (this.state.moving && spriteClass !== this.state.spriteClass) {
+            console.log(this.element.current)
+            this.spawnParticles()
+        }
         
         this.setState({ spriteClass: spriteClass })
     }
@@ -113,7 +118,7 @@ export default class Entity extends Component {
 
             this.spawn()
         } else {
-            if (tick >= this.lastSpawnTick + this.maxSpawnTime) 
+            if (tick >= this.lastSpawnTick + this.maxTimeOnScreen) 
                 this.despawn() // Took too long to despawn, maybe animation end was not triggered for some reason
         }
     }
@@ -143,6 +148,11 @@ export default class Entity extends Component {
 
     spawnParticles() {
         this.props.particles.current.addParticle(this.element.current)
+    }
+
+    validate() {
+        if (!this.props.tick && this.props.tick !== 0) throw new Error(`Entity with no tick prop`)
+        if (!this.props.particles) throw new Error(`Entity with no particles prop`)
     }
 
     render() {
