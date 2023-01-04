@@ -8,14 +8,6 @@ export default class Particles extends Component {
         this.state = {
             particles: []
         }
-
-        document.addEventListener('keydown', e => {
-            if (e.key === 'w') {
-                e.preventDefault()
-
-                this.addParticle(document.querySelector('.car'))
-            }
-        })
     }
 
     addParticle(element) {
