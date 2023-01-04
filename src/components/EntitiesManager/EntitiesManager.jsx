@@ -1,7 +1,7 @@
 import Person from '../Entities/Person'
 import Car from '../Entities/Car'
 import { TEMP_TYPES } from '../../constants'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Particles from './Particles'
 
 // Time between ticks in milliseconds
@@ -10,6 +10,9 @@ const tickInterval = 1000
 export default function EntitiesManager({ weather }) {
 
     const [tick, setTick] = useState()
+    const particlesRef = useRef()
+
+    const particlesMemo = useMemo(() => <Particles ref={particlesRef} />, [])
 
     useEffect(() => {
 
@@ -24,9 +27,9 @@ export default function EntitiesManager({ weather }) {
             <div className="background"></div>
             <div className="objects-area">
                 <Person weather={weather} tick={tick} />
-                <Car weather={weather} tick={tick} />
+                <Car particles={particlesRef} weather={weather} tick={tick} />
 
-                <Particles />
+                {particlesMemo}
             </div>
         </div>
     )

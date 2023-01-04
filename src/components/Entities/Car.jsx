@@ -32,7 +32,7 @@ export default class Car extends Component {
     }
 
     onClick(e) {
-        this.despawn()
+        this.despawn(true)
     }
 
     spawn() {
@@ -40,7 +40,10 @@ export default class Car extends Component {
         this.lastSpawnTick = Date.now()
     }
 
-    despawn() {
+    despawn(addParticle = false) {
+
+        if (addParticle) this.props.particles.current.addParticle(this.element.current)
+
         this.setState({ moving: false })
         this.lastDespawnTick = this.props.tick
         this.updateSpawnChances()
@@ -62,7 +65,7 @@ export default class Car extends Component {
     handleDataChange(weather) {
 
         if (!this.hasSpawnCondition(weather)) {
-            if (this.state.moving) this.despawn()
+            if (this.state.moving) this.despawn(true)
             return
         }
 

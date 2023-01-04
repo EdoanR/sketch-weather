@@ -17,6 +17,26 @@
     display: block;
 }
 
+@mixin spritesheet-anim($sprites, $frames, $time: 1s, $loop: false) {
+    background-image: $sprites;
+    background-size: calc(100% * $frames) 100%;
+
+    animation: sprite-anim;
+    animation-duration: $time;
+    @if $loop {
+        animation-iteration-count: infinite;
+    } @else {
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+    animation-timing-function: steps(calc($frames - 1));
+
+    @keyframes sprite-anim {
+        from { background-position: 0%; }
+        to { background-position: 100%; }
+    }
+}
+
 .car {
     @include entity(133px, 60px);
 
@@ -49,6 +69,16 @@
 .collected {
     filter: drop-shadow(0 0 1.5px yellow);
 }
+
+.particle {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+
+    @include spritesheet-anim(url('../src/assets/images/particles-sprites.png'), 4, 0.2s)
+}
+
+
 
 @keyframes move {
     100% {
