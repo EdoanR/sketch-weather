@@ -3,6 +3,8 @@ import EntitiesManager, { converDataToWeather } from '../EntitiesManager/Entitie
 import TempCounter from './TempCounter'
 import './WeatherCard.scss'
 
+let dataLoadTimeout = null
+
 export default function WeatherCard({ data, previousData }) {
 
   const [location, setLocation] = useState('')
@@ -18,13 +20,16 @@ export default function WeatherCard({ data, previousData }) {
 
     if (data.loading) {
 
+      clearTimeout(dataLoadTimeout)
+
       document.querySelectorAll('.info .loading-anim').forEach(el => {
         el.classList.add('close')
         el.classList.remove('open')
       })
 
     } else {
-      setTimeout(() => {
+
+      dataLoadTimeout = setTimeout(() => {
 
         if (data.cod !== '404') {
 
