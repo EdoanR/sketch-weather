@@ -13,10 +13,14 @@ export default class Particles extends Component {
     addParticle(element) {
         if (!element) return
 
+        const width = (element.clientWidth > element.clientHeight ? element.clientWidth : element.clientHeight) / 1.25
+
         // This values will be set to the new/reused particle.
         const overwrite = {
-            x: element.offsetLeft,
-            y: element.offsetTop - (element.clientHeight / 2),
+            x: element.offsetLeft + (element.clientWidth / 2) - (width / 2),
+            y: element.offsetTop + (element.clientHeight / 2) - (width / 2),
+            w: width,
+            h: width,
             active: true,
             rot: randNumber(0, 180)
         }
@@ -69,6 +73,8 @@ export default class Particles extends Component {
                     style={{
                         left: p.x,
                         top: p.y,
+                        width: p.w,
+                        height: p.h,
                         transform: `rotate(${p.rot}deg)`
                     }}></div>
             })}
