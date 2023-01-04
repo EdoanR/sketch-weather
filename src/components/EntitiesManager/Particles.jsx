@@ -63,7 +63,6 @@ export default class Particles extends Component {
     }
 
     render() {
-        console.log(this.state.particles)
 
         return <>
             {this.state.particles.map(p => {
