@@ -1,7 +1,8 @@
 
 export const ENTITIES_IDS = {
     car: 'car',
-    person: 'person'
+    person: 'person',
+    bird: 'bird'
 }
 
 export const ENTITIES_TYPES = {

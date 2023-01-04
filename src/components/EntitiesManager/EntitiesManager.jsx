@@ -3,6 +3,7 @@ import Car from '../Entities/Car'
 import { TEMP_TYPES } from '../../constants'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Particles from './Particles'
+import Bird from '../Entities/Bird'
 
 // Time between ticks in milliseconds
 const tickInterval = 1000
@@ -26,6 +27,8 @@ export default function EntitiesManager({ weather }) {
         <div className="entities-container">
             <div className="background"></div>
             <div className="objects-area">
+                <Bird particles={particlesRef} weather={weather} tick={tick} />
+                <div className='tree' />
                 <Person particles={particlesRef} weather={weather} tick={tick} />
                 <Car particles={particlesRef} weather={weather} tick={tick} />
 

@@ -39,10 +39,7 @@
 
 .car {
     @include entity(133px, 60px);
-
-    &.car-normal {
-        background-image: url('./assets/images/car.gif')
-    }
+    background-image: url('./assets/images/car.gif');
 
     &.car-sunny {
         background-image: linear-gradient(to left, orange, yellow)
@@ -59,10 +56,7 @@
 
 .person {
     @include entity(28px, 56px, 26px);
-
-    &.person-normal {
-        background-image: url('./assets/images/person.gif')
-    }
+    background-image: url('./assets/images/person.gif');
 
     &.person-sunny {
         background-image: linear-gradient(to left, orange, yellow)
@@ -75,6 +69,33 @@
     &.move {
         @include move(0.5);
     }
+}
+
+.bird {
+    @include entity(25px, 25px, 124px);
+    background-image: url('./assets/images/bird-thicc.gif');
+
+    &.bird-sunny {
+        background-image: linear-gradient(to left, orange, yellow)
+    }
+
+    &.bird-cold {
+        background-image: linear-gradient(to left, blue, aqua)
+    }
+
+    &.move {
+        @include move(0.65);
+    }
+}
+
+.tree {
+    background-image: url('./assets/images/tree.gif');
+    background-size: 100% 100%;
+    position: absolute;
+    top: 51px;
+    left: 239px;
+    width: 65px;
+    height: 65px;
 }
 
 .collectable {
@@ -90,7 +111,7 @@
     width: 120px;
     height: 120px;
     pointer-events: none;
-    
+
     @include spritesheet-anim(url('../src/assets/images/particles-sprites.png'), 4, 0.2s)
 }
 
