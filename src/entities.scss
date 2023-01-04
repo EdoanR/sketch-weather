@@ -89,7 +89,8 @@
     position: absolute;
     width: 120px;
     height: 120px;
-
+    pointer-events: none;
+    
     @include spritesheet-anim(url('../src/assets/images/particles-sprites.png'), 4, 0.2s)
 }
 
