@@ -9,7 +9,8 @@ export default class Person extends Entity {
 
         this.spawnChancesConfig = {
             minTime: 5000,
-            chancePerTick: 1
+            maxTime: 15000,
+            chancePerTick: 0.09
         }
 
         this.maxTimeOnScreen = 20000

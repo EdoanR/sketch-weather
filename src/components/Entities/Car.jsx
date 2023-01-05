@@ -9,7 +9,8 @@ export default class Car extends Entity {
 
         this.spawnChancesConfig = {
             minTime: 5000,
-            chancePerTick: 1
+            maxTime: 15000,
+            chancePerTick: 0.1
         }
 
         this.maxTimeOnScreen = 10000
