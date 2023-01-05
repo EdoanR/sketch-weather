@@ -88,6 +88,23 @@
     }
 }
 
+.bike {
+    @include entity(66px, 66px, 11px);
+    background-image: url('./assets/images/bike.gif');
+
+    &.bike-sunny {
+        background-image: linear-gradient(to left, orange, yellow)
+    }
+
+    &.bike-cold {
+        background-image: linear-gradient(to left, blue, aqua)
+    }
+
+    &.move {
+        @include move(0.85);
+    }
+}
+
 .tree {
     background-image: url('./assets/images/tree.gif');
     background-size: 100% 100%;
