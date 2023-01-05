@@ -26,8 +26,8 @@ export default function EntitiesManager({ weather }) {
 
     return (
         <div className="entities-container">
-            <div className="background"></div>
             <div className="objects-area">
+                <div className="background"></div>
                 <Bird particles={particlesRef} weather={weather} tick={tick} />
                 <div className='tree' />
                 <Person particles={particlesRef} weather={weather} tick={tick} />

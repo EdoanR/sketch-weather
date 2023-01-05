@@ -55,7 +55,7 @@
 }
 
 .person {
-    @include entity(28px, 56px, 26px);
+    @include entity(28px, 56px, 38px);
     background-image: url('./assets/images/person.gif');
 
     &.person-sunny {
@@ -89,7 +89,7 @@
 }
 
 .bike {
-    @include entity(66px, 66px, 11px);
+    @include entity(66px, 66px, 21px);
     background-image: url('./assets/images/bike.gif');
 
     &.bike-sunny {
