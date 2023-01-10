@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import Particles from './Particles'
 import Bird from '../Entities/Bird'
 import Bike from '../Entities/Bike'
+import { getDateWithTimezoneOffset } from '../../utils'
 
 // Time between ticks in milliseconds
 const tickInterval = 1000
@@ -58,6 +59,9 @@ export function converDataToWeather(data) {
     } else {
         tempType = TEMP_TYPES.normal
     }
+
+    const date = getDateWithTimezoneOffset((data.dt + data.timezone) * 1000)
+    const hours = date.getHours()
 
     return {
         id: `${data.sys.id}${temp}`,

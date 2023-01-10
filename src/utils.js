@@ -10,3 +10,9 @@ export function randArray(arr) {
 export function randId() {
     return randNumber(10000000, 99999999)
 }
+
+export function getDateWithTimezoneOffset(timestamp) {
+    let date = new Date(timestamp)
+    date = new Date(timestamp + ( date.getTimezoneOffset() * 60 * 1000 ))
+    return date
+}

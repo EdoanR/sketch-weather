@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { getDateWithTimezoneOffset } from '../../utils'
 import EntitiesManager, { converDataToWeather } from '../EntitiesManager/EntitiesManager'
 import TempCounter from './TempCounter'
 import './WeatherCard.scss'
@@ -39,9 +40,10 @@ export default function WeatherCard({ data, previousData }) {
           setLocation(`${data.name}, ${data.sys.country}`)
           setDescription(data.weather[0].description)
 
-          const date = new Date(data.dt * 1000)
+          const date = getDateWithTimezoneOffset((data.dt + data.timezone) * 1000)
+          
           const weekday = date.toLocaleString('en-US', { weekday: 'long' })
-          const time = date.toLocaleString('en-US', { hourCycle: 'h24', hour: '2-digit', minute: '2-digit' })
+          const time = date.toLocaleString('en-US', { hourCycle: 'h23', hour: '2-digit', minute: '2-digit' })
           
           setDate(`${weekday}, ${time}`)
 
