@@ -10,6 +10,8 @@ import { getDateWithTimezoneOffset } from '../../utils'
 // Time between ticks in milliseconds
 const tickInterval = 1000
 
+let hasRendered = false
+
 export default function EntitiesManager({ weather }) {
 
     const [tick, setTick] = useState(0)
@@ -24,6 +26,10 @@ export default function EntitiesManager({ weather }) {
         }, tickInterval)
 
     }, [])
+
+    if (!weather && !hasRendered) return null
+
+    hasRendered = true
 
     return (
         <div className="entities-container">
