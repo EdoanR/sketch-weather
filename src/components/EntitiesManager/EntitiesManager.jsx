@@ -29,11 +29,11 @@ export default function EntitiesManager({ weather }) {
         <div className="entities-container">
             <div className="entities-area">
                 <div className="background"></div>
-                <Bird particles={particlesRef} weather={weather} tick={tick} />
+                {/* <Bird particles={particlesRef} weather={weather} tick={tick} /> */}
                 <div className='tree' />
                 <Person particles={particlesRef} weather={weather} tick={tick} />
-                <Bike particles={particlesRef} weather={weather} tick={tick} />
-                <Car particles={particlesRef} weather={weather} tick={tick} />
+                {/* <Bike particles={particlesRef} weather={weather} tick={tick} /> */}
+                {/* <Car particles={particlesRef} weather={weather} tick={tick} /> */}
 
                 {particlesMemo}
             </div>
@@ -67,7 +67,7 @@ export function converDataToWeather(data) {
         id: `${data.sys.id}${temp}`,
         temp: temp,
         tempType,
-        isDay: true,
-        isRaining: false
+        isDay: hours >= 4 && hours <= 17,
+        isRaining: Boolean(data.rain)
     }
 }

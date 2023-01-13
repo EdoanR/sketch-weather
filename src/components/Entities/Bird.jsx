@@ -1,11 +1,19 @@
-import { ENTITIES_IDS, TEMP_TYPES } from "../../constants";
+import { ENTITIES_CLASS_TYPES } from "../../constants";
+import entities from "../EntitiesList/entities";
 import Entity from "./Entity";
+
+/**
+ * Birds show up at day, owl at night.
+ * Owl are a bit more rare.
+ * Birds will not show up in strong rain.
+ * Birds/Owls will not show up extreme cold
+ */
 
 export default class Bird extends Entity {
     constructor(props) {
         super(props)
         
-        this.entityClass = ENTITIES_IDS.bird
+        this.entityClass = ENTITIES_CLASS_TYPES.bird
 
         this.spawnChancesConfig = {
             minTime: 5000,
@@ -21,14 +29,8 @@ export default class Bird extends Entity {
         return true
     }
 
-    getSpriteClass({ tempType, temp }) {
-
-        if (tempType >= TEMP_TYPES.sunny) {
-            return 'bird-sunny';
-        } else if (tempType <= TEMP_TYPES.cold) {
-            return 'bird-cold';
-        } else {
-            return 'bird-normal';
-        }
+    getEntity({ isDay }) {
+        if (!isDay) return entities.owl
+        return entities.bird
     }
 }

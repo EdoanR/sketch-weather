@@ -58,11 +58,11 @@
     @include entity(28px, 56px, 38px);
     background-image: url('./assets/images/person.gif');
 
-    &.person-sunny {
+    &.sunny {
         background-image: linear-gradient(to left, orange, yellow)
     }
 
-    &.person-cold {
+    &.cold {
         background-image: linear-gradient(to left, blue, aqua)
     }
 

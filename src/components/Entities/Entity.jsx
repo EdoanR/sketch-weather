@@ -1,6 +1,6 @@
 import { Component, createRef } from "react";
 import { randArray } from "../../utils";
-// import Entity from "./Entity";
+import { TEMP_TYPES } from "../../constants"
 
 export default class Entity extends Component {
     constructor(props) {
@@ -18,7 +18,9 @@ export default class Entity extends Component {
 
         this.state = {
             moving: false,
-            spriteClass: ''
+            spriteClass: '',
+            className: '',
+            entity: null
         }
 
         this.lastSpawnTick = 0
@@ -31,7 +33,6 @@ export default class Entity extends Component {
     
     componentDidMount() {
         this.updateSpawnChances()
-
         this.validate()
     }
 
@@ -41,7 +42,7 @@ export default class Entity extends Component {
 
     spawn() {
         this.setState({ moving: true })
-        this.lastSpawnTick = Date.now()
+        this.lastSpawnTick = this.props.tick
     }
 
     despawn(addParticle = false) {
@@ -58,33 +59,33 @@ export default class Entity extends Component {
 
         if (!this.props.weather || (prevProps.weather && prevProps.weather.id === this.props.weather.id)) return
 
-        this.handleDataChange(this.props.weather)
+        this.handleWeatherChange(this.props.weather)
     }
 
     isInSpawnCondition(weather) {
         return true
     }
 
-    handleDataChange(weather) {
+    handleWeatherChange(weather) {
 
         if (!this.isInSpawnCondition(weather)) {
             if (this.state.moving) this.despawn(true)
             return
         }
 
-        const spriteClass = this.getSpriteClass(weather) || ''
+        const spriteClass = this.getEntity(weather) || ''
 
         // Spawn particles when entity change sprite on screen.
         if (this.state.moving && spriteClass !== this.state.spriteClass) {
-            console.log(this.element.current)
             this.spawnParticles()
         }
         
-        this.setState({ spriteClass: spriteClass })
+        console.log('setting className')
+        this.setState({ spriteClass: spriteClass, className: this.composeClassName() })
     }
 
-    getSpriteClass({ tempType, temp }) {
-        return ''
+    getEntity({ tempType, temp }) {
+        return null
     }
 
     handleAnimationEnd(e) {
@@ -127,7 +128,15 @@ export default class Entity extends Component {
         let classes = [this.entityClass]
 
         if (this.state.moving) classes.push('move')
-        if (this.state.spriteClass) classes.push(this.state.spriteClass)
+        // if (this.state.spriteClass) classes.push(this.state.spriteClass)
+
+        if (this.props.weather) {
+            console.log(this.props.weather.tempType)
+            classes.push(this.props.weather.isDay ? 'day' : 'night')
+            if (this.props.weather.isRaining) classes.push('rain')
+            if (this.props.weather.tempType >= TEMP_TYPES.sunny) classes.push('sunny')
+            if (this.props.weather.tempType <= TEMP_TYPES.cold) classes.push('cold')
+        }
 
         return classes.join(' ')
     }
@@ -151,16 +160,18 @@ export default class Entity extends Component {
     }
 
     validate() {
+        if (!this.entityClass) throw new Error('Entity has no entityClass')
         if (!this.props.tick && this.props.tick !== 0) throw new Error(`Entity with no tick prop`)
         if (!this.props.particles) throw new Error(`Entity with no particles prop`)
     }
 
     render() {
+        console.log('redering...')
         return (
             <div 
                 ref={this.element} 
                 onAnimationEnd={(e) => this.handleAnimationEnd(e)} 
-                className={this.composeClassName()} 
+                className={this.state.className} 
                 onClick={(e) => this.onClick(e)} 
             />
         )

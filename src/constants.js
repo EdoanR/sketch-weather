@@ -1,16 +1,9 @@
 
-export const ENTITIES_IDS = {
+export const ENTITIES_CLASS_TYPES = {
     car: 'car',
     person: 'person',
     bird: 'bird',
     bike: 'bike'
-}
-
-export const ENTITIES_TYPES = {
-    car: 'car',
-    bird: 'bird',
-    person: 'person',
-    bicycle: 'bicycle'
 }
 
 export const CLASSES = {

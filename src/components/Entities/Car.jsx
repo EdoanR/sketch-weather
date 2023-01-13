@@ -1,11 +1,18 @@
-import { ENTITIES_IDS, TEMP_TYPES } from "../../constants";
+import { ENTITIES_CLASS_TYPES, TEMP_TYPES } from "../../constants";
+import entities from "../EntitiesList/entities";
 import Entity from "./Entity";
+
+/**
+ * Normal cars show up at any time or temp.
+ * Sometimes ice cream truck show up at sunny days, except when raining.
+ * None of them show up in extreme heat/cold
+ */
 
 export default class Car extends Entity {
     constructor(props) {
         super(props)
         
-        this.entityClass = ENTITIES_IDS.car
+        this.entityClass = ENTITIES_CLASS_TYPES.car
 
         this.spawnChancesConfig = {
             minTime: 5000,
@@ -21,14 +28,8 @@ export default class Car extends Entity {
         return true
     }
 
-    getSpriteClass({ tempType, temp }) {
-
-        if (tempType >= TEMP_TYPES.sunny) {
-            return 'car-sunny';
-        } else if (tempType <= TEMP_TYPES.cold) {
-            return 'car-cold';
-        } else {
-            return 'car-normal';
-        }
+    getEntity({ tempType }) {
+        if (tempType >= TEMP_TYPES.sunny) return entities.iceCreamTruck
+        return entities.car
     }
 }

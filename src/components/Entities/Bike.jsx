@@ -1,11 +1,16 @@
-import { ENTITIES_IDS, TEMP_TYPES } from "../../constants";
+import { ENTITIES_CLASS_TYPES, TEMP_TYPES } from "../../constants";
+import entities from "../EntitiesList/entities";
 import Entity from "./Entity";
+
+/**
+ * Bike does not show up in rain or extreme heat/cold.
+ */
 
 export default class Bike extends Entity {
     constructor(props) {
         super(props)
         
-        this.entityClass = ENTITIES_IDS.bike
+        this.entityClass = ENTITIES_CLASS_TYPES.bike
 
         this.spawnChancesConfig = {
             minTime: 5000,
@@ -21,14 +26,9 @@ export default class Bike extends Entity {
         return true
     }
 
-    getSpriteClass({ tempType, temp }) {
-
-        if (tempType >= TEMP_TYPES.sunny) {
-            return 'bike-sunny';
-        } else if (tempType <= TEMP_TYPES.cold) {
-            return 'bike-cold';
-        } else {
-            return 'bike-normal';
-        }
+    getEntity({ tempType }) {
+        if (tempType >= TEMP_TYPES.sunny) return entities.bikeSunny
+        if (tempType <= TEMP_TYPES.cold) return entities.bikeCold
+        return entities.bike
     }
 }
