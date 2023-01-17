@@ -11,27 +11,21 @@ import Entity from "./Entity";
 export default class Person extends Entity {
     constructor(props) {
         super(props)
-        
-        this.entityClass = ENTITIES_CLASS_TYPES.person
+
+        this.baseClassName = ENTITIES_CLASS_TYPES.person
 
         this.spawnChancesConfig = {
             minTime: 5000,
-            maxTime: 15000,
-            chancePerTick: 0.09
+            maxTime: 10000,
+            chancePerTick: 0.15
         }
 
-        this.maxTimeOnScreen = 20000
+        this.maxTimeOnScreen = 15000
+        this.debugKey = '1'
     }
 
     isInSpawnCondition({ tempType }) {
-        if (tempType <+ TEMP_TYPES.veryCold) return false
+        if (tempType <= TEMP_TYPES.veryCold || tempType >= TEMP_TYPES.verySunny) return false
         return true
-    }
-
-    getEntity({ tempType, isRaining, isDay }) {
-        if (isRaining) return entities.personRainy
-        if (isDay && tempType >= TEMP_TYPES.sunny) return entities.personSunny
-        if (tempType <= TEMP_TYPES.cold) return entities.personCold
-        return entities.person
     }
 }

@@ -1,4 +1,4 @@
-import { randId, randNumber } from '../../utils'
+import { randNumber } from '../../utils'
 import { Component } from "react";
 
 export default class Particles extends Component {
@@ -10,8 +10,9 @@ export default class Particles extends Component {
         }
     }
 
-    addParticle(element) {
-        if (!element) return
+    addParticle(entity) {
+        if (!entity || !entity.element || !entity.element.current) return
+        const element = entity.element.current
 
         const width = (element.clientWidth > element.clientHeight ? element.clientWidth : element.clientHeight) / 1.25
 
@@ -41,7 +42,7 @@ export default class Particles extends Component {
         } else {
             // Create a new particle
 
-            particleId = randId()
+            particleId = entity.baseClassName
 
             this.setState({
                 particles: [...this.state.particles, {

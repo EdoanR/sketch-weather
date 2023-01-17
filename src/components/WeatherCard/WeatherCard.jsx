@@ -34,8 +34,8 @@ export default function WeatherCard({ data, previousData }) {
 
         if (data.cod !== '404') {
 
-          setTemp(Math.round(data.main.temp))
-          setPreviousTemp(previousData && previousData.main ? Math.round(previousData.main.temp) : Math.round(data.main.temp))
+          setTemp(Math.floor(data.main.temp))
+          setPreviousTemp(previousData && previousData.main ? Math.floor(previousData.main.temp) : Math.floor(data.main.temp))
           
           setLocation(`${data.name}, ${data.sys.country}`)
           setDescription(data.weather[0].description)
@@ -78,7 +78,7 @@ export default function WeatherCard({ data, previousData }) {
   return (
     <div className='weather-card border-anim'>
 
-      <EntitiesManager weather={converDataToWeather(data)} />
+      <EntitiesManager data={data} />
 
       <div className='overlay column'>
         <div className='column'>

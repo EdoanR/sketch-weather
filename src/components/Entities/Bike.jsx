@@ -10,7 +10,7 @@ export default class Bike extends Entity {
     constructor(props) {
         super(props)
         
-        this.entityClass = ENTITIES_CLASS_TYPES.bike
+        this.baseClassName = ENTITIES_CLASS_TYPES.bike
 
         this.spawnChancesConfig = {
             minTime: 5000,
@@ -19,16 +19,11 @@ export default class Bike extends Entity {
         }
 
         this.maxTimeOnScreen = 12000
+        this.debugKey = '3'
     }
 
-    isInSpawnCondition(weather) {
-        if (weather.temp <= -10) return false
+    isInSpawnCondition({ tempType }) {
+        if (tempType <= TEMP_TYPES.veryCold || tempType >= TEMP_TYPES.verySunny) return false
         return true
-    }
-
-    getEntity({ tempType }) {
-        if (tempType >= TEMP_TYPES.sunny) return entities.bikeSunny
-        if (tempType <= TEMP_TYPES.cold) return entities.bikeCold
-        return entities.bike
     }
 }

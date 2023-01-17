@@ -1,4 +1,4 @@
-import { ENTITIES_CLASS_TYPES } from "../../constants";
+import { ENTITIES_CLASS_TYPES, TEMP_TYPES } from "../../constants";
 import entities from "../EntitiesList/entities";
 import Entity from "./Entity";
 
@@ -13,7 +13,7 @@ export default class Bird extends Entity {
     constructor(props) {
         super(props)
         
-        this.entityClass = ENTITIES_CLASS_TYPES.bird
+        this.baseClassName = ENTITIES_CLASS_TYPES.bird
 
         this.spawnChancesConfig = {
             minTime: 5000,
@@ -22,15 +22,11 @@ export default class Bird extends Entity {
         }
 
         this.maxTimeOnScreen = 15000
+        this.debugKey = '4'
     }
 
-    isInSpawnCondition(weather) {
-        if (weather.temp <= -10) return false
+    isInSpawnCondition({ tempType }) {
+        if (tempType <= TEMP_TYPES.veryCold) return false
         return true
-    }
-
-    getEntity({ isDay }) {
-        if (!isDay) return entities.owl
-        return entities.bird
     }
 }
