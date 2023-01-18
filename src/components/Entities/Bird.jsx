@@ -25,7 +25,7 @@ export default class Bird extends Entity {
         this.debugKey = '4'
     }
 
-    isInSpawnCondition({ tempType }) {
+    shouldSpawn({ tempType }) {
         if (tempType <= TEMP_TYPES.veryCold) return false
         return true
     }

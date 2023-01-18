@@ -22,7 +22,7 @@ export default class Bike extends Entity {
         this.debugKey = '3'
     }
 
-    isInSpawnCondition({ tempType }) {
+    shouldSpawn({ tempType }) {
         if (tempType <= TEMP_TYPES.veryCold || tempType >= TEMP_TYPES.verySunny) return false
         return true
     }

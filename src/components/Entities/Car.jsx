@@ -23,7 +23,7 @@ export default class Car extends Entity {
         this.debugKey = '2'
     }
 
-    isInSpawnCondition({ tempType }) {
+    shouldSpawn({ tempType }) {
         if (tempType <= TEMP_TYPES.veryCold || tempType >= TEMP_TYPES.verySunny) return false
         return true
     }

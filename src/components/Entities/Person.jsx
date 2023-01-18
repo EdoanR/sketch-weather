@@ -24,7 +24,7 @@ export default class Person extends Entity {
         this.debugKey = '1'
     }
 
-    isInSpawnCondition({ tempType }) {
+    shouldSpawn({ tempType }) {
         if (tempType <= TEMP_TYPES.veryCold || tempType >= TEMP_TYPES.verySunny) return false
         return true
     }

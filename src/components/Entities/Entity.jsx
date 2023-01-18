@@ -65,19 +65,19 @@ export default class Entity extends Component {
     }
 
     handleWeatherUpdate(weather) {
-        if ( !this.isInSpawnCondition(weather) && this.state.moving ) {
+        if ( !this.shouldSpawn(weather) && this.state.moving ) {
             // entity is on screen in a weather that should not spawn, so let's despawn it.
             this.despawn(true)
         }
     }
 
-    isInSpawnCondition(weather) {
+    shouldSpawn(weather) {
         return true
     }
 
     handleTickUpdate(tick) {
         if (!this.state.moving) {
-            if ( !this.isInSpawnCondition(this.props.weather)) return
+            if ( !this.shouldSpawn(this.props.weather)) return
             if ( !this.rollSpawnChance(tick) ) return
 
             this.spawn()
