@@ -9,7 +9,8 @@ export default class Entity extends Component {
         this.baseClassName = ''
 
         this.state = {
-            moving: false
+            moving: false,
+            entity: null
         }
 
         this.spawnChancesConfig = {
@@ -138,6 +139,8 @@ export default class Entity extends Component {
         else if (this.props.weather.tempType <= TEMP_TYPES.cold) classes.push('cold')
 
         if (this.props.weather.isRaining) classes.push('rain')
+
+        if (this.state.entity && this.state.entity.customClass) classes.push(this.state.entity.customClass)
 
         return classes.join(' ')
     }

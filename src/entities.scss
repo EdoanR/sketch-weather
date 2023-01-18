@@ -49,6 +49,11 @@
         background-image: linear-gradient(to left, blue, aqua)
     }
 
+    &.ice-cream-truck {
+        @include entity(133px, 96px);
+        background-image: url('./assets/images/entities/ice-cream-truck.gif');
+    }
+
     &.move {
         @include move(1);
     }

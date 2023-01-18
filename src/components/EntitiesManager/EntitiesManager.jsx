@@ -32,6 +32,7 @@ export default function EntitiesManager({ data }) {
         const newWeather = converDataToWeather(data)
         if (!newWeather || (weather && weather.id === newWeather.id)) return // update only if there's weather or has changed
 
+        console.log('weather:', newWeather)
         setWeather(newWeather)
     }, [data, weather])
 
@@ -62,7 +63,7 @@ export function converDataToWeather(data) {
     
     let tempType = 0
 
-    if (temp > 30) {
+    if (temp > 32) {
         tempType = TEMP_TYPES.verySunny
     } else if (temp > 25) {
         tempType = TEMP_TYPES.sunny

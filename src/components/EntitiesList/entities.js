@@ -7,6 +7,7 @@ const entities = {
     iceCreamTruck: {
         id: '72Ygp8Gvz1wUfrybpvqM',
         name: 'Ice Cream Truck',
+        customClass: 'ice-cream-truck'
     },
     bike: {
         id: 'P3nyefDG3b6ttFrOKnCO',
