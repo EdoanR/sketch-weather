@@ -5,6 +5,7 @@ import './entities.scss'
 import './App.scss'
 import SearchBar from './components/SearchBar/SearchBar';
 import WeatherCard from './components/WeatherCard/WeatherCard';
+import EntitiesProgression from './components/EntitiesProgression/EntitiesProgresson';
 // import PreviousWeathers from './components/PreviousWeathers/PreviousWeathers';
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
   // const [ history, setHistory ] = useState([])
 
   const inputRef = useRef()
+  const progressionRef = useRef()
 
   // function addToHistory(data) {
 
@@ -60,12 +62,16 @@ export default function App() {
     searchWeather(inputRef.current.value)
   }
 
+  function handleCollectedEntity(entity) {
+    progressionRef.current.onEntityCollected(entity)
+  }
+
   return (
     <div className='App'>
       
       <SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
-      <WeatherCard data={weather} previousData={previousWeather} />
-
+      <WeatherCard data={weather} previousData={previousWeather} onEntityCollected={handleCollectedEntity} />
+      <EntitiesProgression ref={progressionRef}/>
     </div>
   )
 };

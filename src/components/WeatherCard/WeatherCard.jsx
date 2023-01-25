@@ -6,7 +6,7 @@ import './WeatherCard.scss'
 
 let dataLoadTimeout = null
 
-export default function WeatherCard({ data, previousData }) {
+export default function WeatherCard({ data, previousData, onEntityCollected }) {
 
   const [location, setLocation] = useState('')
   const [temp, setTemp] = useState(0)
@@ -78,7 +78,7 @@ export default function WeatherCard({ data, previousData }) {
   return (
     <div className='weather-card border-anim'>
 
-      <EntitiesManager data={data} />
+      <EntitiesManager data={data} onEntityCollected={onEntityCollected} />
 
       <div className='overlay column'>
         <div className='column'>

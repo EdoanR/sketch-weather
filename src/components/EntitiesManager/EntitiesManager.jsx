@@ -12,7 +12,7 @@ const tickInterval = 1000
 
 let hasRendered = false
 
-export default function EntitiesManager({ data }) {
+export default function EntitiesManager({ data, onEntityCollected }) {
 
     const [weather, setWeather] = useState(null)
     const [tick, setTick] = useState(Date.now())
@@ -44,11 +44,11 @@ export default function EntitiesManager({ data }) {
         <div className="entities-container">
             <div className="entities-area">
                 <div className="background"></div>
-                <Bird particles={particlesRef} weather={weather} tick={tick} />
+                <Bird particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
                 <div className='tree' />
-                <Person particles={particlesRef} weather={weather} tick={tick} />
-                <Bike particles={particlesRef} weather={weather} tick={tick} />
-                <Car particles={particlesRef} weather={weather} tick={tick} />
+                <Person particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
+                <Bike particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
+                <Car particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
 
                 {particlesMemo}
             </div>

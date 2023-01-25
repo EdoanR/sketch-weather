@@ -30,6 +30,11 @@ export default class Entity extends Component {
         this.element = createRef()
     }
 
+    handleClick() {
+        if (!this.state.entity) return
+        this.props.onEntityCollected(this.state.entity)
+    }
+
     componentDidMount() {
         this.updateSpawnChances()
 
@@ -148,6 +153,7 @@ export default class Entity extends Component {
     render() {
         return (
             <div 
+                onClick={(e) => { this.handleClick(e) }}
                 onAnimationEnd={(e) => { this.handleAnimationEnd(e) }} 
                 className={this.composeClassName()} 
                 ref={this.element}
