@@ -49,6 +49,7 @@ export default function EntitiesManager({ data, onEntityCollected }) {
                 <Person particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
                 <Bike particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
                 <Car particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
+                <div className='rain'></div>
 
                 {particlesMemo}
             </div>
