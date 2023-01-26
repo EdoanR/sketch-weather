@@ -6,6 +6,7 @@ import Bird from '../Entities/Bird'
 import Bike from '../Entities/Bike'
 import { getDateWithTimezoneOffset } from '../../utils'
 import Person from '../Entities/Person'
+import Rain from '../Rain/Rain'
 
 // Time between ticks in milliseconds
 const tickInterval = 1000
@@ -49,8 +50,7 @@ export default function EntitiesManager({ data, onEntityCollected }) {
                 <Person particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
                 <Bike particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
                 <Car particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
-                <div className='rain'></div>
-
+                <Rain weather={weather}/>
                 {particlesMemo}
             </div>
         </div>
