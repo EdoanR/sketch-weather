@@ -7,6 +7,7 @@ import Bike from '../Entities/Bike'
 import { getDateWithTimezoneOffset } from '../../utils'
 import Person from '../Entities/Person'
 import Rain from '../Rain/Rain'
+import Snow from '../Snow/Snow'
 
 // Time between ticks in milliseconds
 const tickInterval = 1000
@@ -51,6 +52,7 @@ export default function EntitiesManager({ data, onEntityCollected }) {
                 <Bike particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
                 <Car particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
                 <Rain weather={weather}/>
+                <Snow weather={weather}/>
                 {particlesMemo}
             </div>
         </div>
@@ -84,6 +86,7 @@ export function converDataToWeather(data) {
         temp: temp,
         tempType,
         isDay: hours >= 4 && hours <= 17,
-        isRaining: Boolean(data.rain)
+        isRaining: Boolean(data.rain),
+        isSnowing: Boolean(data.snow)
     }
 }

@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import '../node_modules/font-awesome/css/font-awesome.min.css'
 import './animations.scss'
 import './entities.scss'
+import './effects.scss'
 import './App.scss'
 import SearchBar from './components/SearchBar/SearchBar';
 import WeatherCard from './components/WeatherCard/WeatherCard';
