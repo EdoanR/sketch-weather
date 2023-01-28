@@ -8,6 +8,7 @@ import { getDateWithTimezoneOffset } from '../../utils'
 import Person from '../Entities/Person'
 import Rain from '../Rain/Rain'
 import Snow from '../Snow/Snow'
+import Background from '../Background/Background'
 
 // Time between ticks in milliseconds
 const tickInterval = 1000
@@ -45,7 +46,7 @@ export default function EntitiesManager({ data, onEntityCollected }) {
     return (
         <div className="entities-container">
             <div className="entities-area">
-                <div className="background"></div>
+                <Background weather={weather} />
                 <Bird particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
                 <div className='tree' />
                 <Person particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />

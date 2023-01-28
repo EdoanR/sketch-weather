@@ -12,6 +12,7 @@ export default function Snow({ weather }) {
     return (
         <div className={`sky-particle-container snow ${active ? 'show' : ''}`}>
             <div className="sky-particle snow"></div>
+            <div className="sky-particle snow no-rotation"></div>
         </div>
     )
 }

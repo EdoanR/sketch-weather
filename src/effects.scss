@@ -34,18 +34,22 @@
         background-position-y: 0;
     }
     to {
-        background-position-y: 130px;
+        background-position-y: 132px;
     }
 }
 
-.rain {
+.sky-particle-container .rain {
     background-image: url('./assets/images/effects/rain.png');
-    background-size: 130px;
-    animation: sky-particle-anim 1.6s linear infinite;
+    background-size: 132px;
+    animation: sky-particle-anim 1.2s linear infinite;
 }
 
-.snow {
+.sky-particle-container .snow {
     background-image: url('./assets/images/effects/snow.gif');
-    background-size: 130px;
+    background-size: 132px;
     animation: sky-particle-anim 2.6s linear infinite;
+
+    &.no-rotation {
+        transform: rotate(0deg);
+    }
 }
