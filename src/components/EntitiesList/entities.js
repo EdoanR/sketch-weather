@@ -34,6 +34,7 @@ const entities = {
     personSunny: {
         id: 'UMf1Njr5AElXWeqtHYpk',
         name: 'Girl With Sun Hat',
+        customClass: 'person-sunny',
         keyName: 'personSunny',
     },
     personCold: {

@@ -60,11 +60,15 @@
 }
 
 .person {
-    @include entity(28px, 56px, 38px);
+    @include entity(42px, 56px, 38px);
     background-image: url('./assets/images/person.gif');
 
     &.sunny {
         background-image: linear-gradient(to left, orange, yellow)
+    }
+
+    &.person-sunny {
+        background-image: url('./assets/images/entities/person_sunny.gif');
     }
 
     &.cold {

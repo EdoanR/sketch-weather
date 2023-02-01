@@ -28,4 +28,29 @@ export default class Person extends Entity {
         if (tempType <= TEMP_TYPES.veryCold || tempType >= TEMP_TYPES.verySunny) return false
         return true
     }
+
+    spawn() {
+        if (this.shouldSpawnAsSunnyPerson()) {
+
+            this.setState({
+                entity: entities.personSunny
+            })
+
+        } else {
+            this.setState({
+                entity: entities.person
+            })
+        }
+
+        super.spawn()
+    }
+
+    shouldSpawnAsSunnyPerson() {
+        const weather = this.props.weather
+        if (!weather.isDay) return false
+        if (weather.isRaining) return false
+        if (weather.tempType < TEMP_TYPES.sunny) return false
+        if (Math.random() > 0.5) return false // 30% chance
+        return true
+    }
 }
