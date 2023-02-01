@@ -46,9 +46,8 @@ export default function EntitiesManager({ data, onEntityCollected }) {
     return (
         <div className="entities-container">
             <div className="entities-area">
-                <Background weather={weather} />
                 <Bird particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
-                <div className='tree' />
+                <Background weather={weather} />
                 <Person particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
                 <Bike particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
                 <Car particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
