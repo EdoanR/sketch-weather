@@ -1,4 +1,5 @@
 import { ENTITIES_CLASS_TYPES, TEMP_TYPES } from "../../constants";
+import { randNumber } from "../../utils";
 import entities from "../EntitiesList/entities";
 import Entity from "./Entity";
 
@@ -25,8 +26,20 @@ export default class Bird extends Entity {
         this.debugKey = '4'
     }
 
-    shouldSpawn({ tempType }) {
-        if (tempType <= TEMP_TYPES.veryCold) return false
-        return true
+    spawn() {
+        // fly at random height.
+        this.element.current.style.bottom = `${randNumber(100, 169)}px`;
+        super.spawn();
+    }
+
+    getEntityToSpawn(weather) {
+        if (weather.tempType < TEMP_TYPES.veryCold) return null;
+
+        if (!weather.isDay) {
+            // owl
+            return null;
+        }
+        
+        return entities.bird;
     }
 }

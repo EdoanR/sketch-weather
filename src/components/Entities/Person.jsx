@@ -24,46 +24,15 @@ export default class Person extends Entity {
         this.debugKey = '1'
     }
 
-    shouldSpawn({ tempType }) {
-        if (tempType <= TEMP_TYPES.veryCold || tempType >= TEMP_TYPES.verySunny) return false
-        return true
-    }
-
-    handleWeatherUpdate(weather) {
-
-        if (weather.isRaining) {
-            this.setState({
-                entity: entities.personRainy
-            })
-        }
-
-        super.handleWeatherUpdate(weather);
-    }
-
-    spawn() {
-        if (!this.props.isRaining) {
-            if (this.shouldSpawnAsSunnyPerson()) {
-
-                this.setState({
-                    entity: entities.personSunny
-                })
-    
-            } else {
-                this.setState({
-                    entity: entities.person
-                })
-            }
-        }
+    getEntityToSpawn(weather) {
+        if (this.isExtremeTemperature()) return null;
         
-        super.spawn()
-    }
+        if (weather.isRaining) return entities.personRainy;
+        if (weather.tempType <= TEMP_TYPES.cold) return entities.personCold;
+        if (weather.isDay && weather.tempType >= TEMP_TYPES.sunny && Math.random() <= 0.5) {
+            return entities.personSunny;
+        }
 
-    shouldSpawnAsSunnyPerson() {
-        const weather = this.props.weather
-        if (!weather.isDay) return false
-        if (weather.isRaining) return false
-        if (weather.tempType < TEMP_TYPES.sunny) return false
-        if (Math.random() > 0.5) return false // 30% chance
-        return true
+        return entities.person;
     }
 }
