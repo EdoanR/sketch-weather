@@ -1,7 +1,7 @@
-import Car from '../Entities/Car'
 import { TEMP_TYPES } from '../../constants'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Particles from './Particles'
+import Car from '../Entities/Car'
 import Bird from '../Entities/Bird'
 import Bike from '../Entities/Bike'
 import { getDateWithTimezoneOffset } from '../../utils'
