@@ -75,6 +75,10 @@
         background-image: linear-gradient(to left, blue, aqua)
     }
 
+    &.rain {
+        background-image: url('./assets/images/entities/person_rain.gif');
+    }
+
     &.move {
         @include move(0.5);
     }

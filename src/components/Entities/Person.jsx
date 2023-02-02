@@ -29,19 +29,32 @@ export default class Person extends Entity {
         return true
     }
 
-    spawn() {
-        if (this.shouldSpawnAsSunnyPerson()) {
+    handleWeatherUpdate(weather) {
 
+        if (weather.isRaining) {
             this.setState({
-                entity: entities.personSunny
-            })
-
-        } else {
-            this.setState({
-                entity: entities.person
+                entity: entities.personRainy
             })
         }
 
+        super.handleWeatherUpdate(weather);
+    }
+
+    spawn() {
+        if (!this.props.isRaining) {
+            if (this.shouldSpawnAsSunnyPerson()) {
+
+                this.setState({
+                    entity: entities.personSunny
+                })
+    
+            } else {
+                this.setState({
+                    entity: entities.person
+                })
+            }
+        }
+        
         super.spawn()
     }
 
