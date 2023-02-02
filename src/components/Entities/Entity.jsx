@@ -1,5 +1,5 @@
-import { Component, createRef } from "react";
-import { randArray } from "../../utils";
+import { Component, createRef } from "react"
+import { randArray } from "../../utils"
 import { TEMP_TYPES } from "../../constants"
 
 export default class Entity extends Component {
@@ -10,7 +10,8 @@ export default class Entity extends Component {
 
         this.state = {
             moving: false,
-            entity: null
+            entity: null,
+            fadeDespawnAnim: false
         }
 
         this.spawnChancesConfig = {
@@ -20,16 +21,20 @@ export default class Entity extends Component {
 
         this.maxTimeOnScreen = 15000
 
+         /** @private */
         this.spawnChances = {}
 
         this.debugKey = ''
 
+         /** @private */
         this.spawnedTick = props.tick
+         /** @private */
         this.despawnedTick = props.tick
 
         this.element = createRef()
     }
 
+    /** @private */
     handleClick() {
         if (!this.state.entity) return
         this.props.onEntityCollected(this.state.entity)
@@ -43,7 +48,12 @@ export default class Entity extends Component {
                 if (ev.key === this.debugKey) {
                     ev.preventDefault()
     
-                    this.state.moving ? this.despawn(true) : this.spawn()
+                    if (this.state.moving) {
+                        this.startDespawn('particle')
+                    } else {
+                        this.trySpawn()
+                        if (!this.state.entity) console.log(`Could not spawn [${this.baseClassName}] using debugkeys because it's not in the correct weather condition.`)
+                    }
                 }  
             })
         }
@@ -51,15 +61,16 @@ export default class Entity extends Component {
         this.validate()
     }
 
+    /** @private */
     updateSpawnChances() {
-        const propertiesToCheck = ['minTime', 'maxTime', 'chancePerTick'];
+        const propertiesToCheck = ['minTime', 'maxTime', 'chancePerTick']
 
         for (const prop of propertiesToCheck) {
             if (this.spawnChancesConfig[prop] !== undefined) {
                 if (Array.isArray(this.spawnChancesConfig[prop])) {
-                    this.spawnChances[prop] = randArray(this.spawnChancesConfig[prop]);
+                    this.spawnChances[prop] = randArray(this.spawnChancesConfig[prop])
                 } else {
-                    this.spawnChances[prop] = this.spawnChancesConfig[prop];
+                    this.spawnChances[prop] = this.spawnChancesConfig[prop]
                 }
             }
         }
@@ -70,50 +81,98 @@ export default class Entity extends Component {
         if (prevProps.tick !== this.props.tick) this.handleTickUpdate(this.props.tick)
     }
 
+    /** @private */
     handleWeatherUpdate(weather) {
-        if ( !this.shouldSpawn(weather) && this.state.moving ) {
+        const entity = this.getEntityToSpawn(weather)
+
+        if ( !entity && this.state.moving ) {
             // entity is on screen in a weather that should not spawn, so let's despawn it.
-            this.despawn(true)
+            this.startDespawn()
         }
     }
 
-    shouldSpawn(weather) {
-        return true
-    }
-
+    /** @private */
     handleTickUpdate(tick) {
         if (!this.state.moving) {
-            if ( !this.shouldSpawn(this.props.weather)) return
             if ( !this.rollSpawnChance(tick) ) return
 
-            this.spawn()
+            this.trySpawn()
 
         } else {
             if (tick > this.spawnedTick + this.maxTimeOnScreen) {
-                this.despawn(true) // took too long to despawn.
+                this.startDespawn() // took too long to despawn.
             }
         }
     }
 
+    getEntityToSpawn(weather) {
+        return null
+    }
+
+    /** @private */
+    trySpawn() {
+        const entity = this.getEntityToSpawn(this.props.weather)
+        if (!entity) return
+
+        this.setEntity(entity)
+        this.spawn()
+    }
+
+    /** @private */
+    setEntity(entity) {
+        this.setState({ entity })
+    }
+
+    isExtremeTemperature() {
+        if (!this.props.weather) return false
+        const { tempType } = this.props.weather
+        return tempType <= TEMP_TYPES.veryCold || tempType >= TEMP_TYPES.verySunny
+    }
+
     spawn() {
-        this.setState({ moving: true })
+        this.setState({ moving: true, fadeDespawnAnim: false })
         this.spawnedTick = this.props.tick
     }
 
-    despawn(addParticle = false) {
+    /** 
+     * This will despawn using a animation
+     * @param {'fade' | 'particle' | 'none'} animationType - `(default: 'fade')` animation type that the entity will dissapear, 
+     * keep in mind that `fade` take a bit more long for the entity to despawn.
+     * @private 
+     */
+    startDespawn(animationType = 'fade') {
 
-        if (addParticle) this.spawnParticle()
+        if (animationType === 'fade') {
+            this.setState({ fadeDespawnAnim: true })
+            setTimeout(() => {
+                if (!this.state.fadeDespawnAnim) return
+                this.despawn()
+            }, 1000)
+            return
+        }
+        
+        if (animationType === 'particle') {
+            this.spawnParticle()
+        }
 
-        this.setState({ moving: false })
+        this.despawn()
+    }
+
+    despawn() {
+        if (!this.state.moving) return
+
+        this.setState({ moving: false, fadeDespawnAnim: false })
         this.despawnedTick = this.props.tick
 
         this.updateSpawnChances()
     }
 
+    /** @private */
     spawnParticle() {
         this.props.particles.current.addParticle(this)
     }
 
+    /** @private */
     rollSpawnChance(tick = null) {
         if (tick) {
             const maxTick = this.spawnChances.maxTime == null ? null : this.despawnedTick + this.spawnChances.maxTime
@@ -127,6 +186,7 @@ export default class Entity extends Component {
         return Math.random() <= chance
     }
 
+    /** @private */
     handleAnimationEnd(e) {
         if (e.animationName === 'move') {
 
@@ -135,6 +195,7 @@ export default class Entity extends Component {
         }
     }
 
+    /** @private */
     composeClassName() {
         const classes = [this.baseClassName]
         
@@ -147,9 +208,12 @@ export default class Entity extends Component {
 
         if (this.state.entity && this.state.entity.customClass) classes.push(this.state.entity.customClass)
 
+        if (this.state.fadeDespawnAnim) classes.push('fade')
+
         return classes.join(' ')
     }
     
+    /** @private */
     render() {
         return (
             <div 
@@ -161,6 +225,7 @@ export default class Entity extends Component {
         )
     }
 
+    /** @private */
     validate() {
         if (!this.baseClassName) throw new Error(`Entity with no baseClassName`)
         if (!this.props.particles) throw new Error(`${this.baseClassName} has no particles prop`)
