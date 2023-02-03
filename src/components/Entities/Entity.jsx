@@ -1,5 +1,5 @@
 import { Component, createRef } from "react"
-import { randArray } from "../../utils"
+import { isDev, randArray } from "../../utils"
 import { TEMP_TYPES } from "../../constants"
 
 export default class Entity extends Component {
@@ -43,7 +43,7 @@ export default class Entity extends Component {
     componentDidMount() {
         this.updateSpawnChances()
 
-        if ((!process.env.NODE_ENV || process.env.NODE_ENV === 'development') && this.debugKey) {
+        if (isDev() && this.debugKey) {
             document.addEventListener('keyup', ev => {
                 if (ev.key === this.debugKey) {
                     ev.preventDefault()

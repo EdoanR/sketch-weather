@@ -1,0 +1,13 @@
+.weather-edit-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+.weather-edit-options {
+    background-color: #202124;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2em;
+    gap: 5px;
+}

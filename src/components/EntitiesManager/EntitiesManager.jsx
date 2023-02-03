@@ -13,11 +13,8 @@ import Background from '../Background/Background'
 // Time between ticks in milliseconds
 const tickInterval = 1000
 
-let hasRendered = false
+export default function EntitiesManager({ weather, onEntityCollected }) {
 
-export default function EntitiesManager({ data, onEntityCollected }) {
-
-    const [weather, setWeather] = useState(null)
     const [tick, setTick] = useState(Date.now())
     const particlesRef = useRef()
 
@@ -30,18 +27,6 @@ export default function EntitiesManager({ data, onEntityCollected }) {
         }, tickInterval)
 
     }, [])
-
-    useEffect(() => {
-        const newWeather = converDataToWeather(data)
-        if (!newWeather || (weather && weather.id === newWeather.id)) return // update only if there's weather or has changed
-
-        console.log('weather:', newWeather)
-        setWeather(newWeather)
-    }, [data, weather])
-
-    if (!weather && !hasRendered) return null
-
-    hasRendered = true
 
     return (
         <div className="entities-container">

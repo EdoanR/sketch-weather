@@ -7,38 +7,23 @@ import './App.scss'
 import SearchBar from './components/SearchBar/SearchBar';
 import WeatherCard from './components/WeatherCard/WeatherCard';
 import EntitiesProgression from './components/EntitiesProgression/EntitiesProgresson';
-// import PreviousWeathers from './components/PreviousWeathers/PreviousWeathers';
+import WeatherEditOptions from './components/WeatherEditOptions/WeatherEditOptions';
+import { converDataToWeather } from './components/EntitiesManager/EntitiesManager';
 
 export default function App() {
 
   const [ weather, setWeather ] = useState()
-  const [ previousWeather, setPreviousWeather ] = useState()
+  const [ data, setData ] = useState()
+  const [ previousData, setPreviousData ] = useState()
   // const [ history, setHistory ] = useState([])
 
   const inputRef = useRef()
   const progressionRef = useRef()
 
-  // function addToHistory(data) {
-
-  //   let newHistory = [...history]
-
-  //   let index = history.findIndex(d => d.sys.id === data.sys.id)
-  //   if (index !== -1) {
-  //     // if already exist, move to the front.
-  //     newHistory.splice(index, 1)
-  //     newHistory = [data, ...newHistory]
-  //     return setHistory(newHistory)
-  //   }
-
-  //   if (newHistory.length === 3) newHistory.pop() // max of three items in history
-
-  //   setHistory([data, ...newHistory])
-  // }
-
   function searchWeather(search) {
     if (!search) return
 
-    setWeather({ loading: true })
+    setData({ loading: true })
 
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=${process.env.REACT_APP_WEATHER_API_KEY}`).then(async res => {
       const data = await res.json()
@@ -49,8 +34,13 @@ export default function App() {
         console.log('data:', data)
       }
 
-      setPreviousWeather(weather)
-      setWeather(data)
+      setPreviousData(data)
+      setData(data)
+      const weather = converDataToWeather(data)
+      if (weather) {
+        console.log('weather:', weather)
+        setWeather(weather)
+      }
 
     }).catch(err => {
       console.log('Error getting data:\n', err) // TODO: show on website a response about that.
@@ -69,10 +59,10 @@ export default function App() {
 
   return (
     <div className='App'>
-      
       <SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
-      <WeatherCard data={weather} previousData={previousWeather} onEntityCollected={handleCollectedEntity} />
+      <WeatherCard weather={weather} data={data} previousData={previousData} onEntityCollected={handleCollectedEntity} />
       <EntitiesProgression ref={progressionRef}/>
+      <WeatherEditOptions weather={weather} onChange={ (newWeather) => { setWeather(newWeather) } } />
     </div>
   )
 };

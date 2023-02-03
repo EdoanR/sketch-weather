@@ -16,3 +16,7 @@ export function getDateWithTimezoneOffset(timestamp) {
     date = new Date(timestamp + ( date.getTimezoneOffset() * 60 * 1000 ))
     return date
 }
+
+export function isDev() {
+    return !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
+}
