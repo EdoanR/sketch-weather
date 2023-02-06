@@ -27,8 +27,13 @@ export default class Person extends Entity {
     getEntityToSpawn(weather) {
         if (this.isExtremeTemperature()) return null;
         
+        if (weather.tempType <= TEMP_TYPES.cold) {
+            if (weather.isRaining) return entities.personColdRainy;
+            return entities.personCold;
+        }
+
         if (weather.isRaining) return entities.personRainy;
-        if (weather.tempType <= TEMP_TYPES.cold) return entities.personCold;
+
         if (weather.isDay && weather.tempType >= TEMP_TYPES.sunny && Math.random() <= 0.5) {
             return entities.personSunny;
         }

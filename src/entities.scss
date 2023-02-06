@@ -3,7 +3,7 @@
     position: absolute;
     background-image: linear-gradient(to left, red, blue);
     background-repeat: no-repeat;
-    background-position: bottom left;
+    background-position: bottom right;
     background-size: 100% 100%;
     width: $width;
     height: $height;
@@ -66,18 +66,25 @@
 
 .person {
     @include entity(42px, 56px, 38px);
-    background-image: url('./assets/images/person.gif');
+    background-image: url('./assets/images/entities/person.gif');
 
     &.person-sunny {
         background-image: url('./assets/images/entities/person_sunny.gif');
     }
 
-    &.cold {
-        background-image: linear-gradient(to left, blue, aqua)
+    &.person-cold {
+        @include entity(42px, 56px, 38px);
+        background-image: url('./assets/images/entities/person_cold.gif');
     }
 
-    &.rain {
+    &.person-rain {
+        @include entity(50px, 71px, 38px);
         background-image: url('./assets/images/entities/person_rain.gif');
+    }
+
+    &.person-cold-rain {
+        @include entity(51px, 69px, 38px);
+        background-image: url('./assets/images/entities/person_cold_rain.gif');
     }
 
     &.move {

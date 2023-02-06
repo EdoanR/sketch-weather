@@ -40,11 +40,19 @@ const entities = {
     personCold: {
         id: 'hZpe2gzqV9y99QDgOISc',
         name: 'Guy With Scarf',
+        customClass: 'person-cold',
         keyName: 'personCold',
+    },
+    personColdRainy: {
+        id: 'oO3gOqrUsIRwV1KPFRmg',
+        name: 'Guy With Scarf and Umbrella',
+        customClass: 'person-cold-rain',
+        keyName: 'personColdUmbrella',
     },
     personRainy: {
         id: 'KEiC3eLEptPngcKv0Vl1',
         name: 'Man Using a Umbrella',
+        customClass: 'person-rain',
         keyName: 'personRainy',
     },
     bird: {
