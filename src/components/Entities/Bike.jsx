@@ -1,9 +1,9 @@
-import { ENTITIES_CLASS_TYPES } from "../../constants";
+import { ENTITIES_CLASS_TYPES, TEMP_TYPES } from "../../constants";
 import entities from "../EntitiesList/entities";
 import Entity from "./Entity";
 
 /**
- * Bike does not show up in rain or extreme heat/cold.
+ * Bike does not show up in rain/snow or extreme heat/cold.
  */
 
 export default class Bike extends Entity {
@@ -23,7 +23,10 @@ export default class Bike extends Entity {
     }
 
     getEntityToSpawn(weather) {
-        if (this.isExtremeTemperature() || weather.isRaining) return null;
+        if (this.isExtremeTemperature() || weather.isRaining || weather.isSnowing) return null;
+
+        if (weather.tempType <= TEMP_TYPES.cold) return entities.bikeCold;
+        if (Math.random() <= 0.5) return entities.bikeGirl;
 
         return entities.bike;
     }

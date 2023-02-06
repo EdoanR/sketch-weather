@@ -16,14 +16,16 @@ const entities = {
         name: 'Guy Riding a Bike',
         keyName: 'bike',
     },
-    bikeSunny: {
+    bikeGirl: {
         id: 'K2bxX8kjEI0kYKcyaEFd',
         name: 'Girl Riding a Bike',
+        customClass: 'bike-girl',
         keyName: 'bikeSunny',
     },
     bikeCold: {
         id: 'ErkoOYYNXAQC2zMXrfnP',
         name: 'Guy Wearing Scarf And Riding a Bike',
+        customClass: 'bike-cold',
         keyName: 'bikeCold',
     },
     person: {

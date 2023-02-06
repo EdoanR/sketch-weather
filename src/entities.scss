@@ -111,14 +111,14 @@
 
 .bike {
     @include entity(66px, 66px, 21px);
-    background-image: url('./assets/images/bike.gif');
+    background-image: url('./assets/images/entities/bike.gif');
 
-    &.bike-sunny {
-        background-image: linear-gradient(to left, orange, yellow)
+    &.bike-girl {
+        background-image: url('./assets/images/entities/bike_girl.gif');
     }
 
     &.bike-cold {
-        background-image: linear-gradient(to left, blue, aqua)
+        background-image: url('./assets/images/entities/bike_cold.gif');
     }
 
     &.move {
