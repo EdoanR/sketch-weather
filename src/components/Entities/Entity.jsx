@@ -77,17 +77,35 @@ export default class Entity extends Component {
     }
 
     componentDidUpdate(prevProps, prevStates) {
-        if (prevProps.weather.id !== this.props.weather.id ) this.handleWeatherUpdate(this.props.weather)
+        if (this.isWeatherChanged(prevProps.weather, this.props.weather)) this.handleWeatherUpdate(this.props.weather)
         if (prevProps.tick !== this.props.tick) this.handleTickUpdate(this.props.tick)
+    }
+
+    /** @private */
+    isWeatherChanged(prevWeather, weather) {
+        if (prevWeather.id !== weather.id ) return true;
+        if (prevWeather.tempType !== weather.tempType ) return true;
+        if (prevWeather.isRaining !== weather.isRaining ) return true;
+        if (prevWeather.isSnowing !== weather.isSnowing ) return true;
+        if (prevWeather.isDay !== weather.isDay ) return true;
+        return false;
     }
 
     /** @private */
     handleWeatherUpdate(weather) {
         const entity = this.getEntityToSpawn(weather)
 
+        if (this.baseClassName === 'person') {
+            console.log(entity, this.state.entity);
+        }
+
         if ( !entity && this.state.moving ) {
             // entity is on screen in a weather that should not spawn, so let's despawn it.
             this.startDespawn()
+        } else if (entity && this.state.entity && entity.id !== this.state.entity.id) {
+            this.setState({
+                entity
+            })
         }
     }
 
