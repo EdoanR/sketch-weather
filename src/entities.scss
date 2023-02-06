@@ -43,20 +43,12 @@
 }
 
 .car {
-    @include entity(133px, 60px);
-    background-image: url('./assets/images/car.gif');
-
-    &.car-sunny {
-        background-image: linear-gradient(to left, orange, yellow)
-    }
-
-    &.car-cold {
-        background-image: linear-gradient(to left, blue, aqua)
-    }
+    @include entity(133px, 75px);
+    background-image: url('./assets/images/entities/car.gif');
 
     &.ice-cream-truck {
         @include entity(133px, 96px);
-        background-image: url('./assets/images/entities/ice-cream-truck.gif');
+        background-image: url('./assets/images/entities/ice_cream_truck.gif');
     }
 
     &.move {
