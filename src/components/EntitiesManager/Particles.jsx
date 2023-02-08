@@ -26,23 +26,19 @@ export default class Particles extends Component {
             rot: randNumber(0, 180)
         }
 
-        let particleId = null
+        let particleId = entity.baseClassName;
 
-        const particleIndex = this.state.particles.findIndex(p => !p.active)
+        const particleIndex = this.state.particles.findIndex(p => p.id === particleId)
         if (particleIndex !== -1) {
-            // Reuse an inactivy particle
+            // Reuse particle
 
             const newParticles = [...this.state.particles]
             newParticles[particleIndex] = {...newParticles[particleIndex], ...overwrite}
-
-            particleId = newParticles[particleIndex].id
 
             this.setState({ particles: newParticles })
 
         } else {
             // Create a new particle
-
-            particleId = entity.baseClassName
 
             this.setState({
                 particles: [...this.state.particles, {
