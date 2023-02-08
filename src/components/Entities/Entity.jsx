@@ -95,10 +95,6 @@ export default class Entity extends Component {
     handleWeatherUpdate(weather) {
         const entity = this.getEntityToSpawn(weather)
 
-        if (this.baseClassName === 'person') {
-            console.log(entity, this.state.entity);
-        }
-
         if ( !entity && this.state.moving ) {
             // entity is on screen in a weather that should not spawn, so let's despawn it.
             this.startDespawn()
