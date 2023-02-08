@@ -16,6 +16,12 @@ export default class Bird extends Entity {
         
         this.baseClassName = ENTITIES_CLASS_TYPES.bird
 
+        this.setBirdSpawnConfig()
+
+        this.debugKey = '4'
+    }
+
+    setBirdSpawnConfig() {
         this.spawnChancesConfig = {
             minTime: 5000,
             maxTime: 15000,
@@ -23,7 +29,15 @@ export default class Bird extends Entity {
         }
 
         this.maxTimeOnScreen = 15000
-        this.debugKey = '4'
+    }
+
+    setOwlSpawnConfig() {
+        this.spawnChancesConfig = {
+            minTime: 10000,
+            maxTime: 20000,
+            chancePerTick: 0.055
+        }
+        this.maxTimeOnScreen = 20000
     }
 
     spawn() {
@@ -32,14 +46,21 @@ export default class Bird extends Entity {
         super.spawn();
     }
 
+    handleWeatherUpdate(weather) {
+        if (weather.isDay) {
+            this.setBirdSpawnConfig()
+        } else {
+            this.setOwlSpawnConfig();
+        }
+        this.updateSpawnChances();
+
+        super.handleWeatherUpdate(weather);
+    }
+
     getEntityToSpawn(weather) {
         if (weather.tempType < TEMP_TYPES.veryCold) return null;
-
-        if (!weather.isDay) {
-            // owl
-            return null;
-        }
-        
+        if (weather.isDay && weather.isRaining) return null;
+        if (!weather.isDay) return entities.owl;
         return entities.bird;
     }
 }

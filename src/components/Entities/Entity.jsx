@@ -61,7 +61,6 @@ export default class Entity extends Component {
         this.validate()
     }
 
-    /** @private */
     updateSpawnChances() {
         const propertiesToCheck = ['minTime', 'maxTime', 'chancePerTick']
 
@@ -91,7 +90,6 @@ export default class Entity extends Component {
         return false;
     }
 
-    /** @private */
     handleWeatherUpdate(weather) {
         const entity = this.getEntityToSpawn(weather)
 

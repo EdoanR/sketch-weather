@@ -66,6 +66,7 @@ const entities = {
         id: 'EqUQ1NREJ1qmw3pIE0ue',
         name: 'Owl',
         keyName: 'owl',
+        customClass: 'owl'
     },
     sun: {
         id: 'B4tpPHHWxKcgu2XDrHrJ',
