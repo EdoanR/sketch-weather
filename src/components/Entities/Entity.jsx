@@ -100,6 +100,8 @@ export default class Entity extends Component {
             this.setState({
                 entity
             })
+
+            this.spawnParticle()
         }
     }
 
