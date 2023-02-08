@@ -58,7 +58,7 @@ export default class Bird extends Entity {
     }
 
     getEntityToSpawn(weather) {
-        if (weather.tempType < TEMP_TYPES.veryCold) return null;
+        if (weather.tempType <= TEMP_TYPES.veryCold) return null;
         if (weather.isDay && weather.isRaining) return null;
         if (!weather.isDay) return entities.owl;
         return entities.bird;
