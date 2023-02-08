@@ -20,7 +20,7 @@ const entities = {
         id: 'K2bxX8kjEI0kYKcyaEFd',
         name: 'Girl Riding a Bike',
         customClass: 'bike-girl',
-        keyName: 'bikeSunny',
+        keyName: 'bikeGirl',
     },
     bikeCold: {
         id: 'ErkoOYYNXAQC2zMXrfnP',
@@ -49,7 +49,7 @@ const entities = {
         id: 'oO3gOqrUsIRwV1KPFRmg',
         name: 'Guy With Scarf and Umbrella',
         customClass: 'person-cold-rain',
-        keyName: 'personColdUmbrella',
+        keyName: 'personColdRainy',
     },
     personRainy: {
         id: 'KEiC3eLEptPngcKv0Vl1',
