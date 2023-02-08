@@ -91,10 +91,6 @@
     &.owl {
         @include entity(30px, 30px, 124px);
         background-image: url('./assets/images/entities/owl.gif');
-
-        &.move {
-            @include move(0.5);
-        }
     }
 
     &.move {
