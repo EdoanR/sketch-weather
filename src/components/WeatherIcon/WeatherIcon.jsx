@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import './WeatherIcon.scss';
 import icons from './icons';
+import entities from "../EntitiesList/entities";
 
 const iconWidth = 64;
 
-export default function WeatherIcon({ data }) {
+export default function WeatherIcon({ data, onEntityCollected }) {
     const [ selectedIconIndex, setSelecectedIconIndex ] = useState(-1);
 
     useEffect(() => {
@@ -29,16 +30,11 @@ export default function WeatherIcon({ data }) {
     }
 
     function handleOnClick(e) {
-        const result = prompt(`Type the name of the icon, or the index of the icon.`);
-        if (!result) return;
+        const currentIcon = icons[selectedIconIndex];
+        if (!currentIcon) return;
 
-        if (/^\d+$/.test(result)) {
-            const index = parseInt(result);
-            if (index < 0 || index >= icons.length) return alert(`Index must be from 0 to ${icons.length - 1}.`);
-
-            setSelecectedIconIndex(index);
-        } else {
-            setIcon(result.trim().toLowerCase())
+        if (currentIcon === '13n') {
+            onEntityCollected(entities.snowNight);
         }
     }
 

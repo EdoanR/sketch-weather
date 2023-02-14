@@ -84,7 +84,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
       <div className='overlay column'>
         <div className='column'>
           <div className='top-left row'>
-            <WeatherIcon data={data}/>
+            <WeatherIcon data={data} onEntityCollected={onEntityCollected}/>
             <div ref={tempElementRef} className={`temp-container row loading-anim mask-hide`}>
               <TempCounter className='temp' from={previousTemp} to={temp} />
               <div className='metric'>°C</div>
