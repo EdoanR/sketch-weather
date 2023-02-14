@@ -1,0 +1,20 @@
+
+.weather-icon-container {
+    position: relative;
+    overflow: hidden;
+
+    .icons {
+        display: flex;
+        position: absolute;
+        transition: left 2s ease-in-out;
+
+        .icon {
+            width: 64px;
+            height: 64px;
+            background-size: contain;
+        }
+    }
+
+
+}
+

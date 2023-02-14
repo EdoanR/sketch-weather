@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { getDateWithTimezoneOffset } from '../../utils'
 import EntitiesManager from '../EntitiesManager/EntitiesManager'
 import TempCounter from './TempCounter'
+import WeatherIcon from '../WeatherIcon/WeatherIcon'
 import './WeatherCard.scss'
 
 let dataLoadTimeout = null
@@ -83,7 +84,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
       <div className='overlay column'>
         <div className='column'>
           <div className='top-left row'>
-            <img className='icon' src="https://ssl.gstatic.com/onebox/weather/64/cloudy.png" alt="" />
+            <WeatherIcon data={data}/>
             <div ref={tempElementRef} className={`temp-container row loading-anim mask-hide`}>
               <TempCounter className='temp' from={previousTemp} to={temp} />
               <div className='metric'>°C</div>
