@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, createRef } from "react";
 import { lerp } from "../../utils";
 import entities from "../EntitiesList/entities";
 
@@ -12,10 +12,12 @@ export default class SunAndMoon extends Component {
             posY: 0,
             entity: entities.sun
         }
+
+        this.element = createRef()
     }
 
     componentDidMount() {
-        this.onWeatherUpdate(this.props.weather);
+        this.onWeatherUpdate(null, this.props.weather);
     }
 
     handleClick() {
@@ -25,8 +27,12 @@ export default class SunAndMoon extends Component {
 
     componentDidUpdate(prevProps, prevStates) {
         if (this.hasWeatherUpdated(prevProps.weather, this.props.weather)) {
-            this.onWeatherUpdate(this.props.weather);
-        } 
+            this.onWeatherUpdate(prevProps.weather, this.props.weather);
+        }
+
+        if (this.hasEntityUpdated(prevStates.entity, this.state.entity)) {
+            this.onEntityUpdate(prevStates.entity, this.state.entity);
+        }
     }
 
     hasWeatherUpdated(prevWeather, weather) {
@@ -37,11 +43,25 @@ export default class SunAndMoon extends Component {
         return false;
     }
 
-    onWeatherUpdate(weather) {
+    hasEntityUpdated(prevEntity, entity) {
+        if (Boolean(prevEntity) !== Boolean(entity)) return true;
+        if (prevEntity.id !== entity.id) return true;
+        return false;
+    }
+
+    onWeatherUpdate(prevWeather, weather) {
         this.setState({
             entity: weather.isDay ? entities.sun : entities.moon,
             posY: this.getPosY(weather)
         })
+    }
+
+    onEntityUpdate(prevEntity, entity) {
+        this.spawnParticle();
+    }
+
+    spawnParticle() {
+        this.props.particles.current.addParticle(this)
     }
 
     getPosY(weather) {
@@ -55,6 +75,7 @@ export default class SunAndMoon extends Component {
     render() {
         return (
             <div 
+                ref={this.element}
                 onClick={(e) => { this.handleClick(e) }}
                 className={this.baseClassName + ' ' + (this.state.entity ? this.state.entity.customClass : '')} 
                 style={{ bottom: `${this.state.posY}px` }}

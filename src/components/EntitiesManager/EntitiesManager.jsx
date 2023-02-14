@@ -32,7 +32,7 @@ export default function EntitiesManager({ weather, onEntityCollected }) {
     return (
         <div className="entities-container">
             <div className="entities-area">
-                <SunAndMoon weather={weather} onEntityCollected={onEntityCollected} />
+                <SunAndMoon particles={particlesRef} weather={weather} onEntityCollected={onEntityCollected} />
                 <Bird particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
                 <Background weather={weather} />
                 <Person particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
