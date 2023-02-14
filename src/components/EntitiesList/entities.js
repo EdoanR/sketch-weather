@@ -72,11 +72,13 @@ const entities = {
         id: 'B4tpPHHWxKcgu2XDrHrJ',
         name: 'Sun',
         keyName: 'sun',
+        customClass: 'sun'
     },
     moon: {
         id: 'NG6MFgDNLW88vqFzS230',
         name: 'Moon',
         keyName: 'moon',
+        customClass: 'moon'
     }
 }
 

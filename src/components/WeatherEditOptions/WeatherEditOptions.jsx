@@ -9,6 +9,7 @@ export default function WeatherEditOptions({ weather, onChange }) {
     const snowCheckbox = useRef();
     const dayCheckbox = useRef();
     const tempTypeInput = useRef();
+    const cycleRange = useRef();
 
     function handleToggleClick(e) {
         setIsOpen(!isOpen)
@@ -23,6 +24,7 @@ export default function WeatherEditOptions({ weather, onChange }) {
         newWeather.isSnowing = snowCheckbox.current.checked;
         newWeather.isDay = dayCheckbox.current.checked;
         newWeather.tempType = tempTypeInput.current.value;
+        newWeather.cycle = cycleRange.current.value;
 
         console.log(newWeather);
 
@@ -39,6 +41,11 @@ export default function WeatherEditOptions({ weather, onChange }) {
                     <label>
                         <span>temp type: </span>
                         <input type="number" ref={tempTypeInput} value={weather.tempType} min={1} max={5} onChange={handleOptionChange}/>
+                    </label>
+                    <label>
+                        <span>cycle: </span>
+                        <input type="range" ref={cycleRange} value={weather.cycle} min={0} max={1} step={0.05} onChange={handleOptionChange}/>
+                        <span>{weather.cycle}</span>
                     </label>
                     <label>
                         <input type="checkbox" ref={rainCheckbox} checked={weather.isRaining} onChange={handleOptionChange}/>

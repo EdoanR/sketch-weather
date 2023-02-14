@@ -17,6 +17,10 @@ export function getDateWithTimezoneOffset(timestamp) {
     return date
 }
 
+export function lerp(x, y, a) {
+    return x * (1 - a) + y * a;
+}
+
 export function isDev() {
     return !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 }

@@ -45,6 +45,7 @@
 .car {
     @include entity(133px, 75px);
     background-image: url('./assets/images/entities/car.gif');
+    z-index: 9;
 
     &.ice-cream-truck {
         @include entity(133px, 96px);
@@ -59,6 +60,7 @@
 .person {
     @include entity(42px, 56px, 38px);
     background-image: url('./assets/images/entities/person.gif');
+    z-index: 7;
 
     &.person-sunny {
         background-image: url('./assets/images/entities/person_sunny.gif');
@@ -87,6 +89,7 @@
 .bird {
     @include entity(25px, 25px, 124px);
     background-image: url('./assets/images/bird-thicc.gif');
+    z-index: 6;
 
     &.owl {
         @include entity(30px, 30px, 124px);
@@ -101,6 +104,7 @@
 .bike {
     @include entity(66px, 66px, 21px);
     background-image: url('./assets/images/entities/bike.gif');
+    z-index: 8;
 
     &.bike-girl {
         background-image: url('./assets/images/entities/bike_girl.gif');
@@ -115,14 +119,25 @@
     }
 }
 
-.tree {
-    background-image: url('./assets/images/tree.gif');
-    background-size: 100% 100%;
+// max y: bottom = 192px;
+// min y: bottom = 43px;
+.sun-moon {
+    width: 30px;
+    height: 30px;
     position: absolute;
-    top: 51px;
-    left: 239px;
-    width: 65px;
-    height: 65px;
+    bottom: 192px;
+    left: 94px;
+    background-position: center;
+    background-size: 100% 100%;
+    z-index: 4;
+
+    &.sun {
+        background-image: url('./assets/images/entities/sun.gif');
+    } 
+
+    &.moon {
+        background-image: url('./assets/images/entities/moon.gif');
+    }
 }
 
 .collectable {
@@ -138,6 +153,7 @@
     width: 120px;
     height: 120px;
     pointer-events: none;
+    z-index: 11;
 
     @include spritesheet-anim(url('../src/assets/images/particles-sprites.png'), 4, 0.2s)
 }

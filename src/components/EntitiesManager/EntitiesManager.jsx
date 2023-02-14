@@ -8,6 +8,7 @@ import Bike from '../Entities/Bike'
 import Person from '../Entities/Person'
 import Rain from '../Rain/Rain'
 import Snow from '../Snow/Snow'
+import SunAndMoon from '../Entities/SunAndMoon'
 import Background from '../Background/Background'
 
 // Time between ticks in milliseconds
@@ -31,6 +32,7 @@ export default function EntitiesManager({ weather, onEntityCollected }) {
     return (
         <div className="entities-container">
             <div className="entities-area">
+                <SunAndMoon weather={weather} onEntityCollected={onEntityCollected} />
                 <Bird particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
                 <Background weather={weather} />
                 <Person particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
@@ -65,12 +67,44 @@ export function converDataToWeather(data) {
 
     const date = getDateWithTimezoneOffset((data.dt + data.timezone) * 1000)
     const hours = date.getHours()
+    const minutes = date.getMinutes()
+
+    const time = hours * 60 + minutes // time in minutes.
+
+    // day.
+    const dayStart = 4 * 60 // from 4:00
+    const dayEnd = 18 * 60 // to 18:00
+
+    const isDay = time >= dayStart && time < dayEnd
+
+    // this is used to set the position of the moon or sun.
+    // It's a number between 0 and 1.
+    // If is sun, 0 the sun rises, 1 the sun sets, 0.5 is in the middle.
+    // Same for the moon.
+    let cycle = 0;
+
+    if (isDay) {
+        cycle = (time - dayStart) / (dayEnd - dayStart)
+    } else {
+        let t = 0;
+        if (time < dayStart) {
+            // 00:00 -> 4:00
+            t = 360 + time
+        } else {
+            // 18:00 -> 23:59
+            t = time - dayEnd;
+        }
+        
+        cycle = (t - 0) / (600 - 0)
+    }
 
     return {
         id: `${data.sys.id}${temp}`,
         temp: temp,
         tempType,
-        isDay: hours >= 4 && hours <= 17,
+        time,
+        isDay,
+        cycle,
         isRaining: Boolean(data.rain),
         isSnowing: Boolean(data.snow)
     }

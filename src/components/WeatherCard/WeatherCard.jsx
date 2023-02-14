@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { getDateWithTimezoneOffset } from '../../utils'
-import EntitiesManager, { converDataToWeather } from '../EntitiesManager/EntitiesManager'
+import EntitiesManager from '../EntitiesManager/EntitiesManager'
 import TempCounter from './TempCounter'
 import './WeatherCard.scss'
 
