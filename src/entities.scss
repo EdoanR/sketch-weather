@@ -88,7 +88,7 @@
 
 .bird {
     @include entity(25px, 25px, 124px);
-    background-image: url('./assets/images/bird-thicc.gif');
+    background-image: url('./assets/images/entities/bird.gif');
     z-index: 6;
 
     &.owl {
