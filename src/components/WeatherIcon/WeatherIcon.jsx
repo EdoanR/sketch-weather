@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import './WeatherIcon.scss';
 import icons from './icons';
-import entities from "../EntitiesList/entities";
+import entities from "../EntityList/entities";
 
 const iconWidth = 64;
 

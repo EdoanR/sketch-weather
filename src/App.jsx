@@ -6,7 +6,7 @@ import './effects.scss'
 import './App.scss'
 import SearchBar from './components/SearchBar/SearchBar';
 import WeatherCard from './components/WeatherCard/WeatherCard';
-import EntitiesProgression from './components/EntitiesProgression/EntitiesProgresson';
+import EntitiesList from './components/EntityList/EntityList';
 import WeatherEditOptions from './components/WeatherEditOptions/WeatherEditOptions';
 import { converDataToWeather } from './components/EntitiesManager/EntitiesManager';
 
@@ -61,7 +61,7 @@ export default function App() {
     <div className='App'>
       <SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
       <WeatherCard weather={weather} data={data} previousData={previousData} onEntityCollected={handleCollectedEntity} />
-      <EntitiesProgression ref={progressionRef}/>
+      <EntitiesList ref={progressionRef}/>
       <WeatherEditOptions weather={weather} onChange={ (newWeather) => { setWeather(newWeather) } } />
     </div>
   )

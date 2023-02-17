@@ -1,6 +1,6 @@
 import { Component, createRef } from "react";
 import { lerp } from "../../utils";
-import entities from "../EntitiesList/entities";
+import entities from "../EntityList/entities";
 
 export default class SunAndMoon extends Component {
     constructor(props) {

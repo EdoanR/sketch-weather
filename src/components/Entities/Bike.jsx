@@ -1,5 +1,5 @@
 import { ENTITIES_CLASS_TYPES, TEMP_TYPES } from "../../constants";
-import entities from "../EntitiesList/entities";
+import entities from "../EntityList/entities";
 import Entity from "./Entity";
 
 /**

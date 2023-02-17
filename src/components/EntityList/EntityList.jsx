@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import entities from "../EntitiesList/entities";
-import './EntitiesProgression.scss';
+import entities from "./entities";
+import './EntityList.scss';
 
 export default forwardRef((props, ref) => {
 
