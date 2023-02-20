@@ -1,17 +1,14 @@
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import entities from "./entities";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import './EntityList.scss';
 
-export default forwardRef((props, ref) => {
-
-    const [ list, setList ] = useState(entities)
+export default forwardRef(({ onListChange, entities }, ref) => {
 
     useImperativeHandle(ref, () => ({
-        onEntityCollected(entity) {
-            const newList = {...list}
+        onEntityCollected: (entity) => {
+            const newList = {...entities}
             newList[entity.keyName].collected = true
 
-            setList(newList)
+            onListChange(newList);
         }
     }));
 
@@ -19,9 +16,9 @@ export default forwardRef((props, ref) => {
 
     }
 
-    function saveList() {
+    // function saveList() {
 
-    }
+    // }
 
     useEffect(() => {
         loadList()
@@ -30,8 +27,8 @@ export default forwardRef((props, ref) => {
     return (
         <div className="entities-progression">
             {
-                Object.keys(list).map(k => {
-                    const entity = list[k]
+                Object.keys(entities).map(k => {
+                    const entity = entities[k]
                     return (
                         <div 
                             key={entity.id} 

@@ -1,5 +1,4 @@
 import { ENTITIES_CLASS_TYPES, TEMP_TYPES } from "../../constants";
-import entities from "../EntityList/entities";
 import Entity from "./Entity";
 
 /**
@@ -28,16 +27,16 @@ export default class Person extends Entity {
         if (this.isExtremeTemperature()) return null;
         
         if (weather.tempType <= TEMP_TYPES.cold) {
-            if (weather.isRaining) return entities.personColdRainy;
-            return entities.personCold;
+            if (weather.isRaining) return this.props.entities.personColdRainy;
+            return this.props.entities.personCold;
         }
 
-        if (weather.isRaining) return entities.personRainy;
+        if (weather.isRaining) return this.props.entities.personRainy;
 
         if (weather.isDay && weather.tempType >= TEMP_TYPES.sunny && Math.random() <= 0.5) {
-            return entities.personSunny;
+            return this.props.entities.personSunny;
         }
 
-        return entities.person;
+        return this.props.entities.person;
     }
 }

@@ -1,6 +1,5 @@
 import { Component, createRef } from "react";
 import { lerp } from "../../utils";
-import entities from "../EntityList/entities";
 
 export default class SunAndMoon extends Component {
     constructor(props) {
@@ -10,7 +9,7 @@ export default class SunAndMoon extends Component {
 
         this.state = {
             posY: 0,
-            entity: entities.sun
+            entity: null
         }
 
         this.element = createRef()
@@ -51,7 +50,7 @@ export default class SunAndMoon extends Component {
 
     onWeatherUpdate(prevWeather, weather) {
         this.setState({
-            entity: weather.isDay ? entities.sun : entities.moon,
+            entity: weather.isDay ? this.props.entities.sun : this.props.entities.moon,
             posY: this.getPosY(weather)
         })
     }
@@ -72,12 +71,27 @@ export default class SunAndMoon extends Component {
         return lerp(min, max, value)
     }
 
+    composeClassName() {
+        const classes = [this.baseClassName]
+
+        if (this.state.entity) {
+            if (this.state.entity.customClass) classes.push(this.state.entity.customClass)
+            if (this.state.entity.collected) {
+                classes.push('collected')
+            } else {
+                classes.push('collectable')
+            }
+        }
+
+        return classes.join(' ')
+    }
+
     render() {
         return (
             <div 
                 ref={this.element}
                 onClick={(e) => { this.handleClick(e) }}
-                className={this.baseClassName + ' ' + (this.state.entity ? this.state.entity.customClass : '')} 
+                className={this.composeClassName()} 
                 style={{ bottom: `${this.state.posY}px` }}
             />
         )

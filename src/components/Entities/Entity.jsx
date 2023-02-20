@@ -37,7 +37,11 @@ export default class Entity extends Component {
     /** @private */
     handleClick() {
         if (!this.state.entity) return
+        if (this.state.entity.collected) return
         this.props.onEntityCollected(this.state.entity)
+        this.setState({
+            entity: {...this.state.entity, collected: true}
+        })
     }
 
     componentDidMount() {
@@ -220,7 +224,14 @@ export default class Entity extends Component {
 
         if (this.props.weather.isRaining) classes.push('rain')
 
-        if (this.state.entity && this.state.entity.customClass) classes.push(this.state.entity.customClass)
+        if (this.state.entity) {
+            if (this.state.entity.customClass) classes.push(this.state.entity.customClass)
+            if (this.state.entity.collected) {
+                classes.push('collected')
+            } else {
+                classes.push('collectable')
+            }
+        }
 
         if (this.state.fadeDespawnAnim) classes.push('fade')
 

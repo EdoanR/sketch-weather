@@ -7,7 +7,7 @@ import './WeatherCard.scss'
 
 let dataLoadTimeout = null
 
-export default function WeatherCard({ data, weather, previousData, onEntityCollected }) {
+export default function WeatherCard({ data, weather, previousData, onEntityCollected, entities }) {
 
   const [location, setLocation] = useState('')
   const [temp, setTemp] = useState(0)
@@ -79,12 +79,12 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
   return (
     <div className='weather-card border-anim'>
 
-      { weather && <EntitiesManager weather={weather} onEntityCollected={onEntityCollected} /> }
+      { weather && <EntitiesManager weather={weather} onEntityCollected={onEntityCollected} entities={entities} /> }
 
       <div className='overlay column'>
         <div className='column'>
           <div className='top-left row'>
-            <WeatherIcon data={data} onEntityCollected={onEntityCollected}/>
+            <WeatherIcon data={data} onEntityCollected={onEntityCollected} entities={entities}/>
             <div ref={tempElementRef} className={`temp-container row loading-anim mask-hide`}>
               <TempCounter className='temp' from={previousTemp} to={temp} />
               <div className='metric'>°C</div>

@@ -1,5 +1,4 @@
 import { ENTITIES_CLASS_TYPES, TEMP_TYPES } from "../../constants";
-import entities from "../EntityList/entities";
 import Entity from "./Entity";
 
 /**
@@ -27,9 +26,9 @@ export default class Car extends Entity {
         if (this.isExtremeTemperature()) return null;
 
         if (weather.isDay && !weather.isRaining && weather.tempType >= TEMP_TYPES.sunny && Math.random() <= 0.3) {
-            return entities.iceCreamTruck;
+            return this.props.entities.iceCreamTruck;
         }
 
-        return entities.car;
+        return this.props.entities.car;
     }
 }

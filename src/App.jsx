@@ -9,16 +9,19 @@ import WeatherCard from './components/WeatherCard/WeatherCard';
 import EntitiesList from './components/EntityList/EntityList';
 import WeatherEditOptions from './components/WeatherEditOptions/WeatherEditOptions';
 import { converDataToWeather } from './components/EntitiesManager/EntitiesManager';
+import defaultEntitiesList from './components/EntityList/entities';
 
 export default function App() {
+
+  // TODO: fix searching for continent showing as undefined country.
 
   const [ weather, setWeather ] = useState()
   const [ data, setData ] = useState()
   const [ previousData, setPreviousData ] = useState()
-  // const [ history, setHistory ] = useState([])
+  const [ entities, setEntities ] = useState(defaultEntitiesList)
 
   const inputRef = useRef()
-  const progressionRef = useRef()
+  const entityListRef = useRef()
 
   function searchWeather(search) {
     if (!search) return
@@ -54,14 +57,18 @@ export default function App() {
   }
 
   function handleCollectedEntity(entity) {
-    progressionRef.current.onEntityCollected(entity)
+    entityListRef.current.onEntityCollected(entity)
+  }
+
+  function handleEntityListChange(newList) {
+    setEntities(newList)
   }
 
   return (
     <div className='App'>
       <SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
-      <WeatherCard weather={weather} data={data} previousData={previousData} onEntityCollected={handleCollectedEntity} />
-      <EntitiesList ref={progressionRef}/>
+      <WeatherCard weather={weather} data={data} entities={entities} previousData={previousData} onEntityCollected={handleCollectedEntity} />
+      <EntitiesList ref={entityListRef} entities={entities} onListChange={handleEntityListChange}/>
       <WeatherEditOptions weather={weather} onChange={ (newWeather) => { setWeather(newWeather) } } />
     </div>
   )

@@ -14,7 +14,7 @@ import Background from '../Background/Background'
 // Time between ticks in milliseconds
 const tickInterval = 1000
 
-export default function EntitiesManager({ weather, onEntityCollected }) {
+export default function EntitiesManager({ weather, onEntityCollected, entities }) {
 
     const [tick, setTick] = useState(Date.now())
     const particlesRef = useRef()
@@ -32,12 +32,12 @@ export default function EntitiesManager({ weather, onEntityCollected }) {
     return (
         <div className="entities-container">
             <div className="entities-area">
-                <SunAndMoon particles={particlesRef} weather={weather} onEntityCollected={onEntityCollected} />
-                <Bird particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
+                <SunAndMoon particles={particlesRef} weather={weather} onEntityCollected={onEntityCollected} entities={entities} />
+                <Bird particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} entities={entities} />
                 <Background weather={weather} />
-                <Person particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
-                <Bike particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
-                <Car particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} />
+                <Person particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} entities={entities} />
+                <Bike particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} entities={entities} />
+                <Car particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} entities={entities} />
                 <Rain weather={weather}/>
                 <Snow weather={weather}/>
                 {particlesMemo}
