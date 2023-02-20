@@ -6,8 +6,6 @@ const iconWidth = 64;
 
 export default function WeatherIcon({ data, onEntityCollected, entities }) {
     const [ selectedIconIndex, setSelecectedIconIndex ] = useState(-1);
-    const [ collectable, setCollectable ] = useState(false);
-    const [ collected, setCollected ] = useState(false);
 
     useEffect(() => {
         if (!data || data.loading) return;
@@ -23,19 +21,6 @@ export default function WeatherIcon({ data, onEntityCollected, entities }) {
         const index = icons.findIndex(ic => ic === icon);
         if (index === -1) return console.log(`Could not find icon named "${icon}"`);
 
-        if (icons[index] === '13n') {
-            if (entities.snowNight.collected) {
-                setCollectable(false)
-                setCollected(true)
-            } else {
-                setCollected(false)
-                setCollectable(true)
-            }
-        } else {
-            setCollectable(false)
-            setCollected(false)
-        }
-
         setSelecectedIconIndex(index);
     }
 
@@ -45,13 +30,17 @@ export default function WeatherIcon({ data, onEntityCollected, entities }) {
 
     function handleOnClick(e) {
         const currentIcon = icons[selectedIconIndex];
+        const clickedIcon = e.target.id;
         if (!currentIcon) return;
+        if (clickedIcon !== currentIcon) return;
 
-        if (currentIcon === '13n') {
-            onEntityCollected(entities.snowNight);
-            setCollectable(false)
-            setCollected(true)
-        }
+        const entity = getEntityFromIcon(currentIcon);
+        if (entity) onEntityCollected(entity);
+    }
+
+    function getEntityFromIcon(icon) {
+        if (icon === '13n') return entities.snowNight;
+        return null
     }
 
     return (
@@ -63,23 +52,28 @@ export default function WeatherIcon({ data, onEntityCollected, entities }) {
             }}
         >
             <div 
-                className={"icons" + (collected ? ' collected' : '') + (collectable ? ' collectable' : '')} 
+                className="icons"
                 style={{ left: (selectedIconIndex * -iconWidth) + 'px' }}
-                onClick={(e) => handleOnClick(e)}
             >
                 {
-                    icons.map(icon => (
-                        <div 
-                            className='icon' 
+                    icons.map(icon => {
+                        let className = 'icon'
+                        const entity = getEntityFromIcon(icon)
+
+                        if (entity) className += ' ' + (entity.collected ? 'collected' : 'collectable');
+
+                        return <div 
+                            className={className}
                             id={icon}
                             key={icon} 
+                            onClick={(e) => handleOnClick(e)}
                             style={{ 
                                 width: iconWidth + 'px',
                                 height: iconWidth + 'px',
                                 backgroundImage: `url(${getIconUrl(icon)})`
                             }} 
                         />
-                    ))
+                    })
                 }
             </div>
         </div>
