@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import './WeatherIcon.scss';
 import icons from './icons';
-import entities from "../EntityList/entities";
 
 const iconWidth = 64;
 
-export default function WeatherIcon({ data, onEntityCollected }) {
+export default function WeatherIcon({ data, onEntityCollected, entities }) {
     const [ selectedIconIndex, setSelecectedIconIndex ] = useState(-1);
+    const [ collectable, setCollectable ] = useState(false);
+    const [ collected, setCollected ] = useState(false);
 
     useEffect(() => {
         if (!data || data.loading) return;
@@ -22,6 +23,19 @@ export default function WeatherIcon({ data, onEntityCollected }) {
         const index = icons.findIndex(ic => ic === icon);
         if (index === -1) return console.log(`Could not find icon named "${icon}"`);
 
+        if (icons[index] === '13n') {
+            if (entities.snowNight.collected) {
+                setCollectable(false)
+                setCollected(true)
+            } else {
+                setCollected(false)
+                setCollectable(true)
+            }
+        } else {
+            setCollectable(false)
+            setCollected(false)
+        }
+
         setSelecectedIconIndex(index);
     }
 
@@ -35,6 +49,8 @@ export default function WeatherIcon({ data, onEntityCollected }) {
 
         if (currentIcon === '13n') {
             onEntityCollected(entities.snowNight);
+            setCollectable(false)
+            setCollected(true)
         }
     }
 
@@ -47,7 +63,7 @@ export default function WeatherIcon({ data, onEntityCollected }) {
             }}
         >
             <div 
-                className="icons" 
+                className={"icons" + (collected ? ' collected' : '') + (collectable ? ' collectable' : '')} 
                 style={{ left: (selectedIconIndex * -iconWidth) + 'px' }}
                 onClick={(e) => handleOnClick(e)}
             >
