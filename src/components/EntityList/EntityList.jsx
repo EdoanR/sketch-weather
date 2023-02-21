@@ -1,12 +1,17 @@
+import { useState } from "react";
 import { forwardRef, useEffect, useImperativeHandle } from "react";
 import './EntityList.scss';
 
 export default forwardRef(({ onListChange, entities }, ref) => {
 
+    const [ hasCollected, setHasCollected ] = useState(false);
+
     useImperativeHandle(ref, () => ({
         onEntityCollected: (entity) => {
             const newList = {...entities}
             newList[entity.keyName].collected = true
+
+            setHasCollected(true);
 
             onListChange(newList);
         }
@@ -24,8 +29,10 @@ export default forwardRef(({ onListChange, entities }, ref) => {
         loadList()
     }, [])
 
+    if (!hasCollected) return null;
+
     return (
-        <div className="entities-progression">
+        <div className="entity-list">
             {
                 Object.keys(entities).map(k => {
                     const entity = entities[k]
