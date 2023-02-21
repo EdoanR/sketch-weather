@@ -10,6 +10,7 @@ import EntitiesList from './components/EntityList/EntityList';
 import WeatherEditOptions from './components/WeatherEditOptions/WeatherEditOptions';
 import { converDataToWeather } from './components/EntitiesManager/EntitiesManager';
 import defaultEntitiesList from './components/EntityList/entities';
+import PreviousWeathers from './components/PreviousWeathers/PreviousWeathers';
 
 export default function App() {
 
@@ -23,7 +24,7 @@ export default function App() {
   const inputRef = useRef()
   const entityListRef = useRef()
 
-  function searchWeather(search) {
+  function searchData(search) {
     if (!search) return
 
     setData({ loading: true })
@@ -53,7 +54,7 @@ export default function App() {
   function handleOnSearch(e) {
     e.preventDefault()
 
-    searchWeather(inputRef.current.value)
+    searchData(inputRef.current.value)
   }
 
   function handleCollectedEntity(entity) {
@@ -68,6 +69,7 @@ export default function App() {
     <div className='App'>
       <SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
       <WeatherCard weather={weather} data={data} entities={entities} previousData={previousData} onEntityCollected={handleCollectedEntity} />
+      <PreviousWeathers data={data} searchData={searchData} />
       <EntitiesList ref={entityListRef} entities={entities} onListChange={handleEntityListChange}/>
       <WeatherEditOptions weather={weather} onChange={ (newWeather) => { setWeather(newWeather) } } />
     </div>

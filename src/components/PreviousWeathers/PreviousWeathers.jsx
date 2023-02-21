@@ -1,32 +1,69 @@
-import './PreviousWeathers.scss'
+import { useEffect, useState } from "react";
+import './PreviousWeathers.scss';
 
-function PreviousWeatherItem({ data, onHistoryClick }) {
-    return (
-        <div className='weather-mini-card column border-anim-hover' onClick={ (e) => { onHistoryClick(data) } }>
-            <div className='column'>
-                <div className='top row'>
-                    <img className='icon' src="https://ssl.gstatic.com/onebox/weather/64/cloudy.png" alt="" />
-                    <div className='temp-container row'>
-                    <div className='temp'>{Math.round(data.main.temp)}</div>
-                    <div className='metric'>°C</div>
-                    </div>
-                </div>
-                <div className='bottom column'>
-                    <div className='location'>{data.name}, {data.sys.country}</div>
-                </div>
-            </div>
-        </div>
-    )
-}
+function PreviousWeathers({ data, max, searchData }) {
 
-export default function PreviousWeathers({ history, onHistoryClick }) {
+    const [ prevDatasList, setPrevDatasList ] = useState([]);
+    const [ prevData, setPrevData ] = useState(data);
+
+    useEffect(() => {
+        if (!data) return;
+        if (data.loading) return;
+        if (data.cod !== 200) return;
+
+        if (prevData && data.id !== prevData.id) {
+
+            let newPrevDatas = [];
+
+            const searchDataIndex = prevDatasList.findIndex(d => d.id === prevData.id);
+            if (searchDataIndex !== -1) {
+                // Same city/state/country was already added to it, so let's just update it.
+
+                newPrevDatas = [...prevDatasList];
+                newPrevDatas[searchDataIndex] = prevData;
+            } else {
+                newPrevDatas = [prevData, ...prevDatasList];
+                if (newPrevDatas.length > max) newPrevDatas.pop()
+            }
+            
+            setPrevDatasList(newPrevDatas);
+        }
+
+        setPrevData(data);
+    }, [data]);
+
+    if (prevDatasList.length === 0) return null;
+
     return (
-        <div className="weather-history row">
+        <div className="previous-weathers">
             {
-                history.map(data => {
-                    return <PreviousWeatherItem key={data.sys.id} data={data} onHistoryClick={onHistoryClick}/>
+                prevDatasList.map(d => {
+                    const location = d.name + (d.sys.country ? ', ' + d.sys.country : '');
+                    const iconUrl = `/images/icons/static/${d.weather[0].icon}.png`;
+
+                    return (
+                        <div 
+                            key={d.id} 
+                            className='border-anim-hover'
+                            onClick={() => { 
+                                searchData(location) 
+                            }}>
+                                <div className="info">
+                                    <div className="icon" style={{ backgroundImage: `url(${iconUrl})` }}/>
+                                    <div className="temp">{Math.floor(d.main.temp)} °C</div>
+                                </div>
+                                <div className="location">{location}</div>
+                        </div>
+                    );
                 })
             }
         </div>
     )
 }
+
+PreviousWeathers.defaultProps = {
+    data: null,
+    max: 3
+}
+
+export default PreviousWeathers;
