@@ -38,7 +38,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
           setTemp(Math.floor(data.main.temp))
           setPreviousTemp(previousData && previousData.main ? Math.floor(previousData.main.temp) : Math.floor(data.main.temp))
           
-          setLocation(`${data.name}, ${data.sys.country}`)
+          setLocation(`${data.name}${data.sys.country ? ', ' + data.sys.country : ''}`)
           setDescription(data.weather[0].description)
 
           const date = getDateWithTimezoneOffset((data.dt + data.timezone) * 1000)
