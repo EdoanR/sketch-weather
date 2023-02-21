@@ -99,6 +99,10 @@
     &.move {
         @include move(0.65);
     }
+
+    &.collected {
+        filter: brightness(1.6);
+    }
 }
 
 .bike {
@@ -145,6 +149,7 @@
 }
 
 .collected {
+    pointer-events: none;
     filter: brightness(1.2);
 }
 
