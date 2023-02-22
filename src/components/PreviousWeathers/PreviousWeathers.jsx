@@ -30,7 +30,7 @@ function PreviousWeathers({ data, max, searchData }) {
         }
 
         setPrevData(data);
-    }, [data]);
+    }, [data, max, prevData, prevDatasList]);
 
     if (prevDatasList.length === 0) return null;
 
