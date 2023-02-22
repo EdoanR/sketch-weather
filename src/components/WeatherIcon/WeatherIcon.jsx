@@ -3,6 +3,7 @@ import './WeatherIcon.scss';
 import icons from './icons';
 
 const iconWidth = 64;
+let isFirstIcon = true;
 
 export default function WeatherIcon({ data, onEntityCollected, entities }) {
     const [ selectedIconIndex, setSelecectedIconIndex ] = useState(-1);
@@ -10,12 +11,14 @@ export default function WeatherIcon({ data, onEntityCollected, entities }) {
     useEffect(() => {
         if (!data || data.loading) return;
 
+        if (selectedIconIndex !== -1) isFirstIcon = false;
+
         if (data.cod !== 200) {
             setIcon('city_not_found');
         } else {
             setIcon(data.weather[0].icon);
         }
-    }, [data]);
+    }, [data, selectedIconIndex]);
 
     function setIcon(icon) {
         const index = icons.findIndex(ic => ic === icon);
@@ -53,7 +56,10 @@ export default function WeatherIcon({ data, onEntityCollected, entities }) {
         >
             <div 
                 className="icons"
-                style={{ left: (selectedIconIndex * -iconWidth) + 'px' }}
+                style={{ 
+                    left: (selectedIconIndex * -iconWidth) + 'px',
+                    transitionDuration: isFirstIcon ? '0s' : '' 
+                }}
             >
                 {
                     icons.map(icon => {
