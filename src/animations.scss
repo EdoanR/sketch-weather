@@ -6,11 +6,11 @@
 
 .border-anim-hover {
     border: 12px solid transparent;
-    border-image: url('./assets/border/border-round-0.png') 40 round;
-    
+    border-image-slice: 40;
+    border-image-source: url('./assets/border/border-round-0.png');
 
     &:hover {
-        animation: border 1.5s step-end infinite;
+        border-image-source: url('./assets/border/border-round.gif');
     }
 }
 
