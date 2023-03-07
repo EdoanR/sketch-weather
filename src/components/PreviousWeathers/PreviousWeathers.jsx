@@ -34,6 +34,10 @@ function PreviousWeathers({ data, max, searchData }) {
 
     if (prevDatasList.length === 0) return null;
 
+    function handleAnimationEnd(e) {
+        e.target.classList.remove('pop-anim');
+    }
+
     return (
         <div className="previous-weathers">
             {
@@ -44,10 +48,10 @@ function PreviousWeathers({ data, max, searchData }) {
                     return (
                         <div 
                             key={d.id} 
-                            className='border-anim-hover'
-                            onClick={() => { 
-                                searchData(location) 
-                            }}>
+                            className='border-anim-hover pop-anim'
+                            onClick={() => ( searchData(location) )}
+                            onAnimationEnd={ handleAnimationEnd }
+                            >
                                 <div className="info">
                                     <div className="icon" style={{ backgroundImage: `url(${iconUrl})` }}/>
                                     <div className="temp">{Math.floor(d.main.temp)} °C</div>
