@@ -1,0 +1,34 @@
+
+.config-sidebar {
+    position: fixed;
+    background-color: #202124;
+    top: 0;
+    left: -100%;
+    // width: 0%;
+    max-width: 50%;
+    height: 100%;
+    transition: left 0.5s ease-in-out;
+    overflow: hidden;
+    border-right: solid white 1px;
+
+    &.open {
+        left: 0;
+    }
+}
+
+.backdrop {
+    position: fixed;
+    background-color: black;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+
+    &.open {
+        opacity: 0.5;
+        pointer-events: all;
+    }
+}

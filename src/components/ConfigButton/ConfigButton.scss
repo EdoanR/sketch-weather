@@ -1,0 +1,21 @@
+
+.config-button {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    .cog-icon {
+        width: 30px;
+        height: 30px;
+        background-image: url('../../../public/images/icons/static/cog.png');
+        background-size: cover;
+        background-position: center;
+    }
+
+    &:hover .cog-icon {
+        background-image: url('../../../public/images/icons/animated/cog.gif');
+    }
+}

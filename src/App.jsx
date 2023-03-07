@@ -8,9 +8,12 @@ import SearchBar from './components/SearchBar/SearchBar';
 import WeatherCard from './components/WeatherCard/WeatherCard';
 import EntitiesList from './components/EntityList/EntityList';
 import WeatherEditOptions from './components/WeatherEditOptions/WeatherEditOptions';
-import { converDataToWeather } from './components/EntitiesManager/EntitiesManager';
 import defaultEntitiesList from './components/EntityList/entities';
 import PreviousWeathers from './components/PreviousWeathers/PreviousWeathers';
+import ConfigButton from './components/ConfigButton/ConfigButton';
+import ConfigSideBar from './components/ConfigSideBar/ConfigSideBar';
+import { converDataToWeather } from './components/EntitiesManager/EntitiesManager';
+import { useEffect } from 'react';
 
 export default function App() {
 
@@ -20,6 +23,7 @@ export default function App() {
   const [ data, setData ] = useState()
   const [ previousData, setPreviousData ] = useState()
   const [ entities, setEntities ] = useState(defaultEntitiesList)
+  const [ configOpen, setConfigOpen ] = useState(false);
 
   const inputRef = useRef()
   const entityListRef = useRef()
@@ -65,13 +69,39 @@ export default function App() {
     setEntities(newList)
   }
 
+  function handleConfigButtonClick() {
+    setConfigOpen(true);
+  }
+
+  function handleConfigClose() {
+    setConfigOpen(false);
+  }
+
+  useEffect(() => {
+    function handleKeyDown(event) {
+      if (event.key === "q") {
+        setConfigOpen(prevState => !prevState)
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [])
+
   return (
     <div className='App'>
       <SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
       <WeatherCard weather={weather} data={data} entities={entities} previousData={previousData} onEntityCollected={handleCollectedEntity} />
       <PreviousWeathers data={data} searchData={searchData} />
       <EntitiesList ref={entityListRef} entities={entities} onListChange={handleEntityListChange}/>
-      <WeatherEditOptions weather={weather} onChange={ (newWeather) => { setWeather(newWeather) } } />
+      <div className='top-left-buttons'>
+        <ConfigButton onClick={handleConfigButtonClick}/>
+        {/* <WeatherEditOptions weather={weather} onChange={ (newWeather) => { setWeather(newWeather) } } /> */}
+      </div>
+      <ConfigSideBar configOpen={configOpen} onConfigClose={handleConfigClose}/>
     </div>
   )
 };

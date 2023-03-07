@@ -33,3 +33,11 @@ body {
     align-items: center;
     flex-direction: column;
 }
+
+.top-left-buttons {
+    position: fixed;
+    display: flex;
+    gap: 0.25em;
+    top: 0.25em;
+    left: 0.25em;
+}
