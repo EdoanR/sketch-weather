@@ -4,6 +4,7 @@ $search-bar-b-radius: 0.5em;
 .search-bar {
     display: flex;
     height: 3em;
+    min-height: 48px;
     margin-top: 3em;
     max-width: 400px;
     width: 100%;
@@ -13,7 +14,7 @@ $search-bar-b-radius: 0.5em;
         flex-grow: 1;
         background-color: transparent;
         font-family: inherit;
-        font-size: 1.2em;
+        font-size: 1.2rem;
         color: white;
         border-radius: 0;
         border-top-left-radius: $search-bar-b-radius;
