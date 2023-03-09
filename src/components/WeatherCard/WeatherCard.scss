@@ -96,12 +96,20 @@
     position: relative;
     display: flex;
     margin-top: 2em;
-    width: 100%;
-    max-width: 690px;
-    min-width: 496px;
-    height: 230px;
-    padding: 0.25em;
     font-size: 1.1rem;
+    padding: 0.25em;
+
+    @media (min-width: 512px) {
+        width: 100%;
+        max-width: 690px;
+        min-width: 496px;
+        height: 230px;
+    }
+
+    @media (max-width: 512px) {
+        width: 375px;
+        flex-direction: column;
+    }
 
     .left-area {
         flex-grow: 1;
@@ -143,6 +151,10 @@
         width: 339px;
         min-width: 339px;
         height: 100%;
+
+        @media (max-width: 512px) {
+            height: 197px;
+        }
 
         .entities-container {
             position: relative;
