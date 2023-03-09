@@ -10,8 +10,7 @@ import EntitiesList from './components/EntityList/EntityList';
 import WeatherEditOptions from './components/WeatherEditOptions/WeatherEditOptions';
 import defaultEntitiesList from './components/EntityList/entities';
 import PreviousWeathers from './components/PreviousWeathers/PreviousWeathers';
-import ConfigButton from './components/ConfigButton/ConfigButton';
-import ConfigSideBar from './components/ConfigSideBar/ConfigSideBar';
+import FontButton from './components/FontButton/FontButton';
 import { converDataToWeather } from './components/EntitiesManager/EntitiesManager';
 import { useEffect } from 'react';
 
@@ -98,10 +97,9 @@ export default function App() {
       <PreviousWeathers data={data} searchData={searchData} />
       <EntitiesList ref={entityListRef} entities={entities} onListChange={handleEntityListChange}/>
       <div className='top-left-buttons'>
-        <ConfigButton onClick={handleConfigButtonClick}/>
+        <FontButton />
         {/* <WeatherEditOptions weather={weather} onChange={ (newWeather) => { setWeather(newWeather) } } /> */}
       </div>
-      <ConfigSideBar configOpen={configOpen} onConfigClose={handleConfigClose}/>
     </div>
   )
 };
