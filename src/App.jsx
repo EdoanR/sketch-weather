@@ -7,12 +7,11 @@ import './App.scss'
 import SearchBar from './components/SearchBar/SearchBar';
 import WeatherCard from './components/WeatherCard/WeatherCard';
 import EntitiesList from './components/EntityList/EntityList';
-import WeatherEditOptions from './components/WeatherEditOptions/WeatherEditOptions';
+// import WeatherEditOptions from './components/WeatherEditOptions/WeatherEditOptions';
 import defaultEntitiesList from './components/EntityList/entities';
 import PreviousWeathers from './components/PreviousWeathers/PreviousWeathers';
 import FontButton from './components/FontButton/FontButton';
 import { converDataToWeather } from './components/EntitiesManager/EntitiesManager';
-import { useEffect } from 'react';
 
 export default function App() {
 
@@ -22,7 +21,6 @@ export default function App() {
   const [ data, setData ] = useState()
   const [ previousData, setPreviousData ] = useState()
   const [ entities, setEntities ] = useState(defaultEntitiesList)
-  const [ configOpen, setConfigOpen ] = useState(false);
 
   const inputRef = useRef()
   const entityListRef = useRef()
@@ -67,28 +65,6 @@ export default function App() {
   function handleEntityListChange(newList) {
     setEntities(newList)
   }
-
-  function handleConfigButtonClick() {
-    setConfigOpen(true);
-  }
-
-  function handleConfigClose() {
-    setConfigOpen(false);
-  }
-
-  useEffect(() => {
-    function handleKeyDown(event) {
-      if (event.key === "q") {
-        setConfigOpen(prevState => !prevState)
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [])
 
   return (
     <div className='App'>

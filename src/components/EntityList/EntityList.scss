@@ -8,30 +8,48 @@
     margin-left: 5em;
     margin-right: 5em;
     margin-top: 2.5em;
+}
 
-    > div {
-        width: 100px;
-        height: 120px;
-
-        > div {
-            width: 100%;
-            height: 100%;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-    }
+.entity-container {
+    position: relative;
+    width: 100px;
+    height: 120px;
 }
 
 .entity-item {
 
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    gap: 2px;
+    width: 100px;
+    height: 100%;
+    overflow: hidden;
+    transition: width 0.5s ease-in-out;
+    background-color: #202124;
+
+    &:hover {
+        z-index: 99;
+    }
+
     .item-icon {
+        min-width: 76px;
+        height: 96px;
         opacity: 0.65;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
 
         &.collected {
             opacity: 1;
             filter: brightness(1.1);
         }
+    }
+
+    .tips {
+        display: flex;
+        flex-direction: column;
     }
 
     .item-car { background-image: url('../../../public/images/icons/entities/car.png'); }
