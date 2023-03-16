@@ -25,7 +25,7 @@ export default class Car extends Entity {
     getEntityToSpawn(weather) {
         if (this.isExtremeTemperature()) return null;
 
-        if (weather.isDay && !weather.isRaining && weather.tempType >= TEMP_TYPES.sunny && Math.random() <= 0.3) {
+        if (weather.isDay && !weather.isRaining && !weather.isSnowing && weather.tempType >= TEMP_TYPES.sunny && Math.random() <= 0.3) {
             return this.props.entities.iceCreamTruck;
         }
 
