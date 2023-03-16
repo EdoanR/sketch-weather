@@ -14,7 +14,7 @@ export default function WeatherIcon({ data, onEntityCollected, entities }) {
         if (selectedIconIndex !== -1) isFirstIcon = false;
 
         if (data.cod !== 200) {
-            setIcon('city_not_found');
+            setIcon('not_found');
         } else {
             setIcon(data.weather[0].icon);
         }
@@ -28,7 +28,7 @@ export default function WeatherIcon({ data, onEntityCollected, entities }) {
     }
 
     function getIconUrl(icon) {
-        return `/images/icons/animated/${icon}.gif`;
+        return `/images/icons/animated/weathers/${icon}.gif`;
     }
 
     function handleOnClick(e) {

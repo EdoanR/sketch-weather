@@ -18,7 +18,7 @@ const icons = [
     '13n',
     '50d',
     '50n',
-    'city_not_found'
+    'not_found'
  ]
 
 export default icons

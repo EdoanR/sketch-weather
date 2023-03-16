@@ -43,7 +43,7 @@ function PreviousWeathers({ data, max, searchData }) {
             {
                 prevDatasList.map(d => {
                     const location = d.name + (d.sys.country ? ', ' + d.sys.country : '');
-                    const iconUrl = `/images/icons/static/${d.weather[0].icon}.png`;
+                    const iconUrl = `/images/icons/static/weathers/${d.weather[0].icon}.png`;
 
                     return (
                         <div 
