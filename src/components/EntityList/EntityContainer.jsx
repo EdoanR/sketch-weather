@@ -28,6 +28,8 @@ export default function EntityContainer({ entity }) {
         return selfElementRef.current.parentElement.children.length;
     }
 
+    console.log(entity.icon, entity.iconAnimated);
+
     return (
         <div 
             ref={selfElementRef} 
@@ -42,7 +44,11 @@ export default function EntityContainer({ entity }) {
                 onMouseLeave={HandleMouseLeave}
                 onTransitionEnd={HandleTransitionEnd}
             >
-                <div className={'item-icon item-' + entity.keyName + (entity.collected ? ' collected' : '')}></div>
+                <div 
+                    className={'item-icon' + (entity.collected ? ' collected' : '')}
+                    style={{ backgroundImage: `url(${hovering ? entity.iconAnimated : entity.icon})` }}
+                ></div>
+
                 <div className="tips">
                     <div>{entity.id}</div>
                     <div>{entity.name}</div>

@@ -51,39 +51,4 @@
         display: flex;
         flex-direction: column;
     }
-
-    .item-car { background-image: url('../../../public/images/icons/entities/car.png'); }
-    .item-iceCreamTruck { background-image: url('../../../public/images/icons/entities/ice_cream_truck.png'); }
-    .item-bike { background-image: url('../../../public/images/icons/entities/bike.png'); }
-    .item-bikeGirl { background-image: url('../../../public/images/icons/entities/bike_girl.png'); }
-    .item-bikeCold { background-image: url('../../../public/images/icons/entities/bike_cold.png'); }
-    .item-person { background-image: url('../../../public/images/icons/entities/person.png'); }
-    .item-personSunny { background-image: url('../../../public/images/icons/entities/person_sunny.png'); }
-    .item-personCold { background-image: url('../../../public/images/icons/entities/person_cold.png'); }
-    .item-personColdRainy { background-image: url('../../../public/images/icons/entities/person_cold_rain.png'); }
-    .item-personRainy { background-image: url('../../../public/images/icons/entities/person_rain.png'); }
-    .item-bird { background-image: url('../../../public/images/icons/entities/bird.png'); }
-    .item-owl { background-image: url('../../../public/images/icons/entities/owl.png'); }
-    .item-sun { background-image: url('../../../public/images/icons/entities/sun.png'); }
-    .item-moon { background-image: url('../../../public/images/icons/entities/moon.png'); }
-    .item-snowNight { background-image: url('../../../public/images/icons/entities/snow_night.png'); }
-
-    &:hover {
-        .item-car { background-image: url('../../assets/images/entities/car.gif'); }
-        .item-iceCreamTruck { background-image: url('../../assets/images/entities/ice_cream_truck.gif'); }
-        .item-bike { background-image: url('../../assets/images/entities/bike.gif'); }
-        .item-bikeGirl { background-image: url('../../assets/images/entities/bike_girl.gif'); }
-        .item-bikeCold { background-image: url('../../assets/images/entities/bike_cold.gif'); }
-        .item-person { background-image: url('../../assets/images/entities/person.gif'); }
-        .item-personSunny { background-image: url('../../assets/images/entities/person_sunny.gif'); }
-        .item-personCold { background-image: url('../../assets/images/entities/person_cold.gif'); }
-        .item-personColdRainy { background-image: url('../../assets/images/entities/person_cold_rain.gif'); }
-        .item-personRainy { background-image: url('../../assets/images/entities/person_rain.gif'); }
-        .item-bird { background-image: url('../../assets/images/entities/bird.gif'); }
-        .item-owl { background-image: url('../../assets/images/entities/owl.gif'); }
-        .item-sun { background-image: url('../../assets/images/entities/sun.gif'); }
-        .item-moon { background-image: url('../../assets/images/entities/moon.gif'); }
-        .item-snowNight { background-image: url('../../../public/images/icons/animated/weathers/13n.gif'); }
-    }
-
 }
