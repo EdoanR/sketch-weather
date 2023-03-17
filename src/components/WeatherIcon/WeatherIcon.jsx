@@ -66,7 +66,7 @@ export default function WeatherIcon({ data, onEntityCollected, entities }) {
                         let className = 'icon'
                         const entity = getEntityFromIcon(icon)
 
-                        if (entity) className += ' ' + (entity.collected ? 'collected' : 'collectable');
+                        if (entity) className += ' entity-' + entity.keyName + ' ' + (entity.collected ? 'collected' : 'collectable');
 
                         return <div 
                             className={className}

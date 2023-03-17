@@ -28,8 +28,6 @@ export default function EntityContainer({ entity }) {
         return selfElementRef.current.parentElement.children.length;
     }
 
-    console.log(entity.icon, entity.iconAnimated);
-
     return (
         <div 
             ref={selfElementRef} 

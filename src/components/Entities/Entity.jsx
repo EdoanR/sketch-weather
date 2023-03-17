@@ -225,6 +225,8 @@ export default class Entity extends Component {
         if (this.props.weather.isRaining) classes.push('rain')
 
         if (this.state.entity) {
+            classes.push(`entity-${this.state.entity.keyName}`);
+            
             if (this.state.entity.customClass) classes.push(this.state.entity.customClass)
             if (this.state.entity.collected) {
                 classes.push('collected')

@@ -75,6 +75,8 @@ export default class SunAndMoon extends Component {
         const classes = [this.baseClassName]
 
         if (this.state.entity) {
+            classes.push(`entity-${this.state.entity.keyName}`);
+            
             if (this.state.entity.customClass) classes.push(this.state.entity.customClass)
             if (this.state.entity.collected) {
                 classes.push('collected')
