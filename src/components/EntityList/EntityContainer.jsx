@@ -1,11 +1,11 @@
 import { useState, useRef } from "react";
+import EntityBubble from "./EntityBubble";
 
 export default function EntityContainer({ entity }) {
     const selfElementRef = useRef();
     const itemElementRef = useRef();
     const [ hovering, setHovering ] = useState(false);
     const [ inFront, setInFront ] = useState(false);
-
 
     function HandleMouseEnter(e) {
         setHovering(true);
@@ -34,6 +34,7 @@ export default function EntityContainer({ entity }) {
             style={inFront ? { zIndex: 99 + getParentChildCount() - getChildIndex() } : null}
             className='entity-container'
         >
+            <EntityBubble entity={entity} />
             <div 
                 ref={itemElementRef} 
                 className='entity-item border-anim-hover'
