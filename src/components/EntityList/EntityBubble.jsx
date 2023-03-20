@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import './EntityBubble.scss';
 
-export default function EntityBubble({ entity }) {
+export default function EntityBubble({ entity, playPopAnimation, collectedEntityId }) {
 
     const selfElementRef = useRef();
     const [ hidden, setHidden ] = useState(true);
     const [ shrink, setShrink ] = useState(false);
+    const [ spawned, setSpawned ] = useState(false);
     const [ pos, setPos ] = useState({ top: 0, left: 0 })
 
     useEffect(() => {
@@ -13,6 +15,8 @@ export default function EntityBubble({ entity }) {
             const entityElement = document.querySelector('.entity-' + entity.keyName);
             if (!entityElement) return console.log(`Entity element for bubble was not found.`, entity.keyName);
     
+            setSpawned(true);
+
             const parentRect = selfElementRef.current.parentElement.getBoundingClientRect(); 
             const entityRect = entityElement.getBoundingClientRect();
     
@@ -35,13 +39,15 @@ export default function EntityBubble({ entity }) {
                     setTimeout(() => {
                         setHidden(true);
                         setShrink(false);
+                        playPopAnimation();
                     }, 1900);
                 }, 1000);
             }, 1000);
         }
 
-        if (entity.collected) spawn();
-    }, [entity.collected, entity.keyName]);
+        if (collectedEntityId === entity.id && !spawned) spawn();
+
+    }, [collectedEntityId, entity.id, entity.keyName, spawned]);
 
     function composeClassName() {
         const classes = ['bubble'];
