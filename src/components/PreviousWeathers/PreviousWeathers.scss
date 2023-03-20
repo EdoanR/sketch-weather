@@ -6,8 +6,14 @@
     gap: 0.25em;
     flex-wrap: wrap;
     justify-content: center;
+
     margin-left: 2em;
     margin-right: 2em;
+
+    @media (max-width: 512px) {
+        margin-left: 1em;
+        margin-right: 1em;
+    }
 
     > div {
         width: 160px;
