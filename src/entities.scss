@@ -99,10 +99,6 @@
     &.move {
         @include move(0.65);
     }
-
-    &.collected {
-        filter: brightness(1.6);
-    }
 }
 
 .bike {
@@ -148,9 +144,9 @@
     cursor: pointer;
 }
 
-.collected {
+.weather-card .collected {
     pointer-events: none;
-    filter: brightness(1.2);
+    filter: sepia(0.5) hue-rotate(22deg) brightness(1.2);
 }
 
 .particle {

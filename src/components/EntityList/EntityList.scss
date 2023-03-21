@@ -20,7 +20,7 @@
     position: relative;
     width: 100px;
     height: 120px;
-
+    
     &.entity-pop-anim {
         animation: entity-container-pop-anim 1s ease-in-out forwards;
     }
@@ -34,8 +34,7 @@
     }
 
     &.bright .item-icon {
-        opacity: 1;
-        filter: brightness(1.1);
+        filter: sepia(0.5) hue-rotate(22deg);
     }
 
     @keyframes entity-container-pop-anim {
@@ -78,7 +77,6 @@
     .item-icon {
         min-width: 76px;
         height: 96px;
-        opacity: 0.65;
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
