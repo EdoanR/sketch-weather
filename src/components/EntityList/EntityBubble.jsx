@@ -7,6 +7,7 @@ export default function EntityBubble({ entity, playPopAnimation, collectedEntity
     const [ hidden, setHidden ] = useState(true);
     const [ shrink, setShrink ] = useState(false);
     const [ spawned, setSpawned ] = useState(false);
+    const [ spawnAnim, setSpawnAnim ] = useState(false);
     const [ pos, setPos ] = useState({ top: 0, left: 0 })
 
     useEffect(() => {
@@ -16,6 +17,7 @@ export default function EntityBubble({ entity, playPopAnimation, collectedEntity
             if (!entityElement) return console.log(`Entity element for bubble was not found.`, entity.keyName);
     
             setSpawned(true);
+            setSpawnAnim(true);
 
             const parentRect = selfElementRef.current.parentElement.getBoundingClientRect(); 
             const entityRect = entityElement.getBoundingClientRect();
@@ -53,14 +55,20 @@ export default function EntityBubble({ entity, playPopAnimation, collectedEntity
         const classes = ['bubble'];
         if (hidden) classes.push('hidden');
         if (shrink) classes.push('shrink');
+        if (spawnAnim) classes.push('spawn-anim');
 
         return classes.join(' ');
+    }
+
+    function handleAnimationEnd(e) {
+        if (e.animationName === 'bubble-spawn') setSpawnAnim(false);
     }
 
     return (
         <div 
             ref={selfElementRef}
             className={composeClassName()}
+            onAnimationEnd={handleAnimationEnd}
             style={{
                 top: pos.top + 'px',
                 left: pos.left + 'px'

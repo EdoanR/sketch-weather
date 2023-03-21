@@ -9,7 +9,8 @@ export default class SunAndMoon extends Component {
 
         this.state = {
             posY: 0,
-            entity: null
+            entity: null,
+            popAnim: false
         }
 
         this.element = createRef()
@@ -56,11 +57,13 @@ export default class SunAndMoon extends Component {
     }
 
     onEntityUpdate(prevEntity, entity) {
-        this.spawnParticle();
+        this.playPopAnimation();
     }
 
-    spawnParticle() {
-        this.props.particles.current.addParticle(this)
+    playPopAnimation() {
+        this.setState({
+            popAnim: true
+        });
     }
 
     getPosY(weather) {
@@ -69,6 +72,14 @@ export default class SunAndMoon extends Component {
         const min = 192
 
         return lerp(min, max, value)
+    }
+
+    handleAnimationEnd(e) {
+        if (e.animationName === 'pop') {
+            this.setState({
+                popAnim: false
+            });
+        }
     }
 
     composeClassName() {
@@ -85,6 +96,8 @@ export default class SunAndMoon extends Component {
             }
         }
 
+        if (this.state.popAnim) classes.push('pop-anim');
+
         return classes.join(' ')
     }
 
@@ -94,6 +107,7 @@ export default class SunAndMoon extends Component {
                 ref={this.element}
                 onClick={(e) => { this.handleClick(e) }}
                 className={this.composeClassName()} 
+                onAnimationEnd={(e) => { this.handleAnimationEnd(e) }}
                 style={{ bottom: `${this.state.posY}px` }}
             />
         )

@@ -43,12 +43,3 @@
         }
     }
 }
-
-.pop-anim {
-    animation: pop 0.75s forwards;
-}
-
-@keyframes pop {
-    from { transform: scale(1.1); }
-    to { transform: scale(1); }
-}

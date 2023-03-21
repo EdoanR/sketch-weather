@@ -130,6 +130,7 @@
     background-position: center;
     background-size: 100% 100%;
     z-index: 4;
+    transition: bottom 1s ease-in-out;
 
     &.sun {
         background-image: url('../public/images/entities/animated/sun.gif');
