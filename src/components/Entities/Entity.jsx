@@ -11,7 +11,8 @@ export default class Entity extends Component {
         this.state = {
             moving: false,
             entity: null,
-            fadeDespawnAnim: false
+            fadeDespawnAnim: false,
+            popAnim: false
         }
 
         this.spawnChancesConfig = {
@@ -53,7 +54,7 @@ export default class Entity extends Component {
                     ev.preventDefault()
     
                     if (this.state.moving) {
-                        this.startDespawn('particle')
+                        this.startDespawn('pop')
                     } else {
                         this.trySpawn()
                         if (!this.state.entity) console.log(`Could not spawn [${this.baseClassName}] using debugkeys because it's not in the correct weather condition.`)
@@ -105,7 +106,7 @@ export default class Entity extends Component {
                 entity
             })
 
-            this.spawnParticle()
+            this.startPopAnim()
         }
     }
 
@@ -154,7 +155,7 @@ export default class Entity extends Component {
 
     /** 
      * This will despawn using a animation
-     * @param {'fade' | 'particle' | 'none'} animationType - `(default: 'fade')` animation type that the entity will dissapear, 
+     * @param {'fade' | 'pop' | 'none'} animationType - `(default: 'fade')` animation type that the entity will dissapear, 
      * keep in mind that `fade` take a bit more long for the entity to despawn.
      * @private 
      */
@@ -166,11 +167,12 @@ export default class Entity extends Component {
                 if (!this.state.fadeDespawnAnim) return
                 this.despawn()
             }, 1000)
-            return
+            return;
         }
         
-        if (animationType === 'particle') {
-            this.spawnParticle()
+        if (animationType === 'pop') {
+            this.startPopAnim(true);
+            return;
         }
 
         this.despawn()
@@ -179,15 +181,22 @@ export default class Entity extends Component {
     despawn() {
         if (!this.state.moving) return
 
-        this.setState({ moving: false, fadeDespawnAnim: false })
+        this.setState({ moving: false, fadeDespawnAnim: false, popAnim: false })
         this.despawnedTick = this.props.tick
 
         this.updateSpawnChances()
     }
 
-    /** @private */
-    spawnParticle() {
-        this.props.particles.current.addParticle(this)
+    startPopAnim(despawn = false) {
+        this.setState({ popAnim: true });
+
+        setTimeout(() => {
+            if (despawn) {
+                this.despawn();
+            } else {
+                this.setState({ popAnim: false });
+            }
+        }, 200);
     }
 
     /** @private */
@@ -235,7 +244,8 @@ export default class Entity extends Component {
             }
         }
 
-        if (this.state.fadeDespawnAnim) classes.push('fade')
+        if (this.state.fadeDespawnAnim) classes.push('fade');
+        if (this.state.popAnim) classes.push('pop-entity');
 
         return classes.join(' ')
     }
@@ -255,7 +265,6 @@ export default class Entity extends Component {
     /** @private */
     validate() {
         if (!this.baseClassName) throw new Error(`Entity with no baseClassName`)
-        if (!this.props.particles) throw new Error(`${this.baseClassName} has no particles prop`)
         if (!this.props.weather) throw new Error(`${this.baseClassName} has no weather prop`)
         if (this.props.tick == null) throw new Error(`${this.baseClassName} has no tick prop`)
     }

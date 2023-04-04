@@ -1,7 +1,6 @@
 import { TEMP_TYPES } from '../../constants'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getDateWithTimezoneOffset } from '../../utils'
-import Particles from './Particles'
 import Car from '../Entities/Car'
 import Bird from '../Entities/Bird'
 import Bike from '../Entities/Bike'
@@ -17,9 +16,6 @@ const tickInterval = 1000
 export default function EntitiesManager({ weather, onEntityCollected, entities }) {
 
     const [tick, setTick] = useState(Date.now())
-    const particlesRef = useRef()
-
-    const particlesMemo = useMemo(() => <Particles ref={particlesRef} />, [])
 
     useEffect(() => {
 
@@ -32,15 +28,14 @@ export default function EntitiesManager({ weather, onEntityCollected, entities }
     return (
         <div className="entities-container">
             <div className="entities-area">
-                <SunAndMoon particles={particlesRef} weather={weather} onEntityCollected={onEntityCollected} entities={entities} />
-                <Bird particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} entities={entities} />
+                <SunAndMoon weather={weather} onEntityCollected={onEntityCollected} entities={entities} />
+                <Bird weather={weather} tick={tick} onEntityCollected={onEntityCollected} entities={entities} />
                 <Background weather={weather} />
-                <Person particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} entities={entities} />
-                <Bike particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} entities={entities} />
-                <Car particles={particlesRef} weather={weather} tick={tick} onEntityCollected={onEntityCollected} entities={entities} />
+                <Person weather={weather} tick={tick} onEntityCollected={onEntityCollected} entities={entities} />
+                <Bike weather={weather} tick={tick} onEntityCollected={onEntityCollected} entities={entities} />
+                <Car weather={weather} tick={tick} onEntityCollected={onEntityCollected} entities={entities} />
                 <Rain weather={weather}/>
                 <Snow weather={weather}/>
-                {particlesMemo}
             </div>
         </div>
     )
