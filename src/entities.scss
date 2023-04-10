@@ -49,12 +49,12 @@
 
 .car {
     @include entity(133px, 75px);
-    background-image: url('../public/images/entities/animated/car.gif');
+    background-image: url('/images/entities/animated/car.gif');
     z-index: 9;
 
     &.ice-cream-truck {
         @include entity(133px, 96px);
-        background-image: url('../public/images/entities/animated/ice_cream_truck.gif');
+        background-image: url('/images/entities/animated/ice_cream_truck.gif');
     }
 
     &.move {
@@ -64,26 +64,26 @@
 
 .person {
     @include entity(42px, 56px, 38px);
-    background-image: url('../public/images/entities/animated/person.gif');
+    background-image: url('/images/entities/animated/person.gif');
     z-index: 7;
 
     &.person-sunny {
-        background-image: url('../public/images/entities/animated/person_sunny.gif');
+        background-image: url('/images/entities/animated/person_sunny.gif');
     }
 
     &.person-cold {
         @include entity(42px, 56px, 38px);
-        background-image: url('../public/images/entities/animated/person_cold.gif');
+        background-image: url('/images/entities/animated/person_cold.gif');
     }
 
     &.person-rain {
         @include entity(50px, 71px, 38px);
-        background-image: url('../public/images/entities/animated/person_rain.gif');
+        background-image: url('/images/entities/animated/person_rain.gif');
     }
 
     &.person-cold-rain {
         @include entity(51px, 69px, 38px);
-        background-image: url('../public/images/entities/animated/person_cold_rain.gif');
+        background-image: url('/images/entities/animated/person_cold_rain.gif');
     }
 
     &.move {
@@ -93,12 +93,12 @@
 
 .bird {
     @include entity(25px, 25px, 124px);
-    background-image: url('../public/images/entities/animated/bird.gif');
+    background-image: url('/images/entities/animated/bird.gif');
     z-index: 6;
 
     &.owl {
         @include entity(30px, 30px, 124px);
-        background-image: url('../public/images/entities/animated/owl.gif');
+        background-image: url('/images/entities/animated/owl.gif');
     }
 
     &.move {
@@ -108,15 +108,15 @@
 
 .bike {
     @include entity(66px, 66px, 21px);
-    background-image: url('../public/images/entities/animated/bike.gif');
+    background-image: url('/images/entities/animated/bike.gif');
     z-index: 8;
 
     &.bike-girl {
-        background-image: url('../public/images/entities/animated/bike_girl.gif');
+        background-image: url('/images/entities/animated/bike_girl.gif');
     }
 
     &.bike-cold {
-        background-image: url('../public/images/entities/animated/bike_cold.gif');
+        background-image: url('/images/entities/animated/bike_cold.gif');
     }
 
     &.move {
@@ -138,11 +138,11 @@
     transition: bottom 1s ease-in-out;
 
     &.sun {
-        background-image: url('../public/images/entities/animated/sun.gif');
+        background-image: url('/images/entities/animated/sun.gif');
     } 
 
     &.moon {
-        background-image: url('../public/images/entities/animated/moon.gif');
+        background-image: url('/images/entities/animated/moon.gif');
     }
 }
 

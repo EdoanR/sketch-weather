@@ -32,7 +32,8 @@ export default function App() {
 
     setData({ loading: true })
 
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=${process.env.REACT_APP_WEATHER_API_KEY}`).then(async res => {
+    const key = import.meta.env.VITE_OPEN_WEATHER_API_KEY;
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=${key}`).then(async res => {
       const data = await res.json()
 
       if (!data || data.cod !== 200) {

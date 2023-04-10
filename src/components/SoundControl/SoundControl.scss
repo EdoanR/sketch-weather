@@ -18,13 +18,13 @@
         min-height: 26px;
         opacity: 0.9;
 
-        background-image: url('../../../public/images/icons/static/cog.png');
+        background-image: url('/images/icons/static/cog.png');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         
         &:hover {
-            background-image: url('../../../public/images/icons/animated/cog.gif');
+            background-image: url('/images/icons/animated/cog.gif');
             opacity: 1;
             cursor: pointer;
         }

@@ -10,12 +10,12 @@
     .cog-icon {
         width: 30px;
         height: 30px;
-        background-image: url('public/images/icons/static/weathers/cog.png');
+        background-image: url('/images/icons/static/weathers/cog.png');
         background-size: cover;
         background-position: center;
     }
 
     &:hover .cog-icon {
-        background-image: url('public/images/icons/animated/weathers/cog.gif');
+        background-image: url('/images/icons/animated/weathers/cog.gif');
     }
 }
