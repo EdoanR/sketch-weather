@@ -15,14 +15,14 @@
 }
 
 .mask-hide {
-    mask-image: url('../../assets/images/erase-unfill.png') !important;
+    mask-image: url('/images/effects/erase-unfill.png') !important;
     mask-size: 100% 100% !important;
 }
 
 .loading-anim {
     
     &.open {
-        mask-image: url('../../assets/images/unerase-sprites.png');
+        mask-image: url('/images/effects/unerase-sprites.png');
         opacity: 1;
 
         mask-size: calc(100% * 9) 100%;
@@ -44,7 +44,7 @@
 
     &.close {
         
-        mask-image: url('../../assets/images/erase-sprites.png');
+        mask-image: url('/images/effects/erase-sprites.png');
 
         mask-size: calc(100% * 9) 100%;
     

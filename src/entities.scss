@@ -155,16 +155,6 @@
     filter: sepia(0.5) hue-rotate(22deg) brightness(1.2);
 }
 
-.particle {
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    pointer-events: none;
-    z-index: 11;
-
-    @include spritesheet-anim(url('../src/assets/images/particles-sprites.png'), 4, 0.2s)
-}
-
 @keyframes move {
     100% {
         right: 100%;
