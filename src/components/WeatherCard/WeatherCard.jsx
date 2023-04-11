@@ -15,6 +15,8 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
   const [date, setDate] = useState('')
   const [description, setDescription] = useState('')
   const [show, setShow] = useState(false)
+  const [showLocation, setShowLocation] = useState(false)
+  const [locationEraseEffectPlay, setLocationEraseEffectPlay] = useState(true)
 
   const tempElementRef = useRef()
 
@@ -23,12 +25,12 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
 
     if (data.loading) {
 
-      clearTimeout(dataLoadTimeout)
-
-      document.querySelectorAll('.info .loading-anim').forEach(el => {
-        el.classList.add('close')
-        el.classList.remove('open')
-      })
+      setShowLocation(false);
+      setLocationEraseEffectPlay(false);
+      setTimeout(() => {
+        setLocationEraseEffectPlay(true);
+      }, 60)
+      clearTimeout(dataLoadTimeout);
 
     } else {
 
@@ -49,10 +51,6 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
 
           setDate(`${weekday}, ${time}`)
 
-          tempElementRef.current.classList.add('open')
-          tempElementRef.current.classList.remove('close')
-          tempElementRef.current.classList.remove('mask-hide')
-
 
         } else {
 
@@ -60,17 +58,14 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
           setDescription('')
           setDate('')
 
-          tempElementRef.current.classList.add('close')
-          tempElementRef.current.classList.remove('open')
-
         }
 
         setShow(true);
-
-        document.querySelectorAll('.info .loading-anim').forEach(el => {
-          el.classList.add('open')
-          el.classList.remove('close')
-        })
+        setShowLocation(true);
+        setLocationEraseEffectPlay(false);
+        setTimeout(() => {
+          setLocationEraseEffectPlay(true);
+        }, 60)
 
       }, 1000)
     }
@@ -85,20 +80,20 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
       <div className='left-area'>
         <div className='top-left row'>
           <WeatherIcon data={data} onEntityCollected={onEntityCollected} entities={entities} />
-          <div ref={tempElementRef} className={`temp-container row loading-anim mask-hide`}>
+          <div ref={tempElementRef} className={`temp-container row`}>
             <TempCounter className='temp' from={previousTemp} to={temp} />
             <div className='metric'>°C</div>
           </div>
         </div>
         <div className='column'>
-          <div className='info location'>
-            <span className='loading-anim close'>{location}</span>
+          <div className={'info location erase-effect hold-play' + (showLocation ? ' show' : ' hidden') + ( locationEraseEffectPlay ? ' play' : '')}>
+            <span>{location}</span>
           </div>
-          <div className='info date'>
-            <span className='loading-anim close'>{date}</span>
+          <div className={'info date erase-effect hold-play' + (showLocation ? ' show' : ' hidden') + ( locationEraseEffectPlay ? ' play' : '')}>
+            <span>{date}</span>
           </div>
-          <div className='info desc'>
-            <span className='loading-anim close'>{description}</span>
+          <div className={'info desc erase-effect hold-play' + (showLocation ? ' show' : ' hidden') + ( locationEraseEffectPlay ? ' play' : '')}>
+            <span>{description}</span>
           </div>
         </div>
       </div>
