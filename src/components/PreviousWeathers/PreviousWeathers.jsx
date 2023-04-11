@@ -17,7 +17,7 @@ function PreviousWeathers({ data, max, searchData }) {
 
             const searchDataIndex = prevDatasList.findIndex(d => d.id === prevData.id);
             if (searchDataIndex !== -1) {
-                // Same city/state/country was already added to it, so let's just update it.
+                // Same place was already added to it, so let's just update it.
 
                 newPrevDatas = [...prevDatasList];
                 newPrevDatas[searchDataIndex] = prevData;

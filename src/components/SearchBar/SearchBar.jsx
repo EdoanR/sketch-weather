@@ -18,7 +18,7 @@ export default function SearchBar({ onSubmit, inputRef }) {
 
     return (
         <form className='search-bar' onSubmit={onSubmit}>
-            <input className='border-1' ref={inputRef} onChange={handleOnInputChange} autoCapitalize="on" type="text" placeholder='Search for a city...'/>
+            <input className='border-1' ref={inputRef} onChange={handleOnInputChange} autoCapitalize="on" type="text" placeholder='Search for a place...'/>
             <button className='border-anim-hover'><i className="fa fa-search"></i></button>
         </form>
     )

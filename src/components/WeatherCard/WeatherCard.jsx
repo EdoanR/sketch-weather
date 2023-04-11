@@ -53,7 +53,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
           setShowTemp(true);
         } else {
 
-          setLocation(`City not found :(`)
+          setLocation(`Place not found :(`)
           setDescription('')
           setDate('')
 
