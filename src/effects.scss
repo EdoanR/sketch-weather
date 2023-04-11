@@ -54,3 +54,63 @@
         transform: rotate(0deg);
     }
 }
+
+@mixin mask-sprite($sprites, $frames, $time: 1s, $loop: false) {
+    mask-image: $sprites;
+    -webkit-mask-image: $sprites;
+    mask-size: calc(100% * $frames) 100%;
+    -webkit-mask-size: calc(100% * $frames) 100%;
+
+    animation: mask-sprite-anim;
+    animation-duration: $time;
+    @if $loop {
+        animation-iteration-count: infinite;
+    } @else {
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+    animation-timing-function: steps(calc($frames - 1));
+
+    @keyframes mask-sprite-anim {
+        from { mask-position: 0%; -webkit-mask-position: 0%; }
+        to { mask-position: 100%; -webkit-mask-position: 100%; }
+    }
+}
+
+@mixin erase-effect-mixin($time: 1s) {
+    &.show {
+        mask-image: linear-gradient(black, black);
+        -webkit-mask-image: linear-gradient(black, black);
+
+        &.hold-play {
+            mask-image: linear-gradient(transparent, transparent);
+            -webkit-mask-image: linear-gradient(transparent, transparent);
+        }
+        
+        &.play {
+            @include mask-sprite(url('/images/effects/erase-sprites.png'), 9, $time)
+        }
+    }
+    
+    &.hidden {
+        mask-image: linear-gradient(transparent, transparent);
+        -webkit-mask-image: linear-gradient(transparent, transparent);
+
+        &.hold-play {
+            mask-image: linear-gradient(black, black);
+            -webkit-mask-image: linear-gradient(black, black);
+        }
+
+        &.play {
+            @include mask-sprite(url('/images/effects/unerase-sprites.png'), 9, $time)
+        }
+    }
+}
+
+.erase-effect {
+    @include erase-effect-mixin();
+}
+
+.erase-effect-fast {
+    @include erase-effect-mixin(0.5s);
+}

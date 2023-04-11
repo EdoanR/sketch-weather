@@ -14,6 +14,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
   const [previousTemp, setPreviousTemp] = useState(0)
   const [date, setDate] = useState('')
   const [description, setDescription] = useState('')
+  const [show, setShow] = useState(false)
 
   const tempElementRef = useRef()
 
@@ -64,6 +65,8 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
 
         }
 
+        setShow(true);
+
         document.querySelectorAll('.info .loading-anim').forEach(el => {
           el.classList.add('open')
           el.classList.remove('close')
@@ -77,7 +80,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
   if (!data) return null
 
   return (
-    <div className='weather-card border-anim'>
+    <div className={'weather-card border-anim erase-effect-fast' + (show ? ' show play' : ' hidden')}>
 
       <div className='left-area'>
         <div className='top-left row'>

@@ -72,6 +72,25 @@ export default function App() {
   return (
     <div className='App'>
       <SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
+      <div className="test mask unshow" onClick={e => { 
+        /** @type {HTMLElement} */
+        const element = e.target;
+        const show = element.classList.contains('show');
+        if (show) {
+          element.classList.remove('show');
+          element.classList.add('unshow');
+        } else {
+          element.classList.remove('unshow');
+          element.classList.add('show');
+        }
+
+        element.classList.add('hold-play');
+        element.classList.remove('play');
+        setTimeout(() => {
+          element.classList.add('play');
+        }, 60);
+
+      }}></div>
       <WeatherCard weather={weather} data={data} entities={entities} previousData={previousData} onEntityCollected={handleCollectedEntity} />
       <PreviousWeathers data={data} searchData={searchData} />
       <EntitiesList ref={entityListRef} entities={entities} onListChange={handleEntityListChange}/>
