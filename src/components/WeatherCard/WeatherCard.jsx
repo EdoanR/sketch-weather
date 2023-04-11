@@ -97,7 +97,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
         <div className='top-left row'>
           <WeatherIcon data={data} onEntityCollected={onEntityCollected} entities={entities} />
           <div className={`temp-container row erase-effect hold-play` + (showTemp ? ' show' : ' hidden') + ( tempEraseEffectPlay ? ' play' : '' )}>
-            <TempCounter className='temp' from={previousTemp} to={temp} />
+            <TempCounter className='temp' from={0} to={temp} />
             <div className='metric'>°C</div>
           </div>
         </div>

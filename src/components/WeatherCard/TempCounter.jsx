@@ -1,4 +1,4 @@
-import { useSpring, animated } from 'react-spring';
+import { useSpring, animated } from '@react-spring/web';
 
 export default function TempCounter({ from, to, className }) {
     const springProps = useSpring({
