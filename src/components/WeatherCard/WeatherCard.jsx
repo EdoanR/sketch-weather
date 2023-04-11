@@ -7,6 +7,9 @@ import './WeatherCard.scss'
 
 let dataLoadTimeout = null
 
+let tempEraseEffectTimeout = null;
+let locationEraseEffectTimeout = null;
+
 export default function WeatherCard({ data, weather, previousData, onEntityCollected, entities }) {
 
   const [location, setLocation] = useState('')
@@ -17,8 +20,8 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
   const [show, setShow] = useState(false)
   const [showLocation, setShowLocation] = useState(false)
   const [locationEraseEffectPlay, setLocationEraseEffectPlay] = useState(true)
-
-  const tempElementRef = useRef()
+  const [showTemp, setShowTemp] = useState(false)
+  const [tempEraseEffectPlay, setTempEraseEffectPlay] = useState(true)
 
   useEffect(() => {
     if (!data) return
@@ -26,14 +29,10 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
     if (data.loading) {
 
       setShowLocation(false);
-      setLocationEraseEffectPlay(false);
-      setTimeout(() => {
-        setLocationEraseEffectPlay(true);
-      }, 60)
-      clearTimeout(dataLoadTimeout);
 
     } else {
 
+      clearTimeout(dataLoadTimeout);
       dataLoadTimeout = setTimeout(() => {
 
         if (data.cod !== '404') {
@@ -51,26 +50,43 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
 
           setDate(`${weekday}, ${time}`)
 
-
+          setShowTemp(true);
         } else {
 
           setLocation(`City not found :(`)
           setDescription('')
           setDate('')
 
+          setShowTemp(false);
         }
 
         setShow(true);
         setShowLocation(true);
-        setLocationEraseEffectPlay(false);
-        setTimeout(() => {
-          setLocationEraseEffectPlay(true);
-        }, 60)
 
       }, 1000)
     }
 
-  }, [data, previousData])
+  }, [data, previousData]);
+
+  useEffect(() => {
+
+    setTempEraseEffectPlay(false);
+    clearTimeout(tempEraseEffectTimeout);
+    tempEraseEffectTimeout = setTimeout(() => {
+      setTempEraseEffectPlay(true);
+    }, 60);
+
+  }, [showTemp])
+
+  useEffect(() => {
+
+    setLocationEraseEffectPlay(false);
+    clearTimeout(locationEraseEffectTimeout)
+    locationEraseEffectTimeout = setTimeout(() => {
+      setLocationEraseEffectPlay(true);
+    }, 60);
+
+  }, [showLocation])
 
   if (!data) return null
 
@@ -80,7 +96,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
       <div className='left-area'>
         <div className='top-left row'>
           <WeatherIcon data={data} onEntityCollected={onEntityCollected} entities={entities} />
-          <div ref={tempElementRef} className={`temp-container row`}>
+          <div className={`temp-container row erase-effect hold-play` + (showTemp ? ' show' : ' hidden') + ( tempEraseEffectPlay ? ' play' : '' )}>
             <TempCounter className='temp' from={previousTemp} to={temp} />
             <div className='metric'>°C</div>
           </div>

@@ -37,7 +37,7 @@ export default function App() {
       const data = await res.json()
 
       if (!data || data.cod !== 200) {
-        console.log('Could not get data:\n', data) // TODO: show on website a response about that.
+        console.log('Could not get data:\n', data);
       } else {
         console.log('data:', data)
       }
