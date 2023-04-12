@@ -1,8 +1,8 @@
 import './SearchBar.scss'
 
-export default function SearchBar({ onSubmit, inputRef }) {
+let searchBarBgChangeTimeout = null;
 
-    let searchBarBgChangeTimeout = null
+export default function SearchBar({ onSubmit, inputRef }) {
 
     function handleOnInputChange(e) {
         if (searchBarBgChangeTimeout) return
