@@ -7,7 +7,6 @@ import './App.scss'
 import SearchBar from './components/SearchBar/SearchBar';
 import WeatherCard from './components/WeatherCard/WeatherCard';
 import EntitiesList from './components/EntityList/EntityList';
-// import WeatherEditOptions from './components/WeatherEditOptions/WeatherEditOptions';
 import defaultEntitiesList from './components/EntityList/entities';
 import PreviousWeathers from './components/PreviousWeathers/PreviousWeathers';
 import FontButton from './components/FontButton/FontButton';
@@ -15,8 +14,6 @@ import SoundControl from './components/SoundControl/SoundControl';
 import { converDataToWeather } from './components/EntitiesManager/EntitiesManager';
 
 export default function App() {
-
-  // TODO: fix searching for continent showing as undefined country.
 
   const [ weather, setWeather ] = useState()
   const [ data, setData ] = useState()
@@ -97,7 +94,6 @@ export default function App() {
       <div className='top-left-buttons'>
         <FontButton />
         <SoundControl soundCtrl={soundCtrl} setSoundCtrl={setSoundCtrl}/>
-        {/* <WeatherEditOptions weather={weather} onChange={ (newWeather) => { setWeather(newWeather) } } /> */}
       </div>
     </div>
   )
