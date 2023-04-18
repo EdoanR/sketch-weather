@@ -5,7 +5,6 @@ export default function EntityContainer({ entity, collectedEntityId, entitiesRev
     const selfElementRef = useRef();
     const itemElementRef = useRef();
     const [ hovering, setHovering ] = useState(false);
-    const [ inFront, setInFront ] = useState(false);
     const [ popAnim, setPopAnim ] = useState(false);
     const [ reveal, setReveal ] = useState(false);
     const [ upAnim, setUpAnim ] = useState(false);
@@ -65,7 +64,6 @@ export default function EntityContainer({ entity, collectedEntityId, entitiesRev
     return (
         <div 
             ref={selfElementRef} 
-            style={inFront ? { zIndex: 99 + getParentChildCount() - getChildIndex() } : null}
             className={composeClassName()}
             onAnimationEnd={handleAnimationEnd}
         >
@@ -73,21 +71,16 @@ export default function EntityContainer({ entity, collectedEntityId, entitiesRev
             <div 
                 ref={itemElementRef} 
                 className='entity-item border-anim-hover'
-                style={hovering ? {width: itemElementRef.current.scrollWidth + 'px' } : null} 
                 onMouseEnter={HandleMouseEnter} 
                 onMouseLeave={HandleMouseLeave}
                 onTransitionEnd={HandleTransitionEnd}
+                title={entity.name}
             >
                 <div 
                     className={'item-icon' + (entity.collected ? ' collected' : '')}
                     style={{ backgroundImage: `url(${hovering ? entity.iconAnimated : entity.icon})` }}
                 ></div>
 
-                <div className="tips">
-                    <div>{entity.id}</div>
-                    <div>{entity.name}</div>
-                    <div>{entity.keyName}</div>
-                </div>
             </div>
         </div>
     )
