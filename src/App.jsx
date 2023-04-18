@@ -15,86 +15,86 @@ import { converDataToWeather } from './components/EntitiesManager/EntitiesManage
 
 export default function App() {
 
-  const [ weather, setWeather ] = useState()
-  const [ data, setData ] = useState()
-  const [ previousData, setPreviousData ] = useState()
-  const [ entities, setEntities ] = useState(defaultEntitiesList)
-  const [ soundCtrl, setSoundCtrl ] = useState({ volume: 1, muted: false });
+	const [weather, setWeather] = useState()
+	const [data, setData] = useState()
+	const [previousData, setPreviousData] = useState()
+	const [entities, setEntities] = useState(defaultEntitiesList)
+	const [soundCtrl, setSoundCtrl] = useState({ volume: 1, muted: false });
 
-  const inputRef = useRef()
-  const entityListRef = useRef()
+	const inputRef = useRef()
+	const entityListRef = useRef()
 
-  function searchData(search) {
-    if (!search) return
+	function searchData(search) {
+		if (!search) return
 
-    setData({ loading: true })
+		setData({ loading: true })
 
-    const key = import.meta.env.VITE_OPEN_WEATHER_API_KEY;
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=${key}`).then(async res => {
-      const data = await res.json()
+		const key = import.meta.env.VITE_OPEN_WEATHER_API_KEY;
+		fetch(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=${key}`).then(async res => {
+			const data = await res.json()
 
-      if (!data || data.cod !== 200) {
-        console.log('Could not get data:\n', data);
-      } else {
-        console.log('data:', data)
-      }
+			if (!data || data.cod !== 200) {
+				console.log('Could not get data:\n', data);
+			} else {
+				console.log('data:', data)
+			}
 
-      setPreviousData(data)
-      setData(data)
-      const weather = converDataToWeather(data)
-      if (weather) {
-        console.log('weather:', weather)
-        setWeather(weather)
-      }
+			setPreviousData(data)
+			setData(data)
+			const weather = converDataToWeather(data)
+			if (weather) {
+				console.log('weather:', weather)
+				setWeather(weather)
+			}
 
-    }).catch(err => {
-      console.log('Error getting data:\n', err) // TODO: show on website a response about that.
-    })
-  }
+		}).catch(err => {
+			console.log('Error getting data:\n', err) // TODO: show on website a response about that.
+		})
+	}
 
-  function handleOnSearch(e) {
-    e.preventDefault()
+	function handleOnSearch(e) {
+		e.preventDefault()
 
-    searchData(inputRef.current.value)
-  }
+		searchData(inputRef.current.value)
+	}
 
-  function handleCollectedEntity(entity) {
-    entityListRef.current.onEntityCollected(entity)
-  }
+	function handleCollectedEntity(entity) {
+		entityListRef.current.onEntityCollected(entity)
+	}
 
-  function handleEntityListChange(newList) {
-    setEntities(newList)
-  }
+	function handleEntityListChange(newList) {
+		setEntities(newList)
+	}
 
-  return (
-    <div className='App'>
-      <SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
-      <div className="test mask unshow" onClick={e => { 
-        /** @type {HTMLElement} */
-        const element = e.target;
-        const show = element.classList.contains('show');
-        if (show) {
-          element.classList.remove('show');
-          element.classList.add('unshow');
-        } else {
-          element.classList.remove('unshow');
-          element.classList.add('show');
-        }
+	return (
+		<div className='App'>
+			<SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
+			<div className="test mask unshow" onClick={e => {
+				/** @type {HTMLElement} */
+				const element = e.target;
+				const show = element.classList.contains('show');
+				if (show) {
+					element.classList.remove('show');
+					element.classList.add('unshow');
+				} else {
+					element.classList.remove('unshow');
+					element.classList.add('show');
+				}
 
-        element.classList.add('hold-play');
-        element.classList.remove('play');
-        setTimeout(() => {
-          element.classList.add('play');
-        }, 60);
+				element.classList.add('hold-play');
+				element.classList.remove('play');
+				setTimeout(() => {
+					element.classList.add('play');
+				}, 60);
 
-      }}></div>
-      <WeatherCard weather={weather} data={data} entities={entities} previousData={previousData} onEntityCollected={handleCollectedEntity} />
-      <PreviousWeathers data={data} searchData={searchData} />
-      <EntitiesList ref={entityListRef} entities={entities} onListChange={handleEntityListChange}/>
-      <div className='top-left-buttons'>
-        <FontButton />
-        <SoundControl soundCtrl={soundCtrl} setSoundCtrl={setSoundCtrl}/>
-      </div>
-    </div>
-  )
+			}}></div>
+			<WeatherCard weather={weather} data={data} entities={entities} previousData={previousData} onEntityCollected={handleCollectedEntity} />
+			<PreviousWeathers data={data} searchData={searchData} />
+			<EntitiesList ref={entityListRef} entities={entities} onListChange={handleEntityListChange} />
+			<div className='top-left-buttons'>
+				<FontButton />
+				<SoundControl soundCtrl={soundCtrl} setSoundCtrl={setSoundCtrl} />
+			</div>
+		</div>
+	)
 };

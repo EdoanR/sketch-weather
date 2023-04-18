@@ -12,111 +12,111 @@ let locationEraseEffectTimeout = null;
 
 export default function WeatherCard({ data, weather, previousData, onEntityCollected, entities }) {
 
-  const [location, setLocation] = useState('')
-  const [temp, setTemp] = useState(0)
-  const [previousTemp, setPreviousTemp] = useState(0)
-  const [date, setDate] = useState('')
-  const [description, setDescription] = useState('')
-  const [show, setShow] = useState(false)
-  const [showLocation, setShowLocation] = useState(false)
-  const [locationEraseEffectPlay, setLocationEraseEffectPlay] = useState(true)
-  const [showTemp, setShowTemp] = useState(false)
-  const [tempEraseEffectPlay, setTempEraseEffectPlay] = useState(true)
+	const [location, setLocation] = useState('')
+	const [temp, setTemp] = useState(0)
+	const [previousTemp, setPreviousTemp] = useState(0)
+	const [date, setDate] = useState('')
+	const [description, setDescription] = useState('')
+	const [show, setShow] = useState(false)
+	const [showLocation, setShowLocation] = useState(false)
+	const [locationEraseEffectPlay, setLocationEraseEffectPlay] = useState(true)
+	const [showTemp, setShowTemp] = useState(false)
+	const [tempEraseEffectPlay, setTempEraseEffectPlay] = useState(true)
 
-  useEffect(() => {
-    if (!data) return
+	useEffect(() => {
+		if (!data) return
 
-    if (data.loading) {
+		if (data.loading) {
 
-      setShowLocation(false);
+			setShowLocation(false);
 
-    } else {
+		} else {
 
-      clearTimeout(dataLoadTimeout);
-      dataLoadTimeout = setTimeout(() => {
+			clearTimeout(dataLoadTimeout);
+			dataLoadTimeout = setTimeout(() => {
 
-        if (data.cod !== '404') {
+				if (data.cod !== '404') {
 
-          setTemp(Math.floor(data.main.temp))
-          setPreviousTemp(previousData && previousData.main ? Math.floor(previousData.main.temp) : Math.floor(data.main.temp))
+					setTemp(Math.floor(data.main.temp))
+					setPreviousTemp(previousData && previousData.main ? Math.floor(previousData.main.temp) : Math.floor(data.main.temp))
 
-          setLocation(`${data.name}${data.sys.country ? ', ' + data.sys.country : ''}`)
-          setDescription(data.weather[0].description)
+					setLocation(`${data.name}${data.sys.country ? ', ' + data.sys.country : ''}`)
+					setDescription(data.weather[0].description)
 
-          const date = getDateWithTimezoneOffset((data.dt + data.timezone) * 1000)
+					const date = getDateWithTimezoneOffset((data.dt + data.timezone) * 1000)
 
-          const weekday = date.toLocaleString('en-US', { weekday: 'long' })
-          const time = date.toLocaleString('en-US', { hourCycle: 'h23', hour: '2-digit', minute: '2-digit' })
+					const weekday = date.toLocaleString('en-US', { weekday: 'long' })
+					const time = date.toLocaleString('en-US', { hourCycle: 'h23', hour: '2-digit', minute: '2-digit' })
 
-          setDate(`${weekday}, ${time}`)
+					setDate(`${weekday}, ${time}`)
 
-          setShowTemp(true);
-        } else {
+					setShowTemp(true);
+				} else {
 
-          setLocation(`Place not found :(`)
-          setDescription('')
-          setDate('')
+					setLocation(`Place not found :(`)
+					setDescription('')
+					setDate('')
 
-          setShowTemp(false);
-        }
+					setShowTemp(false);
+				}
 
-        setShow(true);
-        setShowLocation(true);
+				setShow(true);
+				setShowLocation(true);
 
-      }, 1000)
-    }
+			}, 1000)
+		}
 
-  }, [data, previousData]);
+	}, [data, previousData]);
 
-  useEffect(() => {
+	useEffect(() => {
 
-    setTempEraseEffectPlay(false);
-    clearTimeout(tempEraseEffectTimeout);
-    tempEraseEffectTimeout = setTimeout(() => {
-      setTempEraseEffectPlay(true);
-    }, 60);
+		setTempEraseEffectPlay(false);
+		clearTimeout(tempEraseEffectTimeout);
+		tempEraseEffectTimeout = setTimeout(() => {
+			setTempEraseEffectPlay(true);
+		}, 60);
 
-  }, [showTemp])
+	}, [showTemp])
 
-  useEffect(() => {
+	useEffect(() => {
 
-    setLocationEraseEffectPlay(false);
-    clearTimeout(locationEraseEffectTimeout)
-    locationEraseEffectTimeout = setTimeout(() => {
-      setLocationEraseEffectPlay(true);
-    }, 60);
+		setLocationEraseEffectPlay(false);
+		clearTimeout(locationEraseEffectTimeout)
+		locationEraseEffectTimeout = setTimeout(() => {
+			setLocationEraseEffectPlay(true);
+		}, 60);
 
-  }, [showLocation])
+	}, [showLocation])
 
-  if (!data) return null
+	if (!data) return null
 
-  return (
-    <div className={'weather-card border-anim erase-effect-fast' + (show ? ' show play' : ' hidden')}>
+	return (
+		<div className={'weather-card border-anim erase-effect-fast' + (show ? ' show play' : ' hidden')}>
 
-      <div className='left-area'>
-        <div className='top-left row'>
-          <WeatherIcon data={data} onEntityCollected={onEntityCollected} entities={entities} />
-          <div className={`temp-container row erase-effect hold-play` + (showTemp ? ' show' : ' hidden') + ( tempEraseEffectPlay ? ' play' : '' )}>
-            <TempCounter className='temp' from={0} to={temp} />
-            <div className='metric'>°C</div>
-          </div>
-        </div>
-        <div className='column'>
-          <div className={'info location erase-effect hold-play' + (showLocation ? ' show' : ' hidden') + ( locationEraseEffectPlay ? ' play' : '')}>
-            <span>{location}</span>
-          </div>
-          <div className={'info date erase-effect hold-play' + (showLocation ? ' show' : ' hidden') + ( locationEraseEffectPlay ? ' play' : '')}>
-            <span>{date}</span>
-          </div>
-          <div className={'info desc erase-effect hold-play' + (showLocation ? ' show' : ' hidden') + ( locationEraseEffectPlay ? ' play' : '')}>
-            <span>{description}</span>
-          </div>
-        </div>
-      </div>
-      <div className='right-area'>
-        { weather && <EntitiesManager weather={weather} onEntityCollected={onEntityCollected} entities={entities} /> }
-      </div>
+			<div className='left-area'>
+				<div className='top-left row'>
+					<WeatherIcon data={data} onEntityCollected={onEntityCollected} entities={entities} />
+					<div className={`temp-container row erase-effect hold-play` + (showTemp ? ' show' : ' hidden') + (tempEraseEffectPlay ? ' play' : '')}>
+						<TempCounter className='temp' from={0} to={temp} />
+						<div className='metric'>°C</div>
+					</div>
+				</div>
+				<div className='column'>
+					<div className={'info location erase-effect hold-play' + (showLocation ? ' show' : ' hidden') + (locationEraseEffectPlay ? ' play' : '')}>
+						<span>{location}</span>
+					</div>
+					<div className={'info date erase-effect hold-play' + (showLocation ? ' show' : ' hidden') + (locationEraseEffectPlay ? ' play' : '')}>
+						<span>{date}</span>
+					</div>
+					<div className={'info desc erase-effect hold-play' + (showLocation ? ' show' : ' hidden') + (locationEraseEffectPlay ? ' play' : '')}>
+						<span>{description}</span>
+					</div>
+				</div>
+			</div>
+			<div className='right-area'>
+				{weather && <EntitiesManager weather={weather} onEntityCollected={onEntityCollected} entities={entities} />}
+			</div>
 
-    </div>
-  )
+		</div>
+	)
 }
