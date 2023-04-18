@@ -18,6 +18,7 @@ export default class Bike extends Entity {
         }
 
         this.maxTimeOnScreen = 12000
+        this.lastEntityId = '';
         this.debugKey = '3'
     }
 
@@ -25,8 +26,12 @@ export default class Bike extends Entity {
         if (this.isExtremeTemperature() || weather.isRaining || weather.isSnowing) return null;
 
         if (weather.tempType <= TEMP_TYPES.cold) return this.props.entities.bikeCold;
-        if (Math.random() <= 0.5) return this.props.entities.bikeGirl;
+        if (this.lastEntityId !== this.props.entities.bikeGirl.id) {
+            this.lastEntityId = this.props.entities.bikeGirl.id;
+            return this.props.entities.bikeGirl;
+        }
 
+        this.lastEntityId = this.props.entities.bike.id;
         return this.props.entities.bike;
     }
 }

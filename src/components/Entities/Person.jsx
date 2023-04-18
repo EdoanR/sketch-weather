@@ -20,6 +20,8 @@ export default class Person extends Entity {
         }
 
         this.maxTimeOnScreen = 15000
+        this.sameEntityCount = 0
+        this.lastEntityId = '';
         this.debugKey = '1'
     }
 
@@ -33,10 +35,19 @@ export default class Person extends Entity {
 
         if (weather.isRaining) return this.props.entities.personRainy;
 
-        if (weather.isDay && weather.tempType >= TEMP_TYPES.sunny && Math.random() <= 0.5) {
+        if (this.shouldSpawnSunnyPerson(weather)) {
+            this.lastEntityId = this.props.entities.personSunny.id;
             return this.props.entities.personSunny;
         }
 
+        this.lastEntityId = this.props.entities.person.id;
         return this.props.entities.person;
+    }
+
+    shouldSpawnSunnyPerson(weather) {
+        if (!weather.isDay) return false; 
+        if (!(weather.tempType >= TEMP_TYPES.sunny)) return false; 
+        if (this.lastEntityId === this.props.entities.personSunny.id) return false;
+        return true;
     }
 }
