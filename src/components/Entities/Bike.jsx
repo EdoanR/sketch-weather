@@ -17,7 +17,6 @@ export default class Bike extends Entity {
             chancePerTick: 0.075
         }
 
-        this.maxTimeOnScreen = 12000
         this.lastEntityId = '';
         this.debugKey = '3'
     }

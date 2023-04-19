@@ -26,8 +26,6 @@ export default class Bird extends Entity {
             maxTime: 15000,
             chancePerTick: 0.075
         }
-
-        this.maxTimeOnScreen = 15000
     }
 
     setOwlSpawnConfig() {
@@ -36,7 +34,6 @@ export default class Bird extends Entity {
             maxTime: 20000,
             chancePerTick: 0.055
         }
-        this.maxTimeOnScreen = 20000
     }
 
     spawn() {

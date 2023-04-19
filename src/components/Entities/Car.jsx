@@ -18,7 +18,6 @@ export default class Car extends Entity {
             chancePerTick: 0.1
         }
 
-        this.maxTimeOnScreen = 10000
         this.debugKey = '2'
     }
 

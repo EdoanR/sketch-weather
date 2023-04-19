@@ -20,8 +20,6 @@ export default class Entity extends Component {
             chancePerTick: 1
         }
 
-        this.maxTimeOnScreen = 15000
-
          /** @private */
         this.spawnChances = {}
 
@@ -112,16 +110,10 @@ export default class Entity extends Component {
 
     /** @private */
     handleTickUpdate(tick) {
-        if (!this.state.moving) {
-            if ( !this.rollSpawnChance(tick) ) return
+        if (this.state.moving) return;
+        if (!this.rollSpawnChance(tick)) return;
 
-            this.trySpawn()
-
-        } else {
-            if (tick > this.spawnedTick + this.maxTimeOnScreen) {
-                this.startDespawn() // took too long to despawn.
-            }
-        }
+        this.trySpawn()
     }
 
     getEntityToSpawn(weather) {

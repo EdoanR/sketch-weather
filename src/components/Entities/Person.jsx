@@ -19,7 +19,6 @@ export default class Person extends Entity {
             chancePerTick: 0.15
         }
 
-        this.maxTimeOnScreen = 15000
         this.sameEntityCount = 0
         this.lastEntityId = '';
         this.debugKey = '1'
