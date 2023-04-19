@@ -10,7 +10,6 @@ import EntitiesList from './components/EntityList/EntityList';
 import defaultEntitiesList from './components/EntityList/entities';
 import PreviousWeathers from './components/PreviousWeathers/PreviousWeathers';
 import FontButton from './components/FontButton/FontButton';
-import SoundControl from './components/SoundControl/SoundControl';
 import { converDataToWeather } from './components/EntitiesManager/EntitiesManager';
 
 export default function App() {
@@ -19,7 +18,6 @@ export default function App() {
 	const [data, setData] = useState()
 	const [previousData, setPreviousData] = useState()
 	const [entities, setEntities] = useState(defaultEntitiesList)
-	const [soundCtrl, setSoundCtrl] = useState({ volume: 1, muted: false });
 
 	const inputRef = useRef()
 	const entityListRef = useRef()
@@ -90,7 +88,6 @@ export default function App() {
 			<EntitiesList ref={entityListRef} entities={entities} onListChange={handleEntityListChange} />
 			<div className='top-left-buttons'>
 				<FontButton />
-				<SoundControl soundCtrl={soundCtrl} setSoundCtrl={setSoundCtrl} />
 			</div>
 		</div>
 	)
