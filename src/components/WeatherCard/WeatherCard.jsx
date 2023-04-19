@@ -24,7 +24,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
 	const [tempEraseEffectPlay, setTempEraseEffectPlay] = useState(true)
 
 	useEffect(() => {
-		if (!data) return
+		if (!data) return;
 
 		if (data.loading) {
 
@@ -35,7 +35,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
 			clearTimeout(dataLoadTimeout);
 			dataLoadTimeout = setTimeout(() => {
 
-				if (data.cod !== '404') {
+				if (data.cod == 200) {
 
 					setTemp(Math.floor(data.main.temp))
 					setPreviousTemp(previousData && previousData.main ? Math.floor(previousData.main.temp) : Math.floor(data.main.temp))
@@ -53,7 +53,13 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
 					setShowTemp(true);
 				} else {
 
-					setLocation(`Place not found :(`)
+					if (data.cod == 404) {
+						setLocation(`Location not found...`)
+					} else if (data.cod == 401) {
+						setLocation((data.message || 'Invalid API key.').replace(/(?<=(?:^|\s))(https?:\/\/\S+)/g, `<a href="$1">$1</a>`))
+					} else {
+						setLocation((data.message || 'Some error occured. Sorry :(').replace(/(?<=(?:^|\s))(https?:\/\/\S+)/g, `<a href="$1">$1</a>`))
+					}
 					setDescription('')
 					setDate('')
 
@@ -103,7 +109,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
 				</div>
 				<div className='column'>
 					<div className={'info location erase-effect hold-play' + (showLocation ? ' show' : ' hidden') + (locationEraseEffectPlay ? ' play' : '')}>
-						<span>{location}</span>
+						<span dangerouslySetInnerHTML={{ __html: location }}></span>
 					</div>
 					<div className={'info date erase-effect hold-play' + (showLocation ? ' show' : ' hidden') + (locationEraseEffectPlay ? ' play' : '')}>
 						<span>{date}</span>

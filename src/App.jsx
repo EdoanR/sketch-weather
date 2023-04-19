@@ -31,13 +31,9 @@ export default function App() {
 
 		const key = import.meta.env.VITE_OPEN_WEATHER_API_KEY;
 		fetch(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=${key}`).then(async res => {
-			const data = await res.json()
+			const data = await res.json();
 
-			if (!data || data.cod !== 200) {
-				console.log('Could not get data:\n', data);
-			} else {
-				console.log('data:', data)
-			}
+			console.log('data:', data)
 
 			setPreviousData(data)
 			setData(data)
@@ -48,7 +44,8 @@ export default function App() {
 			}
 
 		}).catch(err => {
-			console.log('Error getting data:\n', err) // TODO: show on website a response about that.
+			console.log('Error getting data:\n', err);
+			alert(`Could not get data, please check your internet connection.`);
 		})
 	}
 
