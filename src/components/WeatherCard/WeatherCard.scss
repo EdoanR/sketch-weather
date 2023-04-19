@@ -47,6 +47,7 @@
 
     .left-area {
         flex-grow: 1;
+        min-width: 28%;
 
         .temp {
             font-family: 'Open Sans', sans-serif;
@@ -70,7 +71,10 @@
         .location {
             position: relative;
             font-size: 1.6rem;
-            min-height: 34px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            overflow-wrap: break-word;
+            max-height: 95px;
         }
 
         .date,
