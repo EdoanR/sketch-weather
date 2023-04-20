@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './FontButton.scss';
+import './index.scss';
 
 export default function FontButton() {
     const [altFontState, setAltFontState] = useState(false);
@@ -30,7 +30,7 @@ export default function FontButton() {
         }
     }, [altFontState]);
 
-    return <div onClick={handleClick} className='font-button border-anim-hover'>
+    return <div onClick={handleClick} className='font-button border-anim-hover' title='Change font'>
         <div>Abc</div>
     </div>
 }

@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { useState, forwardRef, useEffect, useImperativeHandle } from "react";
 import EntityContainer from "./EntityContainer";
-import './EntityList.scss';
+import './index.scss';
 
 let revealed = false;
 

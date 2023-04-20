@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getDateWithTimezoneOffset } from '../../utils'
-import EntitiesManager from '../EntitiesManager/EntitiesManager'
+import EntitiesManager from '../EntitiesManager'
 import TempCounter from './TempCounter'
-import WeatherIcon from '../WeatherIcon/WeatherIcon'
-import './WeatherCard.scss'
+import WeatherIcon from '../WeatherIcon'
+import './index.scss'
 
 let dataLoadTimeout = null
 

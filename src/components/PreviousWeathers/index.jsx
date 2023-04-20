@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import './PreviousWeathers.scss';
+import './index.scss';
 
 function PreviousWeathers({ data, max, searchData }) {
 

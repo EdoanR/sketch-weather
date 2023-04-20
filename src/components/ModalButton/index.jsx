@@ -1,4 +1,4 @@
-import './ModalButton.scss';
+import './index.scss';
 
 export default function ModalButton({ onClick }) {
 

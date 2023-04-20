@@ -1,4 +1,4 @@
-import './ConfigButton.scss';
+import './index.scss';
 
 export default function ConfigButton({ onClick }) {
     return (

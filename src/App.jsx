@@ -4,15 +4,15 @@ import './animations.scss'
 import './entities.scss'
 import './effects.scss'
 import './App.scss'
-import SearchBar from './components/SearchBar/SearchBar';
-import WeatherCard from './components/WeatherCard/WeatherCard';
-import EntitiesList from './components/EntityList/EntityList';
+import SearchBar from './components/SearchBar';
+import WeatherCard from './components/WeatherCard';
+import EntitiesList from './components/EntityList';
 import defaultEntitiesList from './components/EntityList/entities';
-import PreviousWeathers from './components/PreviousWeathers/PreviousWeathers';
-import FontButton from './components/FontButton/FontButton';
-import { converDataToWeather } from './components/EntitiesManager/EntitiesManager';
-import ModalButton from './components/ModalButton/ModalButton';
-import APIModal from './components/APIModal/APIModal';
+import PreviousWeathers from './components/PreviousWeathers';
+import FontButton from './components/FontButton';
+import { converDataToWeather } from './components/EntitiesManager';
+import ModalButton from './components/ModalButton';
+import APIModal from './components/APIModal';
 import ReactModal from 'react-modal';
 
 ReactModal.setAppElement('#root');

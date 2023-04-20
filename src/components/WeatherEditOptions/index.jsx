@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { isDev } from '../../utils';
-import './WeatherEditOptions.scss'
+import './index.scss'
 
 export default function WeatherEditOptions({ weather, onChange }) {
 

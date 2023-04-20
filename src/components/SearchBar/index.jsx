@@ -1,4 +1,4 @@
-import './SearchBar.scss'
+import './index.scss'
 
 let searchBarBgChangeTimeout = null;
 

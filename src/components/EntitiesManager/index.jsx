@@ -5,10 +5,10 @@ import Car from '../Entities/Car'
 import Bird from '../Entities/Bird'
 import Bike from '../Entities/Bike'
 import Person from '../Entities/Person'
-import Rain from '../Rain/Rain'
-import Snow from '../Snow/Snow'
+import Rain from '../Rain'
+import Snow from '../Snow'
 import SunAndMoon from '../Entities/SunAndMoon'
-import Background from '../Background/Background'
+import Background from '../Background'
 
 // Time between ticks in milliseconds
 const tickInterval = 1000

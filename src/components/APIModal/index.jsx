@@ -1,5 +1,5 @@
-import './APIModal.scss';
 import ReactModal from "react-modal";
+import './index.scss';
 
 export default function APIModal({ modalIsOpen, setModalIsOpen, apiKey, setApiKey, onAfterAPISubmit }) {
 
