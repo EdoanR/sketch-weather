@@ -20,23 +20,10 @@ export default function EntityContainer({ entity, collectedEntityId, entitiesRev
 
     function HandleMouseEnter(e) {
         setHovering(true);
-        setInFront(true);
     }
 
     function HandleMouseLeave(e) {
         setHovering(false);
-    }
-
-    function HandleTransitionEnd(e) {
-        if (!hovering) setInFront(false);
-    }
-
-    function getChildIndex() {
-        return Array.from(selfElementRef.current.parentNode.children).indexOf(selfElementRef.current);
-    }
-
-    function getParentChildCount() {
-        return selfElementRef.current.parentElement.children.length;
     }
 
     function playPopAnimation() {
@@ -73,7 +60,6 @@ export default function EntityContainer({ entity, collectedEntityId, entitiesRev
                 className='entity-item border-anim-hover'
                 onMouseEnter={HandleMouseEnter} 
                 onMouseLeave={HandleMouseLeave}
-                onTransitionEnd={HandleTransitionEnd}
                 title={entity.name}
             >
                 <div 
