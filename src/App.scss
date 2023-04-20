@@ -52,3 +52,14 @@ body {
     top: 0.25em;
     left: 0.25em;
 }
+
+#tooltip {
+    position: absolute;
+    background-color: rgb(48, 48, 48);
+    border: 1px solid white;
+    left: -100px;
+    top: -100px;
+    z-index: 99;
+    padding: 5px;
+    border-radius: 5px;
+}

@@ -60,7 +60,8 @@ export default function EntityContainer({ entity, collectedEntityId, entitiesRev
                 className='entity-item border-anim-hover'
                 onMouseEnter={HandleMouseEnter} 
                 onMouseLeave={HandleMouseLeave}
-                title={entity.name}
+                data-tooltip-id="tooltip"
+                data-tooltip-content={entity.name}
             >
                 <div 
                     className={'item-icon' + (entity.collected ? ' collected' : '')}

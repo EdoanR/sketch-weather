@@ -14,6 +14,7 @@ import { converDataToWeather } from './components/EntitiesManager';
 import ModalButton from './components/ModalButton';
 import APIModal from './components/APIModal';
 import ReactModal from 'react-modal';
+import { Tooltip } from 'react-tooltip';
 
 ReactModal.setAppElement('#root');
 
@@ -80,6 +81,7 @@ export default function App() {
 
 	return (
 		<div className='App'>
+        	<Tooltip id='tooltip'/>
 			<APIModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} apiKey={apiKey} setApiKey={setApiKey} onAfterAPISubmit={() => { if (inputRef.current.value) searchData(inputRef.current.value); }}/>
 			<SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
 			<WeatherCard weather={weather} data={data} entities={entities} previousData={previousData} onEntityCollected={handleCollectedEntity} />
