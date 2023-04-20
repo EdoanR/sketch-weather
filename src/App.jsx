@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../node_modules/font-awesome/css/font-awesome.min.css'
 import './animations.scss'
 import './entities.scss'
@@ -11,6 +11,11 @@ import defaultEntitiesList from './components/EntityList/entities';
 import PreviousWeathers from './components/PreviousWeathers/PreviousWeathers';
 import FontButton from './components/FontButton/FontButton';
 import { converDataToWeather } from './components/EntitiesManager/EntitiesManager';
+import ModalButton from './components/ModalButton/ModalButton';
+import APIModal from './components/APIModal/APIModal';
+import ReactModal from 'react-modal';
+
+ReactModal.setAppElement('#root');
 
 export default function App() {
 
@@ -18,17 +23,29 @@ export default function App() {
 	const [data, setData] = useState()
 	const [previousData, setPreviousData] = useState()
 	const [entities, setEntities] = useState(defaultEntitiesList)
+    const [modalIsOpen, setModalIsOpen] = useState();
+	const [apiKey, setApiKey] = useState(localStorage.getItem('api-key') || import.meta.env.VITE_OPEN_WEATHER_API_KEY || '');
 
 	const inputRef = useRef()
 	const entityListRef = useRef()
 
+	useEffect(() => {
+		setTimeout(() => {
+			setModalIsOpen(!apiKey)
+		}, 1000);
+	}, [])
+
 	function searchData(search) {
 		if (!search) return
 
+		if (!apiKey) {
+			setModalIsOpen(true);
+			return;
+		}
+
 		setData({ loading: true })
 
-		const key = import.meta.env.VITE_OPEN_WEATHER_API_KEY;
-		fetch(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=${key}`).then(async res => {
+		fetch(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=${apiKey}`).then(async res => {
 			const data = await res.json();
 
 			console.log('data:', data)
@@ -63,12 +80,14 @@ export default function App() {
 
 	return (
 		<div className='App'>
+			<APIModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} apiKey={apiKey} setApiKey={setApiKey} onAfterAPISubmit={() => { if (inputRef.current.value) searchData(inputRef.current.value); }}/>
 			<SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
 			<WeatherCard weather={weather} data={data} entities={entities} previousData={previousData} onEntityCollected={handleCollectedEntity} />
 			<PreviousWeathers data={data} searchData={searchData} />
 			<EntitiesList ref={entityListRef} entities={entities} onListChange={handleEntityListChange} />
 			<div className='top-left-buttons'>
 				<FontButton />
+				<ModalButton onClick={() => setModalIsOpen(true)}/>
 			</div>
 		</div>
 	)
