@@ -32,6 +32,21 @@
         outline: 0;
         text-align: center;
     }
+
+    .close-button {
+        position: absolute;
+        right: 0;
+        top: -3px;
+        padding: 5px;
+        font-size: large;
+        opacity: 0.9;
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
 }
 
 .modal-overlay {

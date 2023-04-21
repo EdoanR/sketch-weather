@@ -28,6 +28,7 @@ export default function APIModal({ modalIsOpen, setModalIsOpen, apiKey, setApiKe
             portalClassName="modal-portal"
             closeTimeoutMS={250}
         >
+            <button type="button" className="close-button" onClick={closeModal}>x</button>
             <h2>API Key</h2>
             <p>API key is necessary to obtain weather data, you can get one by creating an account on <a href="https://openweathermap.org" target='_blank'>OpenWeather</a></p>
             <label htmlFor="">

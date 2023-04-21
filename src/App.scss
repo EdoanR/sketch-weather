@@ -4,6 +4,14 @@
     src: local('Neucha'), url('/fonts/Neucha-Regular.ttf') format('opentype');
 }
 
+button {
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    color: inherit;
+}
+
 .hide {
     display: none !important;
 }
