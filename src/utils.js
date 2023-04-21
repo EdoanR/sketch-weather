@@ -24,3 +24,7 @@ export function lerp(x, y, a) {
 export function isDev() {
     return !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 }
+
+export function celsiusToFahrenheit(celsius) {
+	return celsius * 9 / 5 + 32;
+}

@@ -10,11 +10,12 @@ import EntitiesList from './components/EntityList';
 import defaultEntitiesList from './components/EntityList/entities';
 import PreviousWeathers from './components/PreviousWeathers';
 import FontButton from './components/FontButton';
-import { converDataToWeather } from './components/EntitiesManager';
 import ModalButton from './components/ModalButton';
 import APIModal from './components/APIModal';
 import ReactModal from 'react-modal';
 import { Tooltip } from 'react-tooltip';
+import { converDataToWeather } from './components/EntitiesManager';
+import SmallButton from './components/SmallButton';
 
 ReactModal.setAppElement('#root');
 
@@ -26,6 +27,7 @@ export default function App() {
 	const [entities, setEntities] = useState(defaultEntitiesList)
     const [modalIsOpen, setModalIsOpen] = useState();
 	const [apiKey, setApiKey] = useState(localStorage.getItem('api-key') || import.meta.env.VITE_OPEN_WEATHER_API_KEY || '');
+	const [celsiusUnit, setCelsiusUnit] = useState(true);
 
 	const inputRef = useRef()
 	const entityListRef = useRef()
@@ -84,12 +86,17 @@ export default function App() {
         	<Tooltip id='tooltip'/>
 			<APIModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} apiKey={apiKey} setApiKey={setApiKey} onAfterAPISubmit={() => { if (inputRef.current.value) searchData(inputRef.current.value); }}/>
 			<SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
-			<WeatherCard weather={weather} data={data} entities={entities} previousData={previousData} onEntityCollected={handleCollectedEntity} />
-			<PreviousWeathers data={data} searchData={searchData} />
+			<WeatherCard weather={weather} data={data} entities={entities} previousData={previousData} celsiusUnit={celsiusUnit} onEntityCollected={handleCollectedEntity} />
+			<PreviousWeathers data={data} searchData={searchData} celsiusUnit={celsiusUnit} />
 			<EntitiesList ref={entityListRef} entities={entities} onListChange={handleEntityListChange} />
 			<div className='top-left-buttons'>
 				<FontButton />
 				<ModalButton onClick={() => setModalIsOpen(true)}/>
+				<SmallButton onClick={() => setCelsiusUnit(v => !v)} tooltip={celsiusUnit ? 'Switch to Fahrenheit' : 'Switch to Celsius'}>
+					<div style={{fontSize: 'large', fontFamily: '"Open Sans", sans-serif'}} className='content'>
+						{celsiusUnit ? '°C' : '°F'}
+					</div>
+				</SmallButton>
 			</div>
 		</div>
 	)

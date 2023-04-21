@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getDateWithTimezoneOffset } from '../../utils'
+import { getDateWithTimezoneOffset, celsiusToFahrenheit } from '../../utils'
 import EntitiesManager from '../EntitiesManager'
 import TempCounter from './TempCounter'
 import WeatherIcon from '../WeatherIcon'
@@ -10,7 +10,7 @@ let dataLoadTimeout = null
 let tempEraseEffectTimeout = null;
 let locationEraseEffectTimeout = null;
 
-export default function WeatherCard({ data, weather, previousData, onEntityCollected, entities }) {
+export default function WeatherCard({ data, weather, previousData, onEntityCollected, entities, celsiusUnit }) {
 
 	const [location, setLocation] = useState('')
 	const [temp, setTemp] = useState(0)
@@ -103,8 +103,8 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
 				<div className='top-left row'>
 					<WeatherIcon data={data} onEntityCollected={onEntityCollected} entities={entities} />
 					<div className={`temp-container row erase-effect hold-play` + (showTemp ? ' show' : ' hidden') + (tempEraseEffectPlay ? ' play' : '')}>
-						<TempCounter className='temp' from={0} to={temp} />
-						<div className='metric'>°C</div>
+						<TempCounter className='temp' from={0} to={celsiusUnit ? temp : celsiusToFahrenheit(temp)} />
+						<div className='metric'>{celsiusUnit ? '°C' : '°F'}</div>
 					</div>
 				</div>
 				<div className='column'>

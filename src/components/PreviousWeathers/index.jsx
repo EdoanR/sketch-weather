@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { celsiusToFahrenheit } from "../../utils";
 import './index.scss';
 
-function PreviousWeathers({ data, max, searchData }) {
+function PreviousWeathers({ data, max, searchData, celsiusUnit }) {
 
     const [ prevDatasList, setPrevDatasList ] = useState([]);
     const [ prevData, setPrevData ] = useState(data);
@@ -54,7 +55,11 @@ function PreviousWeathers({ data, max, searchData }) {
                             >
                                 <div className="info">
                                     <div className="icon" style={{ backgroundImage: `url(${iconUrl})` }}/>
-                                    <div className="temp">{Math.floor(d.main.temp)} °C</div>
+                                    <div className="temp">{
+                                        celsiusUnit
+                                        ? `${Math.floor(d.main.temp)} °C`
+                                        : `${Math.floor(celsiusToFahrenheit(d.main.temp))} °F`
+                                    }</div>
                                 </div>
                                 <div className="location">{location}</div>
                         </div>
