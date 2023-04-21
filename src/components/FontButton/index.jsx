@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import SmallButton from '../SmallButton';
 
-export default function FontButton() {
+export default function FontButton(props) {
     const [altFontState, setAltFontState] = useState(false);
 
     useEffect(() => {
@@ -30,5 +30,5 @@ export default function FontButton() {
         }
     }, [altFontState]);
 
-    return <SmallButton content="Abc" onClick={handleClick} tooltip="Change font"/>
+    return <SmallButton {...props} content="Abc" onClick={handleClick} tooltip="Change font"/>
 }

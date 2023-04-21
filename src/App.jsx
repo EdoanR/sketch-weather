@@ -90,9 +90,9 @@ export default function App() {
 			<PreviousWeathers data={data} searchData={searchData} celsiusUnit={celsiusUnit} />
 			<EntitiesList ref={entityListRef} entities={entities} onListChange={handleEntityListChange} />
 			<div className='top-left-buttons'>
-				<FontButton />
-				<ModalButton onClick={() => setModalIsOpen(true)}/>
-				<SmallButton onClick={() => setCelsiusUnit(v => !v)} tooltip={celsiusUnit ? 'Switch to Fahrenheit' : 'Switch to Celsius'}>
+				<FontButton tabIndex="1"/>
+				<ModalButton tabIndex="2" onClick={() => setModalIsOpen(true)}/>
+				<SmallButton tabIndex="3" onClick={() => setCelsiusUnit(v => !v)} tooltip={celsiusUnit ? 'Switch to Fahrenheit' : 'Switch to Celsius'}>
 					<div style={{fontSize: 'large', fontFamily: '"Open Sans", sans-serif'}} className='content'>
 						{celsiusUnit ? '°C' : '°F'}
 					</div>
