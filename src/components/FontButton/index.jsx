@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './index.scss';
+import SmallButton from '../SmallButton';
 
 export default function FontButton() {
     const [altFontState, setAltFontState] = useState(false);
@@ -30,7 +30,5 @@ export default function FontButton() {
         }
     }, [altFontState]);
 
-    return <div onClick={handleClick} className='font-button border-anim-hover tooltip-element' data-tooltip-id='tooltip' data-tooltip-content='Change font'>
-        <div>Abc</div>
-    </div>
+    return <SmallButton content="Abc" onClick={handleClick} tooltip="Change font"/>
 }
