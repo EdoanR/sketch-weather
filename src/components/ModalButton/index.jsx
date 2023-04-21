@@ -7,7 +7,7 @@ export default function ModalButton({ onClick }) {
     }
 
     return (
-        <div className="modal-button border-static tooltip-element" onClick={handleMuteButtonClick} data-tooltip-id='tooltip' data-tooltip-content='Change API key'>
+        <div className="modal-button border-anim-hover tooltip-element" onClick={handleMuteButtonClick} data-tooltip-id='tooltip' data-tooltip-content='Change API key'>
             <div className="icon"/>
         </div>
     )
