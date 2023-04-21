@@ -10,6 +10,10 @@ $search-bar-b-radius: 0.5em;
     width: 100%;
     gap: 0.25em;
 
+    @media (max-width: 725px) {
+        margin-top: 3em;
+    }
+
     input[type="text"] {
         flex-grow: 1;
         background-color: transparent;
