@@ -19,7 +19,7 @@ export default function SmallButton(props) {
     }
 
     return (
-        <div 
+        <button 
             {...props}
             onMouseEnter={handleMouseEnter} 
             onMouseLeave={handleMouseLeave} 
@@ -36,7 +36,7 @@ export default function SmallButton(props) {
                 <div className="content">{props.content}</div>
             )}
             {props.children}
-        </div>
+        </button>
     )
     
 }
