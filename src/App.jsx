@@ -27,7 +27,7 @@ export default function App() {
 	const [entities, setEntities] = useState(defaultEntitiesList)
     const [modalIsOpen, setModalIsOpen] = useState();
 	const [apiKey, setApiKey] = useState(localStorage.getItem('api-key') || import.meta.env.VITE_OPEN_WEATHER_API_KEY || '');
-	const [celsiusUnit, setCelsiusUnit] = useState(true);
+	const [celsiusUnit, setCelsiusUnit] = useState( localStorage.getItem('celsius-unit') === 'true' );
 
 	const inputRef = useRef()
 	const entityListRef = useRef()
@@ -36,7 +36,12 @@ export default function App() {
 		setTimeout(() => {
 			setModalIsOpen(!apiKey)
 		}, 1000);
+
 	}, [])
+
+	useEffect(() => {
+		localStorage.setItem('celsius-unit', celsiusUnit);
+	}, [celsiusUnit]);
 
 	function searchData(search) {
 		if (!search) return
