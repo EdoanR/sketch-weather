@@ -28,6 +28,7 @@ export default function App() {
     const [modalIsOpen, setModalIsOpen] = useState();
 	const [apiKey, setApiKey] = useState(localStorage.getItem('api-key') || import.meta.env.VITE_OPEN_WEATHER_API_KEY || '');
 	const [celsiusUnit, setCelsiusUnit] = useState( localStorage.getItem('celsius-unit') === 'true' );
+	const [searchedUsingPath, setSearchUsingPath] = useState(false);
 
 	const searchBarInputRef = useRef()
 	const entityListRef = useRef()
@@ -38,9 +39,10 @@ export default function App() {
 		}, 1000);
 
 		const loc = decodeURI(location.pathname.replace('/', ''));
-		if (loc) {
+		if (loc && !searchedUsingPath) {
 			searchBarInputRef.current.value = loc;
 			searchData(loc);
+			setSearchUsingPath(true);
 		}
 
 	}, [])
