@@ -47,7 +47,6 @@ export default function App() {
 
 	useEffect(() => {
 		localStorage.setItem('celsius-unit', celsiusUnit);
-		console.log(location);
 	}, [celsiusUnit]);
 
 	function searchData(search) {
