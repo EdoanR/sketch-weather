@@ -29,7 +29,7 @@ export default function App() {
 	const [apiKey, setApiKey] = useState(localStorage.getItem('api-key') || import.meta.env.VITE_OPEN_WEATHER_API_KEY || '');
 	const [celsiusUnit, setCelsiusUnit] = useState( localStorage.getItem('celsius-unit') === 'true' );
 
-	const inputRef = useRef()
+	const searchBarInputRef = useRef()
 	const entityListRef = useRef()
 
 	useEffect(() => {
@@ -37,10 +37,17 @@ export default function App() {
 			setModalIsOpen(!apiKey)
 		}, 1000);
 
+		const loc = decodeURI(location.pathname.replace('/', ''));
+		if (loc) {
+			searchBarInputRef.current.value = loc;
+			searchData(loc);
+		}
+
 	}, [])
 
 	useEffect(() => {
 		localStorage.setItem('celsius-unit', celsiusUnit);
+		console.log(location);
 	}, [celsiusUnit]);
 
 	function searchData(search) {
@@ -75,7 +82,7 @@ export default function App() {
 	function handleOnSearch(e) {
 		e.preventDefault()
 
-		searchData(inputRef.current.value)
+		searchData(searchBarInputRef.current.value)
 	}
 
 	function handleCollectedEntity(entity) {
@@ -89,8 +96,8 @@ export default function App() {
 	return (
 		<div className='App'>
         	<Tooltip id='tooltip'/>
-			<APIModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} apiKey={apiKey} setApiKey={setApiKey} onAfterAPISubmit={() => { if (inputRef.current.value) searchData(inputRef.current.value); }}/>
-			<SearchBar onSubmit={handleOnSearch} inputRef={inputRef} />
+			<APIModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} apiKey={apiKey} setApiKey={setApiKey} onAfterAPISubmit={() => { if (searchBarInputRef.current.value) searchData(searchBarInputRef.current.value); }}/>
+			<SearchBar onSubmit={handleOnSearch} searchBarInputRef={searchBarInputRef} />
 			<WeatherCard weather={weather} data={data} entities={entities} previousData={previousData} celsiusUnit={celsiusUnit} onEntityCollected={handleCollectedEntity} />
 			<PreviousWeathers data={data} searchData={searchData} celsiusUnit={celsiusUnit} />
 			<EntitiesList ref={entityListRef} entities={entities} onListChange={handleEntityListChange} />
