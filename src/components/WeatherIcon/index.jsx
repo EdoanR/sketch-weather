@@ -42,7 +42,7 @@ export default function WeatherIcon({ data, onEntityCollected, entities }) {
     }
 
     function getEntityFromIcon(icon) {
-        if (icon === '13n') return entities.snowNight;
+        if (icon === '13d') return entities.snowDay;
         return null
     }
 

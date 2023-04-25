@@ -108,12 +108,12 @@ const entities = {
         icon: '/images/entities/static/moon.png',
         iconAnimated: '/images/entities/animated/moon.gif'
     },
-    snowNight: {
+    snowDay: {
         id: 'Hdr8knjmBmr18WhsP4Ks',
-        name: 'Snow Night',
-        keyName: 'snowNight',
-        icon: '/images/entities/static/snow_night.png',
-        iconAnimated: '/images/entities/animated/snow_night.gif'
+        name: 'Snow Day',
+        keyName: 'snowDay',
+        icon: '/images/entities/static/snow_day.png',
+        iconAnimated: '/images/entities/animated/snow_day.gif'
     }
 }
 
