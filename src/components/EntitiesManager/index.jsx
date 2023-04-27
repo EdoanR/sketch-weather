@@ -96,7 +96,7 @@ export function converDataToWeather(data) {
     }
 
     return {
-        id: `${data.sys.id}${temp}`,
+        id: data.id,
         temp: temp,
         tempType,
         time,
