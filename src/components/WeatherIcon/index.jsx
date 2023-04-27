@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { EntitiesContext } from "../../contexts/entitiesContext";
 import './index.scss';
 import icons from './icons';
 
 const iconWidth = 64;
 let isFirstIcon = true;
 
-export default function WeatherIcon({ data, onEntityCollected, entities }) {
+export default function WeatherIcon({ data }) {
     const [ selectedIconIndex, setSelecectedIconIndex ] = useState(-1);
+    const { collectEntity, entities } = useContext(EntitiesContext);
 
     useEffect(() => {
         if (!data || data.loading) return;
@@ -38,7 +40,7 @@ export default function WeatherIcon({ data, onEntityCollected, entities }) {
         if (clickedIcon !== currentIcon) return;
 
         const entity = getEntityFromIcon(currentIcon);
-        if (entity) onEntityCollected(entity);
+        if (entity) collectEntity(entity);
     }
 
     function getEntityFromIcon(icon) {

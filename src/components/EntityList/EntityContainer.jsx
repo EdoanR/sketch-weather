@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import EntityBubble from "./EntityBubble";
 
-export default function EntityContainer({ entity, collectedEntityId, entitiesReveal, index, onPopAnimation }) {
+export default function EntityContainer({ entity, entitiesReveal, index, onPopAnimation }) {
     const selfElementRef = useRef();
     const itemElementRef = useRef();
     const [ hovering, setHovering ] = useState(false);
@@ -54,7 +54,7 @@ export default function EntityContainer({ entity, collectedEntityId, entitiesRev
             className={composeClassName()}
             onAnimationEnd={handleAnimationEnd}
         >
-            <EntityBubble entity={entity} playPopAnimation={playPopAnimation} collectedEntityId={collectedEntityId} />
+            <EntityBubble entity={entity} playPopAnimation={playPopAnimation} />
             <div 
                 ref={itemElementRef} 
                 className='entity-item border-anim-hover'

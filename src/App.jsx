@@ -16,6 +16,7 @@ import ReactModal from 'react-modal';
 import { Tooltip } from 'react-tooltip';
 import { converDataToWeather } from './components/EntitiesManager';
 import SmallButton from './components/SmallButton';
+import { EntitiesContext } from './contexts/entitiesContext';
 
 ReactModal.setAppElement('#root');
 
@@ -25,13 +26,13 @@ export default function App() {
 	const [data, setData] = useState()
 	const [previousData, setPreviousData] = useState()
 	const [entities, setEntities] = useState(defaultEntitiesList)
+	const [lastCollectedEntity, setLastCollectedEntity] = useState(null);
     const [modalIsOpen, setModalIsOpen] = useState();
 	const [apiKey, setApiKey] = useState(localStorage.getItem('api-key') || import.meta.env.VITE_OPEN_WEATHER_API_KEY || '');
 	const [celsiusUnit, setCelsiusUnit] = useState( localStorage.getItem('celsius-unit') === 'true' );
 	const [searchedUsingPath, setSearchUsingPath] = useState(false);
 
 	const searchBarInputRef = useRef()
-	const entityListRef = useRef()
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -86,12 +87,12 @@ export default function App() {
 		searchData(searchBarInputRef.current.value)
 	}
 
-	function handleCollectedEntity(entity) {
-		entityListRef.current.onEntityCollected(entity)
-	}
+	function collectEntity(entity) {
+		const newEntities = {...entities};
+		newEntities[entity.keyName].collected = true
 
-	function handleEntityListChange(newList) {
-		setEntities(newList)
+		setEntities(newEntities);
+		setLastCollectedEntity(entity);
 	}
 
 	return (
@@ -99,9 +100,11 @@ export default function App() {
         	<Tooltip id='tooltip'/>
 			<APIModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} apiKey={apiKey} setApiKey={setApiKey} onAfterAPISubmit={() => { if (searchBarInputRef.current.value) searchData(searchBarInputRef.current.value); }}/>
 			<SearchBar onSubmit={handleOnSearch} searchBarInputRef={searchBarInputRef} />
-			<WeatherCard weather={weather} data={data} entities={entities} previousData={previousData} celsiusUnit={celsiusUnit} onEntityCollected={handleCollectedEntity} />
-			<PreviousWeathers data={data} searchData={searchData} celsiusUnit={celsiusUnit} />
-			<EntitiesList ref={entityListRef} entities={entities} onListChange={handleEntityListChange} />
+			<EntitiesContext.Provider value={{entities, lastCollectedEntity, collectEntity}}>
+				<WeatherCard weather={weather} data={data} previousData={previousData} celsiusUnit={celsiusUnit} />
+				<PreviousWeathers data={data} searchData={searchData} celsiusUnit={celsiusUnit} />
+				<EntitiesList />
+			</EntitiesContext.Provider>
 			<div className='top-left-buttons'>
 				<FontButton tabIndex="1"/>
 				<ModalButton tabIndex="2" onClick={() => setModalIsOpen(true)}/>

@@ -22,7 +22,7 @@ export default class SunAndMoon extends Component {
 
     handleClick() {
         if (!this.state.entity) return
-        this.props.onEntityCollected(this.state.entity)
+        this.props.collectEntity(this.state.entity)
     }
 
     componentDidUpdate(prevProps, prevStates) {

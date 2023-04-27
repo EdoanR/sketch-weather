@@ -37,7 +37,7 @@ export default class Entity extends Component {
     handleClick() {
         if (!this.state.entity) return
         if (this.state.entity.collected) return
-        this.props.onEntityCollected(this.state.entity)
+        this.props.collectEntity(this.state.entity)
         this.setState({
             entity: {...this.state.entity, collected: true}
         })

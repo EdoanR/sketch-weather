@@ -1,39 +1,27 @@
-import { useState, forwardRef, useEffect, useImperativeHandle } from "react";
+import { useState, useEffect, useContext } from "react";
 import EntityContainer from "./EntityContainer";
+import { EntitiesContext } from "../../contexts/entitiesContext";
 import './index.scss';
 
 let revealed = false;
 
-export default forwardRef(({ onListChange, entities }, ref) => {
+export default function EntitiesList() {
 
     const [ hasCollected, setHasCollected ] = useState(false);
     const [ collectedEntityId, setCollectedEntityId ] = useState('');
     const [ entitiesReveal, setEntitiesReveal ] = useState([]);
-
-    useImperativeHandle(ref, () => ({
-        onEntityCollected: (entity) => {
-            const newList = {...entities}
-            newList[entity.keyName].collected = true
-
-            setHasCollected(true);
-
-            onListChange(newList);
-
-            setCollectedEntityId(entity.id);
-        }
-    }));
-
-    function loadList() {
-
-    }
-
-    // function saveList() {
-
-    // }
+    const { entities, lastCollectedEntity } = useContext(EntitiesContext);
 
     useEffect(() => {
-        loadList();
-    }, [entities])
+        if (!lastCollectedEntity) return;
+
+        handleEntityCollected(lastCollectedEntity);
+    }, [lastCollectedEntity]);
+
+    function handleEntityCollected(entity) {
+        setHasCollected(true);
+        setCollectedEntityId(entity.id);
+    }
 
     function playRevealAnimation(startIndex) {
         const arr = Array(Object.keys(entities).length).fill(false);
@@ -70,6 +58,7 @@ export default forwardRef(({ onListChange, entities }, ref) => {
         revealed = true;
 
         const index = Object.values(entities).findIndex(en => en.id === entity.id);
+
         playRevealAnimation(index);
     }
 
@@ -93,4 +82,4 @@ export default forwardRef(({ onListChange, entities }, ref) => {
             }
         </div>
     )
-})
+}

@@ -10,7 +10,7 @@ let dataLoadTimeout = null
 let tempEraseEffectTimeout = null;
 let locationEraseEffectTimeout = null;
 
-export default function WeatherCard({ data, weather, previousData, onEntityCollected, entities, celsiusUnit }) {
+export default function WeatherCard({ data, weather, previousData, celsiusUnit }) {
 
 	const [location, setLocation] = useState('')
 	const [temp, setTemp] = useState(0)
@@ -58,7 +58,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
 					} else if (data.cod == 401) {
 						setLocation((data.message || 'Invalid API key.').replace(/(?<=(?:^|\s))(https?:\/\/\S+)/g, `<a href="$1">$1</a>`))
 					} else {
-						setLocation((data.message || 'Some error occured. Sorry :(').replace(/(?<=(?:^|\s))(https?:\/\/\S+)/g, `<a href="$1">$1</a>`))
+						setLocation((data.message || 'Some error occurred. Sorry :(').replace(/(?<=(?:^|\s))(https?:\/\/\S+)/g, `<a href="$1">$1</a>`))
 					}
 					setDescription('')
 					setDate('')
@@ -101,7 +101,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
 
 			<div className='left-area'>
 				<div className='top-left row'>
-					<WeatherIcon data={data} onEntityCollected={onEntityCollected} entities={entities} />
+					<WeatherIcon data={data} />
 					<div className={`temp-container row erase-effect hold-play` + (showTemp ? ' show' : ' hidden') + (tempEraseEffectPlay ? ' play' : '')}>
 						<TempCounter className='temp' from={0} to={celsiusUnit ? temp : celsiusToFahrenheit(temp)} />
 						<div className='metric'>{celsiusUnit ? '°C' : '°F'}</div>
@@ -120,7 +120,7 @@ export default function WeatherCard({ data, weather, previousData, onEntityColle
 				</div>
 			</div>
 			<div className='right-area'>
-				{weather && <EntitiesManager weather={weather} onEntityCollected={onEntityCollected} entities={entities} />}
+				{weather && <EntitiesManager weather={weather} />}
 			</div>
 
 		</div>

@@ -1,14 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import './EntityBubble.scss';
+import { EntitiesContext } from "../../contexts/entitiesContext";
 
-export default function EntityBubble({ entity, playPopAnimation, collectedEntityId }) {
+export default function EntityBubble({ entity, playPopAnimation }) {
 
     const selfElementRef = useRef();
     const [ hidden, setHidden ] = useState(true);
     const [ shrink, setShrink ] = useState(false);
     const [ spawned, setSpawned ] = useState(false);
     const [ spawnAnim, setSpawnAnim ] = useState(false);
-    const [ pos, setPos ] = useState({ top: 0, left: 0 })
+    const [ pos, setPos ] = useState({ top: 0, left: 0 });
+    const { lastCollectedEntity } = useContext(EntitiesContext);
 
     useEffect(() => {
 
@@ -47,9 +49,9 @@ export default function EntityBubble({ entity, playPopAnimation, collectedEntity
             }, 1000);
         }
 
-        if (collectedEntityId === entity.id && !spawned) spawn();
+        if (lastCollectedEntity && lastCollectedEntity.id === entity.id && !spawned) spawn();
 
-    }, [collectedEntityId, entity.id, entity.keyName, spawned]);
+    }, [lastCollectedEntity, entity.id, entity.keyName, spawned]);
 
     function composeClassName() {
         const classes = ['bubble'];
