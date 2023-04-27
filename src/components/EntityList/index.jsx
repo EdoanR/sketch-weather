@@ -8,9 +8,10 @@ let revealed = false;
 export default function EntitiesList() {
 
     const [ hasCollected, setHasCollected ] = useState(false);
-    const [ collectedEntityId, setCollectedEntityId ] = useState('');
+    const [ hasLoaded, setLoaded ] = useState(false);
     const [ entitiesReveal, setEntitiesReveal ] = useState([]);
-    const { entities, lastCollectedEntity } = useContext(EntitiesContext);
+    const [ reveled, setReveal ] = useState(false);
+    const { entities, lastCollectedEntity, collectEntity } = useContext(EntitiesContext);
 
     useEffect(() => {
         if (!lastCollectedEntity) return;
@@ -18,12 +19,47 @@ export default function EntitiesList() {
         handleEntityCollected(lastCollectedEntity);
     }, [lastCollectedEntity]);
 
+    useEffect(() => {
+        if (hasLoaded) return;
+
+        loadFromLocalStorage();
+    }, [hasLoaded]);
+
+    function loadFromLocalStorage() {
+        setLoaded(true);
+
+        const collectedIdsItem = localStorage.getItem('collected-entities');
+        if (!collectedIdsItem) return;
+
+        const collectedIds = JSON.parse(collectedIdsItem);
+        if (!collectedIds.length) return;
+
+        const entitiesById = {};
+        Object.values(entities).forEach(entity => entitiesById[entity.id] = entity);
+
+        collectedIds.forEach(entityId => {
+            const entity = entitiesById[entityId];
+
+            collectEntity(entity);
+        });
+
+        playRevealAnimation(0);
+    }
+
+    function saveToLocalStorage() {
+        const collectedIds = Object.values(entities).filter(entity => entity.collected).map(entity => entity.id);
+        localStorage.setItem('collected-entities', JSON.stringify(collectedIds));
+    }
+
     function handleEntityCollected(entity) {
         setHasCollected(true);
-        setCollectedEntityId(entity.id);
+        saveToLocalStorage();
     }
 
     function playRevealAnimation(startIndex) {
+        if (reveled) return;
+        setReveal(true);
+
         const arr = Array(Object.keys(entities).length).fill(false);
         const duration = arr.length;
         const interval = 100;
@@ -72,7 +108,6 @@ export default function EntitiesList() {
                         <EntityContainer 
                             key={entity.id} 
                             entity={entity} 
-                            collectedEntityId={collectedEntityId} 
                             entitiesReveal={entitiesReveal} 
                             index={i} 
                             onPopAnimation={onPopAnimation}
