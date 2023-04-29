@@ -10,7 +10,16 @@ export default function EntityBubble({ entity, playPopAnimation }) {
     const [ spawned, setSpawned ] = useState(false);
     const [ spawnAnim, setSpawnAnim ] = useState(false);
     const [ pos, setPos ] = useState({ top: 0, left: 0 });
-    const { lastCollectedEntity } = useContext(EntitiesContext);
+    const { lastCollectedEntity, lastUncollectedEntity, entities } = useContext(EntitiesContext);
+
+    useEffect(() => {
+        if (!entity.collected) {
+            setHidden(true);
+            setShrink(false);
+            setSpawned(false);
+            setSpawnAnim(false);
+        }
+    }, [entity.collected])
 
     useEffect(() => {
 
@@ -43,15 +52,15 @@ export default function EntityBubble({ entity, playPopAnimation }) {
                     setTimeout(() => {
                         setHidden(true);
                         setShrink(false);
-                        playPopAnimation();
+                        if (entity.collected) playPopAnimation();
                     }, 1900);
                 }, 1000);
             }, 1000);
         }
 
-        if (lastCollectedEntity && lastCollectedEntity.id === entity.id && !spawned) spawn();
+        if (lastCollectedEntity && lastCollectedEntity.id === entity.id && entity.collected && !spawned) spawn();
 
-    }, [lastCollectedEntity, entity.id, entity.keyName, spawned]);
+    }, [lastCollectedEntity, entity.collected, entity.id, entity.keyName, spawned]);
 
     function composeClassName() {
         const classes = ['bubble'];

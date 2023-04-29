@@ -25,7 +25,7 @@ export default function SmallButton(props) {
             onMouseLeave={handleMouseLeave} 
             data-tooltip-id={props.tooltip ? 'tooltip' : null} 
             data-tooltip-content={props.tooltip || null} 
-            className="small-button border-anim-hover"
+            className={"small-button border-anim-hover" + (props.className ? ' ' + props.className : '')}
         >
             {props.icon || props.animatedicon ? (
                 <div

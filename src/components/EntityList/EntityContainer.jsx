@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import EntityBubble from "./EntityBubble";
+import { EntitiesContext } from "../../contexts/entitiesContext";
 
 export default function EntityContainer({ entity, entitiesReveal, index, onPopAnimation }) {
     const selfElementRef = useRef();
@@ -9,10 +10,15 @@ export default function EntityContainer({ entity, entitiesReveal, index, onPopAn
     const [ reveal, setReveal ] = useState(false);
     const [ upAnim, setUpAnim ] = useState(false);
     const [ bright, setBright ] = useState(entity.collected);
+    const { lastUncollectedEntity, entities } = useContext(EntitiesContext);
 
     useEffect(() => {
         if (reveal) setUpAnim(true);
     }, [reveal])
+
+    useEffect(() => {
+        if (!entities[entity.keyName].collected) setBright(false);
+    }, [lastUncollectedEntity, entities])
 
     useEffect(() => {
         setReveal(entitiesReveal[index]);

@@ -28,6 +28,7 @@ export default function App() {
 	const [previousData, setPreviousData] = useState()
 	const [entities, setEntities] = useState(defaultEntitiesList)
 	const [lastCollectedEntity, setLastCollectedEntity] = useState(null);
+	const [lastUncollectedEntity, setLastUncollectedEntity] = useState(null);
     const [modalIsOpen, setModalIsOpen] = useState();
 	const [apiKey, setApiKey] = useState(localStorage.getItem('api-key') || import.meta.env.VITE_OPEN_WEATHER_API_KEY || '');
 	const [celsiusUnit, setCelsiusUnit] = useState( localStorage.getItem('celsius-unit') === 'true' );
@@ -96,12 +97,20 @@ export default function App() {
 		setLastCollectedEntity(entity);
 	}
 
+	function uncollectEntity(entity) {
+		const newEntities = {...entities};
+		newEntities[entity.keyName].collected = false
+
+		setEntities(newEntities);
+		setLastUncollectedEntity(entity);
+	}
+
 	return (
 		<div className='App'>
         	<Tooltip id='tooltip'/>
 			<APIModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} apiKey={apiKey} setApiKey={setApiKey} onAfterAPISubmit={() => { if (searchBarInputRef.current.value) searchData(searchBarInputRef.current.value); }}/>
 			<SearchBar onSubmit={handleOnSearch} searchBarInputRef={searchBarInputRef} />
-			<EntitiesContext.Provider value={{entities, lastCollectedEntity, collectEntity}}>
+			<EntitiesContext.Provider value={{entities, lastCollectedEntity, lastUncollectedEntity, collectEntity, uncollectEntity}}>
 				<WeatherCard weather={weather} data={data} previousData={previousData} celsiusUnit={celsiusUnit} />
 				<PreviousWeathers data={data} searchData={searchData} celsiusUnit={celsiusUnit} />
 				<EntitiesList />

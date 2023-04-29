@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import EntityContainer from "./EntityContainer";
 import { EntitiesContext } from "../../contexts/entitiesContext";
+import SmallButton from '../SmallButton';
 import './index.scss';
 
 let revealed = false;
@@ -11,7 +12,8 @@ export default function EntitiesList() {
     const [ hasLoaded, setLoaded ] = useState(false);
     const [ entitiesReveal, setEntitiesReveal ] = useState([]);
     const [ reveled, setReveal ] = useState(false);
-    const { entities, lastCollectedEntity, collectEntity } = useContext(EntitiesContext);
+    const [ isResetButtonVisible, setResetButtonVisibility ] = useState(false);
+    const { entities, lastCollectedEntity, lastUncollectedEntity, collectEntity, uncollectEntity } = useContext(EntitiesContext);
 
     useEffect(() => {
         if (!lastCollectedEntity) return;
@@ -51,6 +53,16 @@ export default function EntitiesList() {
         localStorage.setItem('collected-entities', JSON.stringify(collectedIds));
     }
 
+    function resetCollectedEntities() {
+        Object.values(entities).forEach(entity => {
+            if (!entity.collected) return;
+
+            uncollectEntity(entity);
+        });
+
+        localStorage.removeItem('collected-entities');
+    }
+
     function handleEntityCollected(entity) {
         setHasCollected(true);
         saveToLocalStorage();
@@ -84,9 +96,10 @@ export default function EntitiesList() {
 
             setTimeout(() => {
                 updateArray(arr, index, i);
+
+                if (i === duration - 1) setResetButtonVisibility(true);
             }, i * interval);
         }
-
     }
 
     function onPopAnimation(entity) {
@@ -101,20 +114,27 @@ export default function EntitiesList() {
     if (!hasCollected) return null;
 
     return (
-        <div className="entity-list">
-            {
-                Object.values(entities).map((entity, i) => {
-                    return (
-                        <EntityContainer 
-                            key={entity.id} 
-                            entity={entity} 
-                            entitiesReveal={entitiesReveal} 
-                            index={i} 
-                            onPopAnimation={onPopAnimation}
-                        />
-                    )
-                })
-            }
-        </div>
+        <>
+            <div className="entity-list">
+                {
+                    Object.values(entities).map((entity, i) => {
+                        return (
+                            <EntityContainer 
+                                key={entity.id} 
+                                entity={entity} 
+                                entitiesReveal={entitiesReveal} 
+                                index={i} 
+                                onPopAnimation={onPopAnimation}
+                            />
+                        )
+                    })
+                }
+            </div>
+            <SmallButton 
+                className={'reset-button' + (isResetButtonVisible ? ' pop-anim' : ' hide')} 
+                content="Reset" 
+                onClick={() => { resetCollectedEntities() }
+            }/>
+        </>
     )
 }
