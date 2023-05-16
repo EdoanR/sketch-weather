@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { EntitiesContext } from "../../contexts/entitiesContext";
+import { EntitiesContext } from "../../contexts/EntitiesContext";
 import './index.scss';
 import icons from './icons';
 

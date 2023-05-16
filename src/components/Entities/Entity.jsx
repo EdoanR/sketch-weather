@@ -1,264 +1,36 @@
-import { Component, createRef } from "react"
-import { isDev, randArray } from "../../utils"
-import { TEMP_TYPES } from "../../constants"
+import { useContext, useEffect } from "react";
+import { EntitiesContext } from "../../contexts/EntitiesContext";
 
-export default class Entity extends Component {
-    constructor(props) {
-        super(props)
+export default function Entity(props) {
 
-        this.baseClassName = ''
+	const { entity, weather, children, onWeatherUpdate, ...restProps } = props;
+	const { collectEntity } = useContext( EntitiesContext );
 
-        this.state = {
-            moving: false,
-            entity: null,
-            fadeDespawnAnim: false,
-            popAnim: false
-        }
+	useEffect(() => {
+		if (onWeatherUpdate) onWeatherUpdate(weather);
+	}, [weather]);
 
-        this.spawnChancesConfig = {
-            minTime: 5000,
-            chancePerTick: 1
-        }
+	function handleClick(e) {
+		if (restProps.onClick) restProps.onClick(e);
+		collectEntity(entity, true);
+	}
 
-         /** @private */
-        this.spawnChances = {}
+	function composeClassName() {
+		const classes = ['entity'];
+		if (entity && entity.collected) classes.push('collected');
+		if (restProps.className) classes.push(restProps.className);
 
-        this.debugKey = ''
+		return classes.join(' ');
+	}
 
-         /** @private */
-        this.spawnedTick = props.tick
-         /** @private */
-        this.despawnedTick = props.tick
-
-        this.element = createRef()
-    }
-
-    /** @private */
-    handleClick() {
-        if (!this.state.entity) return
-        if (this.state.entity.collected) return
-        this.props.collectEntity(this.state.entity)
-        this.setState({
-            entity: {...this.state.entity, collected: true}
-        })
-    }
-
-    componentDidMount() {
-        this.updateSpawnChances()
-
-        if (isDev() && this.debugKey) {
-            document.addEventListener('keyup', ev => {
-                if (ev.key === this.debugKey) {
-                    ev.preventDefault()
-    
-                    if (this.state.moving) {
-                        this.startDespawn('pop')
-                    } else {
-                        this.trySpawn()
-                        if (!this.state.entity) console.log(`Could not spawn [${this.baseClassName}] using debugkeys because it's not in the correct weather condition.`)
-                    }
-                }  
-            })
-        }
-
-        this.validate()
-    }
-
-    updateSpawnChances() {
-        const propertiesToCheck = ['minTime', 'maxTime', 'chancePerTick']
-
-        for (const prop of propertiesToCheck) {
-            if (this.spawnChancesConfig[prop] !== undefined) {
-                if (Array.isArray(this.spawnChancesConfig[prop])) {
-                    this.spawnChances[prop] = randArray(this.spawnChancesConfig[prop])
-                } else {
-                    this.spawnChances[prop] = this.spawnChancesConfig[prop]
-                }
-            }
-        }
-    }
-
-    componentDidUpdate(prevProps, prevStates) {
-        if (this.isWeatherChanged(prevProps.weather, this.props.weather)) this.handleWeatherUpdate(this.props.weather)
-        if (prevProps.tick !== this.props.tick) this.handleTickUpdate(this.props.tick)
-    }
-
-    /** @private */
-    isWeatherChanged(prevWeather, weather) {
-        if (prevWeather.id !== weather.id ) return true;
-        if (prevWeather.tempType !== weather.tempType ) return true;
-        if (prevWeather.isRaining !== weather.isRaining ) return true;
-        if (prevWeather.isSnowing !== weather.isSnowing ) return true;
-        if (prevWeather.isDay !== weather.isDay ) return true;
-        return false;
-    }
-
-    handleWeatherUpdate(weather) {
-        const entity = this.getEntityToSpawn(weather)
-
-        if ( !entity && this.state.moving ) {
-            // entity is on screen in a weather that should not spawn, so let's despawn it.
-            this.startDespawn()
-        } else if (entity && this.state.entity && entity.id !== this.state.entity.id) {
-            this.setState({
-                entity
-            })
-
-            this.startPopAnim()
-        }
-    }
-
-    /** @private */
-    handleTickUpdate(tick) {
-        if (this.state.moving) return;
-        if (!this.rollSpawnChance(tick)) return;
-
-        this.trySpawn()
-    }
-
-    getEntityToSpawn(weather) {
-        return null
-    }
-
-    /** @private */
-    trySpawn() {
-        const entity = this.getEntityToSpawn(this.props.weather)
-        if (!entity) return
-
-        this.setEntity(entity)
-        this.spawn()
-    }
-
-    /** @private */
-    setEntity(entity) {
-        this.setState({ entity })
-    }
-
-    isExtremeTemperature() {
-        if (!this.props.weather) return false
-        const { tempType } = this.props.weather
-        return tempType <= TEMP_TYPES.veryCold || tempType >= TEMP_TYPES.verySunny
-    }
-
-    spawn() {
-        this.setState({ moving: true, fadeDespawnAnim: false })
-        this.spawnedTick = this.props.tick
-    }
-
-    /** 
-     * This will despawn using a animation
-     * @param {'fade' | 'pop' | 'none'} animationType - `(default: 'fade')` animation type that the entity will dissapear, 
-     * keep in mind that `fade` take a bit more long for the entity to despawn.
-     * @private 
-     */
-    startDespawn(animationType = 'fade') {
-
-        if (animationType === 'fade') {
-            this.setState({ fadeDespawnAnim: true })
-            setTimeout(() => {
-                if (!this.state.fadeDespawnAnim) return
-                this.despawn()
-            }, 1000)
-            return;
-        }
-        
-        if (animationType === 'pop') {
-            this.startPopAnim(true);
-            return;
-        }
-
-        this.despawn()
-    }
-
-    despawn() {
-        if (!this.state.moving) return
-
-        this.setState({ moving: false, fadeDespawnAnim: false, popAnim: false })
-        this.despawnedTick = this.props.tick
-
-        this.updateSpawnChances()
-    }
-
-    startPopAnim(despawn = false) {
-        this.setState({ popAnim: true });
-
-        setTimeout(() => {
-            if (despawn) {
-                this.despawn();
-            } else {
-                this.setState({ popAnim: false });
-            }
-        }, 200);
-    }
-
-    /** @private */
-    rollSpawnChance(tick = null) {
-        if (tick) {
-            const maxTick = this.spawnChances.maxTime == null ? null : this.despawnedTick + this.spawnChances.maxTime
-            const minTick = this.spawnChances.minTime == null ? null : this.despawnedTick + this.spawnChances.minTime
-
-            if (minTick && tick <= minTick) return false
-            if (maxTick && tick >= maxTick) return true
-        }
-
-        const chance = this.spawnChances.chancePerTick ?? 1
-        return Math.random() <= chance
-    }
-
-    /** @private */
-    handleAnimationEnd(e) {
-        if (e.animationName === 'move') {
-
-            // Move animation fully completed.
-            this.despawn()
-        }
-    }
-
-    /** @private */
-    composeClassName() {
-        const classes = [this.baseClassName]
-        
-        if (this.state.moving) classes.push('move')
-
-        if (this.props.weather.tempType >= TEMP_TYPES.sunny) classes.push('sunny')
-        else if (this.props.weather.tempType <= TEMP_TYPES.cold) classes.push('cold')
-
-        if (this.props.weather.isRaining) classes.push('rain')
-
-        if (this.state.entity) {
-            classes.push(`entity-${this.state.entity.keyName}`);
-            
-            if (this.state.entity.customClass) classes.push(this.state.entity.customClass)
-            if (this.state.entity.collected) {
-                classes.push('collected')
-            } else {
-                classes.push('collectable')
-            }
-        }
-
-        if (this.state.fadeDespawnAnim) classes.push('fade');
-        if (this.state.popAnim) classes.push('pop-entity');
-
-        return classes.join(' ')
-    }
-    
-    /** @private */
-    render() {
-        return (
-            <div 
-                onClick={(e) => { this.handleClick(e) }}
-                onAnimationEnd={(e) => { this.handleAnimationEnd(e) }} 
-                className={this.composeClassName()} 
-                ref={this.element}
-            />
-        )
-    }
-
-    /** @private */
-    validate() {
-        if (!this.baseClassName) throw new Error(`Entity with no baseClassName`)
-        if (!this.props.weather) throw new Error(`${this.baseClassName} has no weather prop`)
-        if (this.props.tick == null) throw new Error(`${this.baseClassName} has no tick prop`)
-    }
-    
+	return (
+		<div
+			keyname={entity ? entity.keyName : ''}
+			{...restProps}
+			onClick={handleClick}
+			className={composeClassName()}
+		>
+			{children}
+		</div>
+	);
 }

@@ -1,0 +1,23 @@
+.bubble {
+    position: absolute;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    background-color: #202124;
+    border: 2px solid white;
+    box-sizing: border-box;
+    z-index: 200;
+    border-radius: 50%;
+    overflow: hidden;
+
+    > div {
+        width: 60px;
+        height: 60px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../node_modules/font-awesome/css/font-awesome.min.css'
 import './animations.scss'
-import './entities.scss'
 import './effects.scss'
 import './App.scss'
 import SearchBar from './components/SearchBar';
@@ -15,7 +14,7 @@ import APIModal from './components/APIModal';
 import ReactModal from 'react-modal';
 import { Tooltip } from 'react-tooltip';
 import SmallButton from './components/SmallButton';
-import { EntitiesContext } from './contexts/entitiesContext';
+import { EntitiesContext } from './contexts/EntitiesContext';
 import { TEMP_TYPES } from './constants';
 import { getDateWithTimezoneOffset } from './utils';
 
@@ -31,7 +30,7 @@ export default function App() {
 	const [lastUncollectedEntity, setLastUncollectedEntity] = useState(null);
     const [modalIsOpen, setModalIsOpen] = useState();
 	const [apiKey, setApiKey] = useState(localStorage.getItem('api-key') || import.meta.env.VITE_OPEN_WEATHER_API_KEY || '');
-	const [celsiusUnit, setCelsiusUnit] = useState( localStorage.getItem('celsius-unit') === 'true' );
+	const [celsiusUnit, setCelsiusUnit] = useState( localStorage.getItem('celsius-unit') !== 'false' );
 	const [searchedUsingPath, setSearchUsingPath] = useState(false);
 
 	const searchBarInputRef = useRef()
@@ -89,9 +88,11 @@ export default function App() {
 		searchData(searchBarInputRef.current.value)
 	}
 
-	function collectEntity(entity) {
+	function collectEntity(entity, bubbleAnim = false, bright = false) {
 		const newEntities = {...entities};
 		newEntities[entity.keyName].collected = true
+		if (bubbleAnim) newEntities[entity.keyName].bubbleAnim = true;
+		if (bright) newEntities[entity.keyName].bright = true;
 
 		setEntities(newEntities);
 		setLastCollectedEntity(entity);
@@ -99,18 +100,31 @@ export default function App() {
 
 	function uncollectEntity(entity) {
 		const newEntities = {...entities};
-		newEntities[entity.keyName].collected = false
+		newEntities[entity.keyName].collected = false;
+		newEntities[entity.keyName].bubbleAnim = false;
+		newEntities[entity.keyName].bright = false;
 
 		setEntities(newEntities);
 		setLastUncollectedEntity(entity);
 	}
 
+	function updateEntity(newEntity) {
+		const newEntities = {...entities};
+		newEntities[newEntity.keyName] = newEntity;
+		setEntities(newEntities);
+	}
+
+	const entitiesContextValues = {
+		entities, lastCollectedEntity, lastUncollectedEntity,
+		collectEntity, updateEntity, uncollectEntity, setEntities
+	}
+	
 	return (
 		<div className='App'>
         	<Tooltip id='tooltip'/>
 			<APIModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} apiKey={apiKey} setApiKey={setApiKey} onAfterAPISubmit={() => { if (searchBarInputRef.current.value) searchData(searchBarInputRef.current.value); }}/>
 			<SearchBar onSubmit={handleOnSearch} searchBarInputRef={searchBarInputRef} />
-			<EntitiesContext.Provider value={{entities, lastCollectedEntity, lastUncollectedEntity, collectEntity, uncollectEntity}}>
+			<EntitiesContext.Provider value={entitiesContextValues}>
 				<WeatherCard weather={weather} data={data} previousData={previousData} celsiusUnit={celsiusUnit} />
 				<PreviousWeathers data={data} searchData={searchData} celsiusUnit={celsiusUnit} />
 				<EntitiesList />
@@ -137,7 +151,7 @@ function converDataToWeather(data) {
 
     if (temp > 32) {
         tempType = TEMP_TYPES.verySunny
-    } else if (temp > 25) {
+    } else if (temp >= 25) {
         tempType = TEMP_TYPES.sunny
     } else if (temp < 0) {
         tempType = TEMP_TYPES.veryCold
@@ -188,6 +202,7 @@ function converDataToWeather(data) {
         isDay,
         cycle,
         isRaining: Boolean(data.rain),
-        isSnowing: Boolean(data.snow)
+        isSnowing: Boolean(data.snow),
+		isExtremeTemp: tempType <= TEMP_TYPES.veryCold || tempType >= TEMP_TYPES.verySunny
     }
 }

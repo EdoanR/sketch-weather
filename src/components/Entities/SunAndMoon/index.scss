@@ -1,0 +1,11 @@
+
+.sun-moon {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 94px;
+    background-position: center;
+    background-size: 100% 100%;
+    z-index: 4;
+    transition: bottom 1s ease-in-out;
+}
