@@ -92,15 +92,25 @@ export default function EntitiesList() {
 
         const interval = 100;
 
-        const updateArray = (i) => {
-            const entitiesArr = Object.values(entities);
-            const entity = entitiesArr[i];
-            entity.reveal = true;
-            if (i === startIndex) entity.pop = true;
-            if (entity.collected) entity.bright = true;
-            updateEntity(entity);
+        const updateArray = (radius) => {
 
-            if (i === entitiesArr.length - 1) {
+            setEntities(v => {
+                const newEntities = {...v};
+
+                Object.keys(newEntities).forEach((k, i) => {
+
+                    if (Math.abs(i - startIndex) === radius) {
+                        newEntities[k].reveal = true;
+                        if (i === startIndex) newEntities[k].pop = true;
+                        if (newEntities[k].collected) newEntities[k].bright = true;
+                    }
+                    
+                });
+    
+                return newEntities;
+            });
+
+            if (radius === Object.keys(entities).length - 1) {
                 setTimeout(() => { setResetButtonVisibility(true); }, interval);
             }
         }
@@ -112,34 +122,6 @@ export default function EntitiesList() {
             }, i * interval);
             
         }
-
-        // const arr = Object.values(entities);
-        // const duration = arr.length;
-        // const interval = 100;
-        // const index = startIndex;
-
-        // const updateArray = function (arr, index, step) {
-        //     const radius = step;
-
-        //     const entitiesArray = Object.values(entities);
-
-        //     for (let i = 0; i < arr.length; i++) {
-        //         if (Math.abs(i - index) <= radius) {
-        //             const newEntity = {...entitiesArray[i], reveal: true, pop: i === startIndex};
-        //             updateEntity(newEntity);   
-        //         }
-        //     }
-        // }
-
-        // // Define a loop to update and display the array at each step of the animation
-        // for (let i = 0; i <= duration; i++) {
-
-        //     setTimeout(() => {
-        //         updateArray(arr, index, i);
-
-        //         if (i === duration - 1) setResetButtonVisibility(true);
-        //     }, i * interval);
-        // }
     }
 
     if (!hasCollected) return null;
