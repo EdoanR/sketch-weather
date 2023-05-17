@@ -6,9 +6,8 @@ import './index.scss';
 
 export default function EntityBubble({ entity }) {
 
-    const centerPos = { left: 10, top: 20 }
     const [ playing, setPlaying ] = useState(false);
-    const [ posAnimation, posApi ] = useSpring(() => (centerPos));
+    const [ posAnimation, posApi ] = useSpring(() => ({ left: 0, top: 0 }));
     const [ scaleAnimation, scaleApi ] = useSpring(() => ({ scale: 1, display: 'none' }));
     const [ wooblyAnimation, wooblyApi ] = useSpring(() => ({ x: 0, y: 0 }));
     const { onBubbleEnd } = useContext( EntitiesListContext );
