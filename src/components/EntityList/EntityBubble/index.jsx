@@ -79,6 +79,7 @@ export default function EntityBubble({ entity }) {
             scaleApi.stop();
         }
         
+        wooblyApi.stop();
         wooblyApi.start({ from: {x: 0, y: 0} });
 
         setPlaying(false);
