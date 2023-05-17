@@ -4,6 +4,7 @@ import { EntitiesContext } from "../../contexts/EntitiesContext";
 import { EntitiesListContext } from "../../contexts/EntitiesListContext";
 import SmallButton from '../SmallButton';
 import './index.scss';
+import EntityBubble from "./EntityBubble";
 
 export default function EntitiesList() {
 
@@ -129,6 +130,11 @@ export default function EntitiesList() {
     return (
         <>
             <EntitiesListContext.Provider value={{ onBubbleEnd }}>
+                <div className="bubbles">
+                    {
+                        Object.values(entities).map(entity => <EntityBubble entity={entity}/>)
+                    }
+                </div>
                 <div className="entity-list">
                     {
                         Object.values(entities).map((entity, i) => {

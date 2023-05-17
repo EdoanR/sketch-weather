@@ -28,3 +28,9 @@ export function isDev() {
 export function celsiusToFahrenheit(celsius) {
 	return celsius * 9 / 5 + 32;
 }
+
+export async function wait(ms) {
+    return new Promise(resolve => {
+        setTimeout(resolve, ms);
+    });
+}

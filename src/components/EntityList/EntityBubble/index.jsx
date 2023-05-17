@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { animated, easings, useSpring } from 'react-spring';
-import { randNumber } from "../../../utils";
+import { randNumber, wait } from "../../../utils";
 import { EntitiesListContext } from "../../../contexts/EntitiesListContext";
 import './index.scss';
 
@@ -31,9 +31,10 @@ export default function EntityBubble({ entity }) {
 
         posApi.start({
             from: getInitialPos(),
-            to: [
-                { ...centerPos, delay: 2200, config: { duration: 2000, easing: easings.easeInOutSine  } },
-            ]
+            to: async next => {
+                await wait(2200);
+                await next({ ...getTargetPos(), config: { duration: 2000, easing: easings.easeInOutSine  } });
+            }
         });
 
         scaleApi.start({
@@ -92,13 +93,22 @@ export default function EntityBubble({ entity }) {
     }
 
     function getInitialPos() {
-        const entityElement = document.querySelector(`.entity[keyname="${entity.keyName}"]`);
-        const parentRect = selfRef.current.parentElement.getBoundingClientRect(); 
-        const entityRect = entityElement.getBoundingClientRect();
+        const element = document.querySelector(`.entity[keyname="${entity.keyName}"]`);
+        const rect = element.getBoundingClientRect();
 
         return {
-            left: entityRect.left - parentRect.left,
-            top: entityRect.top - parentRect.top
+            left: rect.x + window.scrollX,
+            top: rect.y + window.scrollY
+        }
+    }
+
+    function getTargetPos() {
+        const element = document.querySelector(`.entity-container[keyname="${entity.keyName}"]`);
+        const rect = element.getBoundingClientRect();
+
+        return {
+            left: rect.x + 10 + window.scrollX,
+            top: rect.y + 20 + window.scrollY
         }
     }
 
