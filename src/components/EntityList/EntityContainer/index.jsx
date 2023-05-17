@@ -18,7 +18,7 @@ export default function EntityContainer({ entity }) {
     }
 
     return (
-        <div className={composeClassName()} >
+        <div className={composeClassName()} style={{ zIndex: entity.bubbleAnim ? 20 : 0 }} >
             <EntityBubble entity={entity} />
             <div 
                 className='entity-item border-anim-hover'
