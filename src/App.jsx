@@ -130,9 +130,9 @@ export default function App() {
 				<EntitiesList />
 			</EntitiesContext.Provider>
 			<div className='top-left-buttons'>
-				<FontButton tabIndex="1"/>
-				<ModalButton tabIndex="2" onClick={() => setModalIsOpen(true)}/>
-				<SmallButton tabIndex="3" onClick={() => setCelsiusUnit(v => !v)} tooltip={celsiusUnit ? 'Switch to Fahrenheit' : 'Switch to Celsius'}>
+				<FontButton className="animated" tabIndex="1"/>
+				<ModalButton className="animated" tabIndex="2" onClick={() => setModalIsOpen(true)}/>
+				<SmallButton className="animated" tabIndex="3" onClick={() => setCelsiusUnit(v => !v)} tooltip={celsiusUnit ? 'Switch to Fahrenheit' : 'Switch to Celsius'}>
 					<div style={{fontSize: 'large', fontFamily: '"Open Sans", sans-serif'}} className='content'>
 						{celsiusUnit ? '°C' : '°F'}
 					</div>

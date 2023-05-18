@@ -3,8 +3,8 @@ import EntityContainer from "./EntityContainer";
 import { EntitiesContext } from "../../contexts/EntitiesContext";
 import { EntitiesListContext } from "../../contexts/EntitiesListContext";
 import SmallButton from '../SmallButton';
-import './index.scss';
 import EntityBubble from "./EntityBubble";
+import './index.scss';
 
 export default function EntitiesList() {
 
@@ -12,6 +12,7 @@ export default function EntitiesList() {
     const [ hasLoaded, setLoaded ] = useState(false);
     const [ revealed, setReveal ] = useState(false);
     const [ isResetButtonVisible, setResetButtonVisibility ] = useState(false);
+    const [ resetButtonPopAnim, setResetButtonPopAnim ] = useState(false);
     const { entities, updateEntity, collectEntity, setEntities } = useContext(EntitiesContext);
 
     useEffect(() => {
@@ -27,6 +28,21 @@ export default function EntitiesList() {
 
         if (hasLoaded) saveToLocalStorage();
     }, [entities, hasLoaded]);
+
+    useEffect(() => {
+        if (isResetButtonVisible) {
+            setResetButtonPopAnim(true);
+            const popTimeout = setTimeout(() => {
+                setResetButtonPopAnim(false);
+            }, 200);
+
+            return () => {
+                clearTimeout(popTimeout);
+            }
+        } else {
+            setResetButtonPopAnim(false);
+        }
+    }, [isResetButtonVisible]);
 
     function loadFromLocalStorage() {
         setLoaded(true);
@@ -132,7 +148,7 @@ export default function EntitiesList() {
             <EntitiesListContext.Provider value={{ onBubbleEnd }}>
                 <div className="bubbles">
                     {
-                        Object.values(entities).map(entity => <EntityBubble entity={entity}/>)
+                        Object.values(entities).map(entity => <EntityBubble key={entity.id} entity={entity}/>)
                     }
                 </div>
                 <div className="entity-list">
@@ -149,7 +165,7 @@ export default function EntitiesList() {
                 </div>
             </EntitiesListContext.Provider>
             <SmallButton 
-                className={'reset-button' + (isResetButtonVisible ? ' pop-anim' : ' hide')} 
+                className={'reset-button animated' + (isResetButtonVisible ? resetButtonPopAnim ? ' pop-anim' : '' : ' hide')} 
                 content="Reset" 
                 onClick={() => { resetCollectedEntities() }
             }/>
