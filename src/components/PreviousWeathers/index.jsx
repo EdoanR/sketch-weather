@@ -47,7 +47,7 @@ function PreviousWeathers({ data, max, searchData, celsiusUnit }) {
                     const iconUrl = `/images/icons/static/weathers/${d.weather[0].icon}.png`;
 
                     return (
-                        <div 
+                        <button 
                             key={d.id} 
                             className='border-anim-hover pop-anim'
                             onClick={() => ( searchData(location) )}
@@ -62,7 +62,7 @@ function PreviousWeathers({ data, max, searchData, celsiusUnit }) {
                                     }</div>
                                 </div>
                                 <div className="location">{location}</div>
-                        </div>
+                        </button>
                     );
                 })
             }
