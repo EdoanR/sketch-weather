@@ -9,7 +9,7 @@ const entities = {
     },
     iceCreamTruck: {
         id: '72Ygp8Gvz1wUfrybpvqM',
-        name: 'Ice Cream Truck',
+        name: 'Ice Cream!',
         customClass: 'ice-cream-truck',
         keyName: 'iceCreamTruck',
         icon: '/images/entities/static/ice_cream_truck.png',
@@ -17,14 +17,14 @@ const entities = {
     },
     bike: {
         id: 'P3nyefDG3b6ttFrOKnCO',
-        name: 'Guy Riding a Bike',
+        name: 'Riding a Bike',
         keyName: 'bike',
         icon: '/images/entities/static/bike.png',
         iconAnimated: '/images/entities/animated/bike.gif'
     },
     bikeGirl: {
         id: 'K2bxX8kjEI0kYKcyaEFd',
-        name: 'Girl Riding a Bike',
+        name: 'Riding a Bike too',
         customClass: 'bike-girl',
         keyName: 'bikeGirl',
         icon: '/images/entities/static/bike_girl.png',
@@ -32,7 +32,7 @@ const entities = {
     },
     bikeCold: {
         id: 'ErkoOYYNXAQC2zMXrfnP',
-        name: 'Guy Wearing Scarf And Riding a Bike',
+        name: 'Riding a Cold Bike',
         customClass: 'bike-cold',
         keyName: 'bikeCold',
         icon: '/images/entities/static/bike_cold.png',
@@ -40,14 +40,14 @@ const entities = {
     },
     person: {
         id: 'aP3BmExhfmGB5KK2FBp7',
-        name: 'Guy',
+        name: 'Dude',
         keyName: 'person',
         icon: '/images/entities/static/person.png',
         iconAnimated: '/images/entities/animated/person.gif'
     },
     personSunny: {
         id: 'UMf1Njr5AElXWeqtHYpk',
-        name: 'Girl With Sun Hat',
+        name: 'Sun Hat',
         customClass: 'person-sunny',
         keyName: 'personSunny',
         icon: '/images/entities/static/person_sunny.png',
@@ -55,7 +55,7 @@ const entities = {
     },
     personCold: {
         id: 'hZpe2gzqV9y99QDgOISc',
-        name: 'Guy With Scarf',
+        name: 'Cold Walk',
         customClass: 'person-cold',
         keyName: 'personCold',
         icon: '/images/entities/static/person_cold.png',
@@ -63,7 +63,7 @@ const entities = {
     },
     personColdRainy: {
         id: 'oO3gOqrUsIRwV1KPFRmg',
-        name: 'Guy With Scarf and Umbrella',
+        name: 'Cold Rain',
         customClass: 'person-cold-rain',
         keyName: 'personColdRainy',
         icon: '/images/entities/static/person_cold_rain.png',
@@ -71,7 +71,7 @@ const entities = {
     },
     personRainy: {
         id: 'KEiC3eLEptPngcKv0Vl1',
-        name: 'Man Using a Umbrella',
+        name: 'Umbrella',
         customClass: 'person-rain',
         keyName: 'personRainy',
         icon: '/images/entities/static/person_rain.png',
