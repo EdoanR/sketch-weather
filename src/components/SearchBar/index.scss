@@ -1,6 +1,4 @@
 
-$search-bar-b-radius: 0.5em;
-
 .search-bar {
     display: flex;
     height: 3em;
@@ -14,26 +12,13 @@ $search-bar-b-radius: 0.5em;
         margin-top: 3em;
     }
 
-    input[type="text"] {
-        flex-grow: 1;
-        background-color: transparent;
-        font-family: inherit;
-        font-size: 1.2rem;
-        color: white;
-        border-radius: 0;
-        border-top-left-radius: $search-bar-b-radius;
-        border-bottom-left-radius: $search-bar-b-radius;
-        outline: 0;
-        padding: 0.5em;
-    }
-
     button {
         cursor: pointer;
         background-color: transparent;
         color: white;
         border-radius: 0;
-        border-top-right-radius: $search-bar-b-radius;
-        border-bottom-right-radius: $search-bar-b-radius;
+        border-top-right-radius: 0.5em;
+        border-bottom-right-radius: 0.5em;
         min-width: 4em;
     }
 }

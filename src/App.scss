@@ -88,6 +88,19 @@ body {
     }
 }
 
+input[type="text"].input-text {
+    flex-grow: 1;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: 1.2rem;
+    color: white;
+    border-radius: 0;
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    outline: 0;
+    padding: 0.5em;
+}
+
 #tooltip {
     position: absolute;
     background-color: rgb(48, 48, 48);
