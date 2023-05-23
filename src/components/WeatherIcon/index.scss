@@ -12,6 +12,10 @@
             width: 64px;
             height: 64px;
             background-size: contain;
+
+            &.collected {
+                filter: sepia(0.5) hue-rotate(22deg);
+            }
         }
     }
 
