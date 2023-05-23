@@ -13,7 +13,7 @@ export default function EntitiesList() {
     const [ revealed, setReveal ] = useState(false);
     const [ isResetButtonVisible, setResetButtonVisibility ] = useState(false);
     const [ resetButtonPopAnim, setResetButtonPopAnim ] = useState(false);
-    const { entities, updateEntity, collectEntity, setEntities } = useContext(EntitiesContext);
+    const { entities, collectEntity, setEntities } = useContext(EntitiesContext);
 
     useEffect(() => {
         if (hasLoaded) return;
@@ -141,6 +141,14 @@ export default function EntitiesList() {
         }
     }
 
+    function handleResetButtonClick() {
+        const entitiesArray = Object.values(entities);
+        const collectedEntities = entitiesArray.filter(en => en.collected);
+        if (collectedEntities.length === 0 || !confirm(`This will clear all your collected entities (${collectedEntities.length}/${entitiesArray.length}). Do you want to continue?`)) return;
+
+        resetCollectedEntities()
+    }
+
     if (!hasCollected) return null;
 
     return (
@@ -167,8 +175,8 @@ export default function EntitiesList() {
             <SmallButton 
                 className={'reset-button animated' + (isResetButtonVisible ? resetButtonPopAnim ? ' pop-anim' : '' : ' hide')} 
                 content="Reset" 
-                onClick={() => { resetCollectedEntities() }
-            }/>
+                onClick={handleResetButtonClick}
+            />
         </>
     )
 }
