@@ -28,6 +28,7 @@ body {
     color: white;
     font-family: 'Neucha', 'Open Sans', sans-serif;
     font-size: 16px;
+    margin: 0;
     
     * {
         box-sizing: border-box;
@@ -53,6 +54,52 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+footer {
+    display: flex;
+    border-top: 17px solid transparent;
+    border-image: url('/images/borders/border-round-0.png') 40 round;
+    margin-top: 1em;
+    width: 100%;
+    padding: 1em;
+
+    > div:first-of-type  {
+        flex: 1;
+    }
+
+    .icons {
+        display: flex;
+        gap: 0.5em
+    }
+}
+
+.signature {
+    position: relative;
+    display: inline-block;
+    background: url("/images/signature.png");
+    background-size: cover;
+    background-position: center;
+    width: 90px;
+    height: 27px;
+
+    span {
+        position: absolute;
+        color: transparent;
+        font-family: Arial, Helvetica, sans-serif;
+        bottom: -5px;
+        padding-left: 5px;
+        letter-spacing: 5px;
+    }
 }
 
 .top-left-buttons {

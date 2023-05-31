@@ -121,26 +121,63 @@ export default function App() {
 	
 	return (
 		<div className='App'>
-        	<Tooltip id='tooltip'/>
-			<APIModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} apiKey={apiKey} setApiKey={setApiKey} onAfterAPISubmit={() => { if (searchBarInputRef.current.value) searchData(searchBarInputRef.current.value); }}/>
-			<SearchBar onSubmit={handleOnSearch} searchBarInputRef={searchBarInputRef} />
-			<EntitiesContext.Provider value={entitiesContextValues}>
-				<WeatherCard weather={weather} data={data} previousData={previousData} celsiusUnit={celsiusUnit} />
-				<PreviousWeathers data={data} searchData={searchData} celsiusUnit={celsiusUnit} />
-				<EntitiesList />
-			</EntitiesContext.Provider>
-			<div className='top-left-buttons'>
-				<FontButton className="animated" tabIndex="1"/>
-				<ModalButton className="animated" tabIndex="2" onClick={() => setModalIsOpen(true)}/>
-				<SmallButton className="animated" tabIndex="3" onClick={() => setCelsiusUnit(v => !v)} tooltip={celsiusUnit ? 'Switch to Fahrenheit' : 'Switch to Celsius'}>
-					<div style={{fontSize: 'large', fontFamily: '"Open Sans", sans-serif'}} className='content'>
-						{celsiusUnit ? '°C' : '°F'}
+			<Tooltip id='tooltip'/>
+        	<main>
+				<APIModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} apiKey={apiKey} setApiKey={setApiKey} onAfterAPISubmit={() => { if (searchBarInputRef.current.value) searchData(searchBarInputRef.current.value); }}/>
+				<SearchBar onSubmit={handleOnSearch} searchBarInputRef={searchBarInputRef} />
+				<EntitiesContext.Provider value={entitiesContextValues}>
+					<WeatherCard weather={weather} data={data} previousData={previousData} celsiusUnit={celsiusUnit} />
+					<PreviousWeathers data={data} searchData={searchData} celsiusUnit={celsiusUnit} />
+					<EntitiesList />
+				</EntitiesContext.Provider>
+				<div className='top-left-buttons'>
+					<FontButton className="animated" tabIndex="1"/>
+					<ModalButton className="animated" tabIndex="2" onClick={() => setModalIsOpen(true)}/>
+					<SmallButton className="animated" tabIndex="3" onClick={() => setCelsiusUnit(v => !v)} tooltip={celsiusUnit ? 'Switch to Fahrenheit' : 'Switch to Celsius'}>
+						<div style={{fontSize: 'large', fontFamily: '"Open Sans", sans-serif'}} className='content'>
+							{celsiusUnit ? '°C' : '°F'}
+						</div>
+					</SmallButton>
+				</div>
+			</main>
+			<footer>
+				<div>
+					<span>Made by </span>
+					<div className='signature' alt="Edoan">
+						<span>Edoan</span>
 					</div>
-				</SmallButton>
-			</div>
+				</div>
+				<div className='icons'>
+					<FooterIcon iconName="twitter" alt="Twitter" url="https://twitter.com/EuEdoan" />
+					<FooterIcon iconName="github" alt="GitHub" url="https://github.com/Zennos/sketch-weather" />
+					<FooterIcon iconName="ko-fi" alt="Ko-fi" url="https://ko-fi.com/edoan" />
+				</div>
+			</footer>
 		</div>
 	)
 };
+
+function FooterIcon({ iconName, url, ...restProps }) {
+	const [ hovering, setHover ] = useState(false);
+
+	return (
+		<a href={url} target='_blank'>
+			<img 
+				onMouseEnter={() => { setHover(true) }}
+				onMouseLeave={() => { setHover(false) }}
+				data-tooltip-id={ restProps.alt ? 'tooltip' : null} 
+				data-tooltip-content={ restProps.alt || null} 
+				src={hovering ? `/images/icons/animated/${iconName}.gif` : `/images/icons/static/${iconName}.png`}
+				style={{
+					width: 40,
+					height: 40
+				}}
+				{...restProps} 
+			/>
+		</a>
+	)
+	
+}
 
 function converDataToWeather(data) {
     if (!data || data.loading || data.cod !== 200) return null
