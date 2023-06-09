@@ -10,14 +10,14 @@ import defaultEntitiesList from './components/EntityList/entities';
 import PreviousWeathers from './components/PreviousWeathers';
 import FontButton from './components/FontButton';
 import ModalButton from './components/ModalButton';
-import APIModal from './components/APIModal';
+import APIModal from './components/Modals/APIModal';
+import ResetCollectionModal from './components/Modals/ResetCollectionModal';
 import ReactModal from 'react-modal';
 import { Tooltip } from 'react-tooltip';
 import SmallButton from './components/SmallButton';
 import { EntitiesContext } from './contexts/EntitiesContext';
 import { TEMP_TYPES } from './constants';
 import { getDateWithTimezoneOffset } from './utils';
-import ResetCollectionModal from './components/ResetCollectionModal';
 
 ReactModal.setAppElement('#root');
 

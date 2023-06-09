@@ -1,5 +1,5 @@
 import Modal from "../Modal";
-import InputText from "../InputText";
+import InputText from "../../InputText";
 import './index.scss';
 
 export default function APIModal({ isOpen, setIsOpen, apiKey, setApiKey, onAfterAPISubmit }) {
