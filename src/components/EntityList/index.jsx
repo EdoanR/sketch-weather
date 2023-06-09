@@ -6,7 +6,7 @@ import SmallButton from '../SmallButton';
 import EntityBubble from "./EntityBubble";
 import './index.scss';
 
-export default function EntitiesList() {
+export default function EntitiesList({ resetModalIsOpen }) {
 
     const [ hasCollected, setHasCollected ] = useState(false);
     const [ hasLoaded, setLoaded ] = useState(false);
@@ -142,11 +142,12 @@ export default function EntitiesList() {
     }
 
     function handleResetButtonClick() {
+
         const entitiesArray = Object.values(entities);
         const collectedEntities = entitiesArray.filter(en => en.collected);
-        if (collectedEntities.length === 0 || !confirm(`This will clear all your collected entities (${collectedEntities.length}/${entitiesArray.length}). Do you want to continue?`)) return;
+        if (collectedEntities.length === 0) return;
 
-        resetCollectedEntities()
+        resetModalIsOpen(true);
     }
 
     if (!hasCollected) return null;

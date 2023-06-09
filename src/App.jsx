@@ -17,6 +17,7 @@ import SmallButton from './components/SmallButton';
 import { EntitiesContext } from './contexts/EntitiesContext';
 import { TEMP_TYPES } from './constants';
 import { getDateWithTimezoneOffset } from './utils';
+import ResetCollectionModal from './components/ResetCollectionModal';
 
 ReactModal.setAppElement('#root');
 
@@ -28,7 +29,8 @@ export default function App() {
 	const [entities, setEntities] = useState(defaultEntitiesList)
 	const [lastCollectedEntity, setLastCollectedEntity] = useState(null);
 	const [lastUncollectedEntity, setLastUncollectedEntity] = useState(null);
-    const [modalIsOpen, setModalIsOpen] = useState();
+    const [apiModalIsOpen, setApiModalIsOpen] = useState(false);
+    const [resetCollectionModalIsOpen, setResetCollectionModalIsOpen] = useState(false);
 	const [apiKey, setApiKey] = useState(localStorage.getItem('api-key') || import.meta.env.VITE_OPEN_WEATHER_API_KEY || '');
 	const [celsiusUnit, setCelsiusUnit] = useState( localStorage.getItem('celsius-unit') !== 'false' );
 	const [searchedUsingPath, setSearchUsingPath] = useState(false);
@@ -37,7 +39,7 @@ export default function App() {
 
 	useEffect(() => {
 		setTimeout(() => {
-			setModalIsOpen(!apiKey)
+			setApiModalIsOpen(!apiKey)
 		}, 1000);
 
 		const loc = decodeURI(location.pathname.replace('/', ''));
@@ -57,7 +59,7 @@ export default function App() {
 		if (!search) return
 
 		if (!apiKey) {
-			setModalIsOpen(true);
+			setApiModalIsOpen(true);
 			return;
 		}
 
@@ -123,16 +125,17 @@ export default function App() {
 		<div className='App'>
 			<Tooltip id='tooltip'/>
         	<main>
-				<APIModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} apiKey={apiKey} setApiKey={setApiKey} onAfterAPISubmit={() => { if (searchBarInputRef.current.value) searchData(searchBarInputRef.current.value); }}/>
+				<APIModal isOpen={apiModalIsOpen} setIsOpen={setApiModalIsOpen} apiKey={apiKey} setApiKey={setApiKey} onAfterAPISubmit={() => { if (searchBarInputRef.current.value) searchData(searchBarInputRef.current.value); }}/>
 				<SearchBar onSubmit={handleOnSearch} searchBarInputRef={searchBarInputRef} />
 				<EntitiesContext.Provider value={entitiesContextValues}>
 					<WeatherCard weather={weather} data={data} previousData={previousData} celsiusUnit={celsiusUnit} />
 					<PreviousWeathers data={data} searchData={searchData} celsiusUnit={celsiusUnit} />
-					<EntitiesList />
+					<EntitiesList resetModalIsOpen={setResetCollectionModalIsOpen}/>
+					<ResetCollectionModal isOpen={resetCollectionModalIsOpen} setIsOpen={setResetCollectionModalIsOpen} />
 				</EntitiesContext.Provider>
 				<div className='top-left-buttons'>
 					<FontButton className="animated" tabIndex="1"/>
-					<ModalButton className="animated" tabIndex="2" onClick={() => setModalIsOpen(true)}/>
+					<ModalButton className="animated" tabIndex="2" onClick={() => setApiModalIsOpen(v => !v)}/>
 					<SmallButton className="animated" tabIndex="3" onClick={() => setCelsiusUnit(v => !v)} tooltip={celsiusUnit ? 'Switch to Fahrenheit' : 'Switch to Celsius'}>
 						<div style={{fontSize: 'large', fontFamily: '"Open Sans", sans-serif'}} className='content'>
 							{celsiusUnit ? '°C' : '°F'}

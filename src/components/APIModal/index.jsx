@@ -1,12 +1,8 @@
-import ReactModal from "react-modal";
+import Modal from "../Modal";
 import InputText from "../InputText";
 import './index.scss';
 
-export default function APIModal({ modalIsOpen, setModalIsOpen, apiKey, setApiKey, onAfterAPISubmit }) {
-
-    function closeModal() {
-        setModalIsOpen(false);
-    }
+export default function APIModal({ isOpen, setIsOpen, apiKey, setApiKey, onAfterAPISubmit }) {
 
     function handleInputChange(e) {
         setApiKey(e.target.value);
@@ -15,21 +11,17 @@ export default function APIModal({ modalIsOpen, setModalIsOpen, apiKey, setApiKe
 
     function handleKeyDown(e) {
         if (e.key !== 'Enter') return;
-        closeModal();
+        setIsOpen(false);
         if (onAfterAPISubmit) onAfterAPISubmit();
     }
 
     return (
-        <ReactModal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
+        <Modal
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
             contentLabel="API modal"
-            className={"modal border-static" + (!modalIsOpen ? ' modal-close' : '')}
-            overlayClassName={"modal-overlay" + (modalIsOpen ? ' modal-open' : '')}
-            portalClassName="modal-portal"
-            closeTimeoutMS={250}
+            className="api-modal"
         >
-            <button type="button" className="close-button" onClick={closeModal}>x</button>
             <h2>API Key</h2>
             <p>API key is necessary to obtain weather data, you can get one by creating an account on <a href="https://home.openweathermap.org/users/sign_in" target='_blank'>OpenWeather</a>. Then going to your <a href="https://home.openweathermap.org/api_keys" target="_blank">API page</a>.</p>
             <label htmlFor="">
@@ -46,6 +38,6 @@ export default function APIModal({ modalIsOpen, setModalIsOpen, apiKey, setApiKe
                     }}
                 />
             </label>
-        </ReactModal>
+        </Modal>
     );
 }
