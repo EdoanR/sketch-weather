@@ -201,7 +201,7 @@ function converDataToWeather(data) {
         tempType = TEMP_TYPES.normal
     }
 
-    const date = getDateWithTimezoneOffset((data.dt + data.timezone) * 1000)
+    const date = getDateWithTimezoneOffset((Date.now() + data.timezone) * 1000)
     const hours = date.getHours()
     const minutes = date.getMinutes()
 

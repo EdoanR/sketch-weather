@@ -43,7 +43,7 @@ export default function WeatherCard({ data, weather, previousData, celsiusUnit }
 					setLocation(`${data.name}${data.sys.country ? ', ' + data.sys.country : ''}`)
 					setDescription(data.weather[0].description)
 
-					const date = getDateWithTimezoneOffset((data.dt + data.timezone) * 1000)
+					const date = getDateWithTimezoneOffset(((Date.now() / 1000) + data.timezone) * 1000)
 
 					const weekday = date.toLocaleString('en-US', { weekday: 'long' })
 					const time = date.toLocaleString('en-US', { hourCycle: 'h23', hour: '2-digit', minute: '2-digit' })
