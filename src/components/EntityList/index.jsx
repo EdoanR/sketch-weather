@@ -173,11 +173,15 @@ export default function EntitiesList({ resetModalIsOpen }) {
                     }
                 </div>
             </EntitiesListContext.Provider>
-            <SmallButton 
-                className={'reset-button animated' + (isResetButtonVisible ? resetButtonPopAnim ? ' pop-anim' : '' : ' hide')} 
-                content="Reset" 
-                onClick={handleResetButtonClick}
-            />
+            { Object.values(entities).some(en => en.collected) && 
+
+                <SmallButton 
+                    className={'reset-button animated' + (isResetButtonVisible ? resetButtonPopAnim ? ' pop-anim' : '' : ' hide')} 
+                    content="Reset" 
+                    onClick={handleResetButtonClick}
+                /> 
+                
+            }
         </>
     )
 }
