@@ -3,18 +3,18 @@ import '../node_modules/font-awesome/css/font-awesome.min.css'
 import './animations.scss'
 import './effects.scss'
 import './App.scss'
-import SearchBar from './components/SearchBar';
+import SearchBar from './components/Inputs/SearchBar';
 import WeatherCard from './components/WeatherCard';
 import EntitiesList from './components/EntityList';
 import defaultEntitiesList from './components/EntityList/entities';
 import PreviousWeathers from './components/PreviousWeathers';
-import FontButton from './components/FontButton';
-import ModalButton from './components/ModalButton';
+import FontButton from './components/Inputs/FontButton';
+import ModalButton from './components/Inputs/ModalButton';
 import APIModal from './components/Modals/APIModal';
 import ResetCollectionModal from './components/Modals/ResetCollectionModal';
 import ReactModal from 'react-modal';
 import { Tooltip } from 'react-tooltip';
-import SmallButton from './components/SmallButton';
+import SmallButton from './components/Inputs/SmallButton';
 import { EntitiesContext } from './contexts/EntitiesContext';
 import { TEMP_TYPES } from './constants';
 import { getDateWithTimezoneOffset } from './utils';

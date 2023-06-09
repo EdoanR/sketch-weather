@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import EntityContainer from "./EntityContainer";
 import { EntitiesContext } from "../../contexts/EntitiesContext";
 import { EntitiesListContext } from "../../contexts/EntitiesListContext";
-import SmallButton from '../SmallButton';
+import SmallButton from '../Inputs/SmallButton';
 import EntityBubble from "./EntityBubble";
 import './index.scss';
 

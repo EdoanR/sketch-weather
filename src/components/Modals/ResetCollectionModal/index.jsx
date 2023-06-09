@@ -1,7 +1,7 @@
 import { EntitiesContext } from "../../../contexts/EntitiesContext";
 import { useContext } from "react";
 import Modal from "../Modal";
-import SmallButton from "../../SmallButton";
+import SmallButton from "../../Inputs/SmallButton";
 
 export default function ResetCollectionModal({ isOpen, setIsOpen }) {
     const { entities, setEntities } = useContext( EntitiesContext )
