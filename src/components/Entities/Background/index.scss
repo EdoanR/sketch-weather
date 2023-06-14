@@ -2,7 +2,7 @@
 .background {
     position: absolute;
     pointer-events: none;
-    background: url('/images/backgrounds/background.gif');
+    background: url('/sketch-weather/images/backgrounds/background.gif');
     transition: background-image 2s ease-in-out;
     background-repeat: no-repeat;
     background-position: top left;
@@ -12,6 +12,6 @@
     z-index: 5;
 
     &.snow {
-        background-image: url('/images/backgrounds/background_snow.gif');
+        background-image: url('/sketch-weather/images/backgrounds/background_snow.gif');
     }
 }

@@ -68,7 +68,7 @@ main {
 footer {
     display: flex;
     border-top: 17px solid transparent;
-    border-image: url('/images/borders/border-round-0.png') 40 round;
+    border-image: url('/sketch-weather/images/borders/border-round-0.png') 40 round;
     margin-top: 1em;
     width: 100%;
     padding: 1em;
@@ -86,7 +86,7 @@ footer {
 .signature {
     position: relative;
     display: inline-block;
-    background: url("/images/signature.png");
+    background: url("/sketch-weather/images/signature.png");
     background-size: cover;
     background-position: center;
     width: 90px;

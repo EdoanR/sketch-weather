@@ -1,40 +1,40 @@
 .border-anim {
     border: 12px solid transparent;
-    border-image: url('/images/borders/border-round-0.png') 40 round;
+    border-image: url('/sketch-weather/images/borders/border-round-0.png') 40 round;
     animation: border 1.5s step-end infinite;
 }
 
 .border-anim-hover {
     border: 12px solid transparent;
     border-image-slice: 40;
-    border-image-source: url('/images/borders/border-round-0.png');
+    border-image-source: url('/sketch-weather/images/borders/border-round-0.png');
 
     &:hover {
-        border-image-source: url('/images/borders/border-round.gif');
+        border-image-source: url('/sketch-weather/images/borders/border-round.gif');
     }
 }
 
 .border-static {
     border: 12px solid transparent;
-    border-image: url('/images/borders/border-round-0.png') 40 round;
+    border-image: url('/sketch-weather/images/borders/border-round-0.png') 40 round;
 }
 
 .border-1 {
     border: 12px solid transparent;
-    border-image: url('/images/borders/border-round-0.png') 40 round;
+    border-image: url('/sketch-weather/images/borders/border-round-0.png') 40 round;
 }
 
 .border-2 {
     border: 12px solid transparent;
-    border-image: url('/images/borders/border-round-1.png') 40 round;
+    border-image: url('/sketch-weather/images/borders/border-round-1.png') 40 round;
 }
 
 @keyframes border {
     50% {
-        border-image-source: url('/images/borders/border-round-0.png');
+        border-image-source: url('/sketch-weather/images/borders/border-round-0.png');
     }
     0% {
-        border-image-source: url('/images/borders/border-round-1.png');
+        border-image-source: url('/sketch-weather/images/borders/border-round-1.png');
     }
 }
 

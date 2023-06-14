@@ -7,7 +7,7 @@ import fs from 'fs';
 glob('./public/images/**/*.*', {
 
 }).then(files => {
-    files = files.map(path => path.replace(/\\/g, '/').replace(/^public/, ''));
+    files = files.map(path => '/sketch-weather' + path.replace(/\\/g, '/').replace(/^public/, ''));
     fs.writeFileSync('assets.json', JSON.stringify(files, null, 2));
     console.log('assets.json generated!');
 });

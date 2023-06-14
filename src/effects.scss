@@ -40,13 +40,13 @@
 }
 
 .sky-particle-container .rain {
-    background-image: url('/images/effects/rain.png');
+    background-image: url('/sketch-weather/images/effects/rain.png');
     background-size: 132px;
     animation: sky-particle-anim 1.2s linear infinite;
 }
 
 .sky-particle-container .snow {
-    background-image: url('/images/effects/snow.gif');
+    background-image: url('/sketch-weather/images/effects/snow.gif');
     background-size: 132px;
     animation: sky-particle-anim 2.6s linear infinite;
 
@@ -88,7 +88,7 @@
         }
         
         &.play {
-            @include mask-sprite(url('/images/effects/erase-sprites.png'), 9, $time)
+            @include mask-sprite(url('/sketch-weather/images/effects/erase-sprites.png'), 9, $time)
         }
     }
     
@@ -102,7 +102,7 @@
         }
 
         &.play {
-            @include mask-sprite(url('/images/effects/unerase-sprites.png'), 9, $time)
+            @include mask-sprite(url('/sketch-weather/images/effects/unerase-sprites.png'), 9, $time)
         }
     }
 }

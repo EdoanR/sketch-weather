@@ -42,7 +42,8 @@ export default function App() {
 			setApiModalIsOpen(!apiKey)
 		}, 1000);
 
-		const loc = decodeURI(location.pathname.replace('/', ''));
+		const lastPathIndex = location.pathname.lastIndexOf('/');
+		const loc = decodeURI(location.pathname.substring(lastPathIndex + 1));
 		if (loc && !searchedUsingPath) {
 			searchBarInputRef.current.value = loc;
 			searchData(loc);
@@ -170,7 +171,7 @@ function FooterIcon({ iconName, url, ...restProps }) {
 				onMouseLeave={() => { setHover(false) }}
 				data-tooltip-id={ restProps.alt ? 'tooltip' : null} 
 				data-tooltip-content={ restProps.alt || null} 
-				src={hovering ? `/images/icons/animated/${iconName}.gif` : `/images/icons/static/${iconName}.png`}
+				src={hovering ? `/sketch-weather/images/icons/animated/${iconName}.gif` : `/sketch-weather/images/icons/static/${iconName}.png`}
 				style={{
 					width: 40,
 					height: 40

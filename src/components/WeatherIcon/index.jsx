@@ -30,7 +30,7 @@ export default function WeatherIcon({ data }) {
     }
 
     function getIconUrl(icon) {
-        return `/images/icons/animated/weathers/${icon}.gif`;
+        return `/sketch-weather/images/icons/animated/weathers/${icon}.gif`;
     }
 
     function handleOnClick(e) {

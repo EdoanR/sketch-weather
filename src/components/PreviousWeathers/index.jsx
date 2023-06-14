@@ -44,7 +44,7 @@ function PreviousWeathers({ data, max, searchData, celsiusUnit }) {
             {
                 prevDatasList.map(d => {
                     const location = d.name + (d.sys.country ? ', ' + d.sys.country : '');
-                    const iconUrl = `/images/icons/static/weathers/${d.weather[0].icon}.png`;
+                    const iconUrl = `/sketch-weather/images/icons/static/weathers/${d.weather[0].icon}.png`;
 
                     return (
                         <button 
