@@ -17,7 +17,7 @@ import { Tooltip } from 'react-tooltip';
 import SmallButton from './components/Inputs/SmallButton';
 import { EntitiesContext } from './contexts/EntitiesContext';
 import { TEMP_TYPES } from './constants';
-import { getDateWithTimezoneOffset } from './utils';
+import { getDateWithTimezoneOffset, isDev } from './utils';
 
 ReactModal.setAppElement('#root');
 
@@ -75,7 +75,7 @@ export default function App() {
 			setData(data)
 			const weather = converDataToWeather(data)
 			if (weather) {
-				console.log('weather:', weather)
+				if (isDev()) console.log('weather:', weather)
 				setWeather(weather)
 			}
 
