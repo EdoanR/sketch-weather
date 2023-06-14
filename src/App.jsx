@@ -66,7 +66,7 @@ export default function App() {
 
 		setData({ loading: true })
 
-		fetch(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=${apiKey}`).then(async res => {
+		fetch(`https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=${apiKey}`).then(async res => {
 			const data = await res.json();
 
 			console.log('data:', data)
