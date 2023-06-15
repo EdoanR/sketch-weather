@@ -11,6 +11,10 @@
 </h1>
 <p align="center">Check the weather in a fun sketch drawing style!</p>
 
+<div align="center" >
+  <img alt="Screenshot" src="https://i.imgur.com/4RZqDwq.png">
+</div>
+
 ## How to use
 You can start using it by acessing this [link](https://zennos.github.io/sketch-weather/).
 
