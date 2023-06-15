@@ -28,6 +28,6 @@
     "@vitejs/plugin-react-swc": "^3.0.0",
     "fs": "^0.0.1-security",
     "glob": "^10.0.0",
-    "vite": "^4.2.0"
+    "vite": "^4.2.3"
   }
 }
