@@ -9,7 +9,7 @@
   </br>
   Sketch Weather
 </h1>
-<p align="center">Check the weather in a fun sketch drawing style!</p>
+<p align="center">Check the weather in a fully animated drawing style!</p>
 
 <div align="center" >
   <img alt="Screenshot" src="https://i.imgur.com/4RZqDwq.png">
