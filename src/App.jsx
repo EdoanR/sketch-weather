@@ -31,7 +31,7 @@ export default function App() {
 	const [lastUncollectedEntity, setLastUncollectedEntity] = useState(null);
     const [apiModalIsOpen, setApiModalIsOpen] = useState(false);
     const [resetCollectionModalIsOpen, setResetCollectionModalIsOpen] = useState(false);
-	const [apiKey, setApiKey] = useState(localStorage.getItem('api-key') || import.meta.env.VITE_OPEN_WEATHER_API_KEY || '');
+	const [apiKey, setApiKey] = useState(localStorage.getItem('api-key') || import.meta.env.VITE_OPEN_WEATHER_API_KEY || '4c6efa111e140f53a1b967afc4231d4e');
 	const [celsiusUnit, setCelsiusUnit] = useState( localStorage.getItem('celsius-unit') !== 'false' );
 	const [searchedUsingPath, setSearchUsingPath] = useState(false);
 
